@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hội thảo quốc tế về nghiên cứu giáo dục</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+      body {
+        background-color: #0d324d; /* Fallback */
+        background-image: linear-gradient(135deg, hsl(207, 65%, 17%) 0%, hsl(196, 62%, 29%) 50%, hsl(192, 44%, 62%) 100%);
+        color: #e5e7eb; /* Default light text color */
+        position: relative;
+        overflow-x: hidden;
+      }
+      body::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image:
+          radial-gradient(circle at 15% 25%, hsla(192, 44%, 90%, 0.1), transparent 35%),
+          radial-gradient(circle at 85% 75%, hsla(207, 65%, 17%, 0.2), transparent 40%);
+        z-index: 0;
+      }
+      body::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image:
+          radial-gradient(hsla(0, 0%, 100%, 0.05) 1px, transparent 1px),
+          radial-gradient(hsla(0, 0%, 100%, 0.05) 1px, transparent 1px);
+        background-size: 20px 20px;
+        background-position: -10px -10px, calc(100% + 10px) calc(100% + 10px);
+        pointer-events: none;
+        z-index: 0;
+      }
+      #root {
+        position: relative;
+        z-index: 1;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.1.1/",
+    "react": "https://aistudiocdn.com/react@^19.1.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.3"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

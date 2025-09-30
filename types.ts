@@ -120,3 +120,20 @@ export type ConferenceTopic = {
   link: string;
   description: string;
 };
+
+// FIX: Define and export the SiteContent type to be shared across the application.
+export type SiteContent = {
+  conferenceLogo: string;
+  universityLogo: string;
+  heroBackground: string;
+  callForPapersImage: string;
+  keynoteSpeakers: KeynoteSpeaker[];
+  conferenceTopics: ConferenceTopic[];
+  sponsors: Sponsor[];
+  coOrganizers: Sponsor[];
+  navLinks: NavLink[];
+  heroTitle: string;
+  heroSubtitle: string;
+  conferenceDate: string;
+  conferenceLocation: string;
+};

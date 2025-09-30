@@ -1,9 +1,10 @@
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 import type { Registration } from '../types';
+import * as api from '../api';
 
 interface RegistrationContextType {
   registrations: Registration[];
-  addRegistration: (formData: Omit<Registration, 'id'>) => void;
+  addRegistration: (formData: Omit<Registration, 'id'>) => Promise<void>;
 }
 
 const RegistrationContext = createContext<RegistrationContextType | undefined>(undefined);
@@ -11,11 +12,16 @@ const RegistrationContext = createContext<RegistrationContextType | undefined>(u
 export const RegistrationProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [registrations, setRegistrations] = useState<Registration[]>([]);
 
-  const addRegistration = (formData: Omit<Registration, 'id'>) => {
-    const newRegistration: Registration = {
-      id: Date.now(), // Simple unique ID generation
-      ...formData,
-    };
+  useEffect(() => {
+    const fetchRegistrations = async () => {
+        const data = await api.getRegistrations();
+        setRegistrations(data);
+    }
+    fetchRegistrations();
+  }, []);
+
+  const addRegistration = async (formData: Omit<Registration, 'id'>) => {
+    const newRegistration = await api.addRegistration(formData);
     setRegistrations(prevRegistrations => [newRegistration, ...prevRegistrations]);
   };
 

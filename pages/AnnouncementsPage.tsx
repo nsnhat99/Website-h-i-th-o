@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { ANNOUNCEMENTS_DATA } from '../constants';
 import type { Announcement } from '../types';
 import { useAuth } from '../contexts/AuthContext';
+import { useAnnouncements } from '../contexts/AnnouncementContext';
 
 const AnnouncementForm: React.FC<{
   announcement?: Announcement | null;
@@ -95,26 +95,23 @@ const AnnouncementForm: React.FC<{
 
 const AnnouncementsPage: React.FC = () => {
   const { currentUser } = useAuth();
-  const [announcements, setAnnouncements] = useState<Announcement[]>(ANNOUNCEMENTS_DATA);
+  const { announcements, addAnnouncement, updateAnnouncement, deleteAnnouncement } = useAnnouncements();
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [editingAnnouncement, setEditingAnnouncement] = useState<Announcement | null>(null);
 
   const handleSave = (announcement: Omit<Announcement, 'id' | 'date'> & { id?: number; imageUrl?: string }) => {
     if (announcement.id) { // Editing existing
-      setAnnouncements(announcements.map(a => 
-        a.id === announcement.id 
-          ? { ...a, title: announcement.title, content: announcement.content, imageUrl: announcement.imageUrl } 
-          : a
-      ));
+      updateAnnouncement(announcement.id, { 
+        title: announcement.title, 
+        content: announcement.content, 
+        imageUrl: announcement.imageUrl 
+      });
     } else { // Adding new
-      const newAnnouncement: Announcement = {
-        id: Date.now(),
+      addAnnouncement({
         title: announcement.title,
         content: announcement.content,
-        date: new Intl.DateTimeFormat('en-GB').format(new Date()),
         imageUrl: announcement.imageUrl,
-      };
-      setAnnouncements([newAnnouncement, ...announcements]);
+      });
     }
     setIsFormVisible(false);
     setEditingAnnouncement(null);
@@ -132,12 +129,12 @@ const AnnouncementsPage: React.FC = () => {
 
   const handleDelete = (id: number) => {
     if (window.confirm('Are you sure you want to delete this announcement?')) {
-      setAnnouncements(announcements.filter(a => a.id !== id));
+      deleteAnnouncement(id);
     }
   };
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-5xl mx-auto">
       <div className="text-center mb-10">
         <h1 className="text-4xl font-bold mb-4 text-slate-100">Thông báo Hội thảo</h1>
         <p className="text-slate-300 text-lg">Cập nhật các thông tin mới nhất từ ban tổ chức.</p>

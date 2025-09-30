@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import type { KeynoteSpeaker, Sponsor, NavLink } from '../types';
+// FIX: Import SiteContent from types.ts where it is now centrally defined.
+import type { KeynoteSpeaker, Sponsor, NavLink, SiteContent } from '../types';
 import { useSiteContent } from '../contexts/SiteContentContext';
-import type { SiteContent } from '../contexts/SiteContentContext';
 import { usePapers } from '../contexts/PaperContext';
 import { useRegistrations } from '../contexts/RegistrationContext';
 

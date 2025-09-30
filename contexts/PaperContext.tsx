@@ -1,61 +1,57 @@
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 import type { DetailedPaperSubmission, ReviewStatus, PresentationStatus, PaperSubmissionFormData } from '../types';
-import { DETAILED_PAPER_SUBMISSIONS_DATA } from '../constants';
+import * as api from '../api';
 
 interface PaperContextType {
   papers: DetailedPaperSubmission[];
-  addPaper: (formData: PaperSubmissionFormData) => void;
-  deletePaper: (id: number) => void;
-  updatePaperDetails: (id: number, data: Partial<DetailedPaperSubmission>) => void;
-  updateAbstractStatus: (id: number, status: ReviewStatus) => void;
-  updateFullTextStatus: (id: number, status: ReviewStatus) => void;
-  updateReviewStatus: (id: number, status: ReviewStatus) => void;
-  updatePresentationStatus: (id: number, status: PresentationStatus) => void;
+  addPaper: (formData: PaperSubmissionFormData) => Promise<void>;
+  deletePaper: (id: number) => Promise<void>;
+  updatePaperDetails: (id: number, data: Partial<DetailedPaperSubmission>) => Promise<void>;
+  updateAbstractStatus: (id: number, status: ReviewStatus) => Promise<void>;
+  updateFullTextStatus: (id: number, status: ReviewStatus) => Promise<void>;
+  updateReviewStatus: (id: number, status: ReviewStatus) => Promise<void>;
+  updatePresentationStatus: (id: number, status: PresentationStatus) => Promise<void>;
 }
 
 const PaperContext = createContext<PaperContextType | undefined>(undefined);
 
 export const PaperProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [papers, setPapers] = useState<DetailedPaperSubmission[]>(DETAILED_PAPER_SUBMISSIONS_DATA);
+  const [papers, setPapers] = useState<DetailedPaperSubmission[]>([]);
 
-  const addPaper = (formData: PaperSubmissionFormData) => {
-    const newPaper: DetailedPaperSubmission = {
-      id: Date.now(), // Simple unique ID generation
-      authorName: formData.authorName,
-      organization: formData.organization,
-      paperTitle: formData.paperTitle,
-      topic: parseInt(formData.topic, 10) as 1 | 2 | 3,
-      abstractStatus: 'Duyệt',
-      fullTextStatus: 'Đang chờ duyệt',
-      reviewStatus: 'Đang chờ duyệt',
-      presentationStatus: 'Không trình bày',
+  useEffect(() => {
+    const fetchPapers = async () => {
+        const data = await api.getPapers();
+        setPapers(data);
     };
+    fetchPapers();
+  }, []);
+
+
+  const addPaper = async (formData: PaperSubmissionFormData) => {
+    const newPaper = await api.addPaper(formData);
     setPapers(prevPapers => [newPaper, ...prevPapers]);
   };
 
-  const deletePaper = (id: number) => {
+  const deletePaper = async (id: number) => {
+    await api.deletePaper(id);
     setPapers(prevPapers => prevPapers.filter(p => p.id !== id));
   };
 
-  const updatePaperDetails = (id: number, data: Partial<DetailedPaperSubmission>) => {
-    setPapers(papers.map(p => (p.id === id ? { ...p, ...data } : p)));
+  const updatePaperDetails = async (id: number, data: Partial<DetailedPaperSubmission>) => {
+    const updatedPaper = await api.updatePaper(id, data);
+    setPapers(papers.map(p => (p.id === id ? updatedPaper : p)));
   };
 
-  const updateAbstractStatus = (id: number, status: ReviewStatus) => {
-    setPapers(papers.map(p => (p.id === id ? { ...p, abstractStatus: status } : p)));
+  const updateStatus = async (id: number, field: keyof DetailedPaperSubmission, status: ReviewStatus | PresentationStatus) => {
+      const updatedPaper = await api.updatePaper(id, { [field]: status });
+      setPapers(papers.map(p => (p.id === id ? updatedPaper : p)));
   };
 
-  const updateFullTextStatus = (id: number, status: ReviewStatus) => {
-    setPapers(papers.map(p => (p.id === id ? { ...p, fullTextStatus: status } : p)));
-  };
-
-  const updateReviewStatus = (id: number, status: ReviewStatus) => {
-    setPapers(papers.map(p => (p.id === id ? { ...p, reviewStatus: status } : p)));
-  };
-
-  const updatePresentationStatus = (id: number, status: PresentationStatus) => {
-    setPapers(papers.map(p => (p.id === id ? { ...p, presentationStatus: status } : p)));
-  };
+  const updateAbstractStatus = (id: number, status: ReviewStatus) => updateStatus(id, 'abstractStatus', status);
+  const updateFullTextStatus = (id: number, status: ReviewStatus) => updateStatus(id, 'fullTextStatus', status);
+  const updateReviewStatus = (id: number, status: ReviewStatus) => updateStatus(id, 'reviewStatus', status);
+  const updatePresentationStatus = (id: number, status: PresentationStatus) => updateStatus(id, 'presentationStatus', status);
+  
 
   return (
     <PaperContext.Provider value={{ papers, addPaper, deletePaper, updatePaperDetails, updateAbstractStatus, updateFullTextStatus, updateReviewStatus, updatePresentationStatus }}>

@@ -21,6 +21,7 @@ import { PaperProvider } from './contexts/PaperContext';
 import SubmitPaperPage from './pages/SubmitPaperPage';
 import { SiteContentProvider } from './contexts/SiteContentContext';
 import DatabaseViewPage from './pages/DatabaseViewPage';
+import TopicDetailPage from './pages/TopicDetailPage';
 
 const App: React.FC = () => {
   return (
@@ -35,6 +36,7 @@ const App: React.FC = () => {
                   <Route path="/" element={<HomePage />} />
                   <Route path="/about" element={<AboutPage />} />
                   <Route path="/topics" element={<TopicsPage />} />
+                  <Route path="/topic/:topicId" element={<TopicDetailPage />} />
                   <Route path="/introduction" element={<IntroductionPage />} />
                   <Route path="/participation-guide" element={<ParticipationGuidePage />} />
                   <Route path="/submit-paper" element={<SubmitPaperPage />} />

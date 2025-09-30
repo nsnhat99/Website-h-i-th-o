@@ -25,7 +25,7 @@ interface SiteContentContextType {
   deleteKeynoteSpeaker: (speakerId: number) => void;
   
   // Conference Topic methods
-  updateConferenceTopic: (topicId: number, data: { title: string; imageUrl: string }) => void;
+  updateConferenceTopic: (topicId: number, data: { title: string; imageUrl: string; description: string }) => void;
   
   // Sponsor/Co-organizer methods
   addSponsorOrCoOrganizer: (data: Omit<Sponsor, 'id'>, type: 'sponsor' | 'coOrganizer') => void;
@@ -76,7 +76,7 @@ export const SiteContentProvider: React.FC<{ children: ReactNode }> = ({ childre
     }));
   };
 
-  const updateConferenceTopic = (topicId: number, data: { title: string; imageUrl: string }) => {
+  const updateConferenceTopic = (topicId: number, data: { title: string; imageUrl: string; description: string }) => {
     setSiteContent(prevState => ({
       ...prevState,
       conferenceTopics: prevState.conferenceTopics.map(topic =>

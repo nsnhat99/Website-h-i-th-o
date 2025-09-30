@@ -105,9 +105,27 @@ export const KEYNOTE_SPEAKERS_DATA: KeynoteSpeaker[] = [
 ];
 
 export const CONFERENCE_TOPICS_DATA: ConferenceTopic[] = [
-  { id: 1, title: 'Bản sắc văn hoá trong kỷ nguyên số', imageUrl: 'https://picsum.photos/seed/culture-digital/800/600', link: '/topics' },
-  { id: 2, title: 'Giáo dục sáng tạo và phát triển bền vững trong kỷ nguyên số', imageUrl: 'https://picsum.photos/seed/education-creative/800/600', link: '/topics' },
-  { id: 3, title: 'Trí tuệ nhân tạo trong bảo tồn, phát triển văn hoá và giáo dục', imageUrl: 'https://picsum.photos/seed/ai-future/800/600', link: '/topics' },
+  { 
+    id: 1, 
+    title: 'Bản sắc văn hoá trong kỷ nguyên số', 
+    imageUrl: 'https://picsum.photos/seed/culture-digital/800/600', 
+    link: '/topic/1',
+    description: 'Trong bối cảnh toàn cầu hóa và sự phát triển mạnh mẽ của công nghệ số, việc giữ gìn và phát huy bản sắc văn hóa dân tộc trở nên cấp thiết hơn bao giờ hết. Tiểu ban sẽ tập trung thảo luận về các giải pháp để văn hóa thực sự trở thành nền tảng tinh thần, động lực phát triển của xã hội, từ việc số hóa di sản, xây dựng các sản phẩm văn hóa số, đến việc giáo dục và nâng cao nhận thức cho thế hệ trẻ về giá trị văn hóa truyền thống.' 
+  },
+  { 
+    id: 2, 
+    title: 'Giáo dục sáng tạo và phát triển bền vững trong kỷ nguyên số', 
+    imageUrl: 'https://picsum.photos/seed/education-creative/800/600', 
+    link: '/topic/2',
+    description: 'Kỷ nguyên số đòi hỏi một nền giáo dục không chỉ truyền thụ kiến thức mà còn phải khơi dậy tiềm năng sáng tạo, tư duy phản biện và khả năng thích ứng của người học. Tiểu ban này sẽ là diễn đàn để các chuyên gia chia sẻ các mô hình giáo dục tiên tiến, phương pháp giảng dạy đổi mới, và các chiến lược tích hợp công nghệ nhằm tạo ra một môi trường học tập linh hoạt, hiệu quả, hướng tới sự phát triển bền vững của cá nhân và xã hội.' 
+  },
+  { 
+    id: 3, 
+    title: 'Trí tuệ nhân tạo trong bảo tồn, phát triển văn hoá và giáo dục', 
+    imageUrl: 'https://picsum.photos/seed/ai-future/800/600', 
+    link: '/topic/3',
+    description: 'Trí tuệ nhân tạo (AI) đang mở ra những cơ hội và thách thức chưa từng có cho các lĩnh vực văn hóa và giáo dục. Tiểu ban sẽ khám phá các ứng dụng của AI trong việc phân tích dữ liệu lớn để cá nhân hóa lộ trình học tập, tự động hóa các tác vụ quản lý, bảo tồn di sản văn hóa thông qua công nghệ 3D và thực tế ảo, cũng như thảo luận về các vấn đề đạo đức và chính sách cần thiết để đảm bảo việc ứng dụng AI một cách có trách nhiệm và hiệu quả.' 
+  },
 ];
 
 export const PAPER_SUBMISSIONS_DATA: PaperSubmission[] = [

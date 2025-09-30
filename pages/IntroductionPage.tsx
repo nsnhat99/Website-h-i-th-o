@@ -7,10 +7,11 @@ import type { ConferenceTopic } from '../types';
 // Modal Component
 const EditTopicModal: React.FC<{
   topic: ConferenceTopic;
-  onSave: (topicId: number, data: { title: string; imageUrl: string }) => void;
+  onSave: (topicId: number, data: { title: string; imageUrl: string, description: string }) => void;
   onClose: () => void;
 }> = ({ topic, onSave, onClose }) => {
   const [title, setTitle] = useState(topic.title);
+  const [description, setDescription] = useState(topic.description);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState(topic.imageUrl);
   const [isSaving, setIsSaving] = useState(false);
@@ -41,12 +42,12 @@ const EditTopicModal: React.FC<{
       const reader = new FileReader();
       reader.onloadend = () => {
         const base64String = reader.result as string;
-        onSave(topic.id, { title, imageUrl: base64String });
+        onSave(topic.id, { title, imageUrl: base64String, description });
         setIsSaving(false);
       };
       reader.readAsDataURL(imageFile);
     } else {
-      onSave(topic.id, { title, imageUrl: topic.imageUrl });
+      onSave(topic.id, { title, imageUrl: topic.imageUrl, description });
       setIsSaving(false);
     }
   };
@@ -55,7 +56,7 @@ const EditTopicModal: React.FC<{
     <div className="fixed inset-0 bg-black/60 z-50 flex justify-center items-center p-4" onClick={onClose}>
       <div className="bg-slate-800 rounded-lg shadow-xl w-full max-w-lg p-6 border border-slate-700" onClick={e => e.stopPropagation()}>
         <h2 className="text-2xl font-bold text-slate-100 mb-4">Edit Topic</h2>
-        <div className="space-y-4">
+        <div className="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
           <div>
             <label htmlFor="topic-title" className="block text-sm font-medium text-slate-300">Title</label>
             <input
@@ -65,6 +66,16 @@ const EditTopicModal: React.FC<{
               onChange={(e) => setTitle(e.target.value)}
               className="mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500"
             />
+          </div>
+           <div>
+            <label htmlFor="topic-description" className="block text-sm font-medium text-slate-300">Description</label>
+            <textarea
+              id="topic-description"
+              rows={5}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500"
+            ></textarea>
           </div>
           <div>
             <label className="block text-sm font-medium text-slate-300">Image</label>
@@ -96,7 +107,7 @@ const IntroductionPage: React.FC = () => {
 
   const isAdmin = currentUser?.role === 'admin';
 
-  const handleSaveTopic = (topicId: number, data: { title: string; imageUrl: string }) => {
+  const handleSaveTopic = (topicId: number, data: { title: string; imageUrl: string; description: string }) => {
     updateConferenceTopic(topicId, data);
     setEditingTopic(null);
   };

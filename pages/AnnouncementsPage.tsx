@@ -76,7 +76,7 @@ const AnnouncementForm: React.FC<{
         </div>
         <div>
             <label className="block text-sm font-medium text-slate-300">Image</label>
-            {imagePreview && <img src={imagePreview} alt="Preview" className="w-full h-48 object-cover rounded-md my-2 bg-slate-900" />}
+            {imagePreview && <img src={imagePreview} alt="Preview" className="w-full aspect-video object-cover rounded-md my-2 bg-slate-900" />}
             <input
               type="file"
               accept="image/*"
@@ -160,7 +160,7 @@ const AnnouncementsPage: React.FC = () => {
         {announcements.map((announcement: Announcement) => (
           <div key={announcement.id} className="bg-slate-800/50 backdrop-blur-sm rounded-lg shadow-md border border-slate-700/50 overflow-hidden">
             {announcement.imageUrl && (
-              <img src={announcement.imageUrl} alt={announcement.title} className="w-full h-56 object-cover" />
+              <img src={announcement.imageUrl} alt={announcement.title} className="w-full aspect-video object-cover" />
             )}
             <div className="p-6">
               <div className="flex justify-between items-start mb-2">

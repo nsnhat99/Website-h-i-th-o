@@ -5,14 +5,19 @@
   "description": "Full-stack conference website for Vercel deployment",
   "scripts": {
     "start": "echo 'This project is intended for Vercel deployment.'",
-    "build": "echo 'No build step required. Static files are served directly.'"
+    "build": "mkdir -p dist && esbuild index.tsx --bundle --outfile=dist/bundle.js --jsx=automatic --platform=browser --target=es2020 --define:process.env.NODE_ENV='\"production\"' && cp index.html dist/index.html && sed -i 's|<script type=\"module\" src=\"/index.tsx\"></script>|<script src=\"/bundle.js\"></script>|' dist/index.html && sed -i '/<script type=\"importmap\">/,/<\\/script>/d' dist/index.html"
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.23.0"
   },
   "devDependencies": {
-    "@types/react": "^18.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "esbuild": "^0.20.2",
     "typescript": "^5.0.0"
   }
 }

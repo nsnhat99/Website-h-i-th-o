@@ -2,13 +2,14 @@ import React, { createContext, useState, useContext, ReactNode, useEffect } from
 // FIX: Import the 'SiteContent' type from the centralized types file.
 import type { KeynoteSpeaker, ConferenceTopic, Sponsor, NavLink, SiteContent } from '../types';
 import * as api from '../api';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 
 // FIX: The SiteContent interface has been moved to types.ts to be shared across the application.
 
 // Define the context type
 interface SiteContentContextType {
-  siteContent: SiteContent | null; // Can be null initially while loading
+  siteContent: SiteContent; // No longer null after initial load
   updateImage: (key: keyof Omit<SiteContent, 'keynoteSpeakers' | 'conferenceTopics' | 'sponsors' | 'coOrganizers' | 'navLinks' | 'heroTitle' | 'heroSubtitle' | 'conferenceDate' | 'conferenceLocation'>, newUrl: string) => Promise<void>;
   updateConferenceInfo: (data: { title: string; subtitle: string; date: string; location: string }) => Promise<void>;
   addNavLink: (navLinkData: Omit<NavLink, 'id'>) => Promise<void>;
@@ -29,11 +30,17 @@ const SiteContentContext = createContext<SiteContentContextType | undefined>(und
 // Create the provider component
 export const SiteContentProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [siteContent, setSiteContent] = useState<SiteContent | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchContent = async () => {
-        const data = await api.getSiteContent();
-        setSiteContent(data);
+        try {
+            const data = await api.getSiteContent();
+            setSiteContent(data);
+        } catch (err) {
+            console.error("Failed to fetch site content:", err);
+            setError("Không thể tải dữ liệu cần thiết của hội thảo. Vui lòng thử làm mới trang.");
+        }
     }
     fetchContent();
   }, []);
@@ -129,13 +136,24 @@ export const SiteContentProvider: React.FC<{ children: ReactNode }> = ({ childre
       [key]: siteContent[key].filter(item => item.id !== id),
     });
   };
-
-  const value = { siteContent, updateImage, updateConferenceInfo, addNavLink, updateNavLink, deleteNavLink, addKeynoteSpeaker, updateKeynoteSpeaker, deleteKeynoteSpeaker, updateConferenceTopic, addSponsorOrCoOrganizer, updateSponsorOrCoOrganizer, deleteSponsorOrCoOrganizer };
-
-  // Render a loading state or nothing until content is fetched
-  if (!siteContent) {
-    return null; 
+  
+  // Render a loading or error state until content is fetched
+  if (error) {
+    return (
+      <div className="fixed inset-0 bg-slate-900 flex justify-center items-center z-50 p-4">
+        <div className="text-center bg-red-900/50 border border-red-700 p-8 rounded-lg">
+          <h2 className="text-2xl font-bold text-red-300 mb-4">Lỗi tải trang</h2>
+          <p className="text-slate-200">{error}</p>
+        </div>
+      </div>
+    );
   }
+
+  if (!siteContent) {
+    return <LoadingSpinner fullScreen />; 
+  }
+  
+  const value = { siteContent, updateImage, updateConferenceInfo, addNavLink, updateNavLink, deleteNavLink, addKeynoteSpeaker, updateKeynoteSpeaker, deleteKeynoteSpeaker, updateConferenceTopic, addSponsorOrCoOrganizer, updateSponsorOrCoOrganizer, deleteSponsorOrCoOrganizer };
 
   return (
     <SiteContentContext.Provider value={value}>

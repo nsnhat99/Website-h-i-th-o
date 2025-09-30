@@ -3,16 +3,13 @@ const cors = require('cors');
 const db = require('./db');
 
 const app = express();
-const router = express.Router();
 
 // Middleware
 app.use(cors());
 app.use(express.json({ limit: '10mb' })); // Increase limit to handle base64 images
 
-// --- DEFINE ROUTES ON THE ROUTER ---
-
 // --- AUTH & USERS ---
-router.post('/login', (req, res) => {
+app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
     const user = db.users.find(u => u.username === username && u.password === password);
     if (user) {
@@ -23,16 +20,16 @@ router.post('/login', (req, res) => {
     }
 });
 
-router.get('/users', (req, res) => {
+app.get('/api/users', (req, res) => {
     const usersWithoutPasswords = db.users.map(({ password, ...user }) => user);
     res.json(usersWithoutPasswords);
 });
 
 // --- REGISTRATIONS ---
-router.get('/registrations', (req, res) => {
+app.get('/api/registrations', (req, res) => {
     res.json(db.registrations);
 });
-router.post('/registrations', (req, res) => {
+app.post('/api/registrations', (req, res) => {
     const newRegistration = {
         id: Date.now(),
         ...req.body,
@@ -42,11 +39,11 @@ router.post('/registrations', (req, res) => {
 });
 
 // --- ANNOUNCEMENTS ---
-router.get('/announcements', (req, res) => {
+app.get('/api/announcements', (req, res) => {
     res.json(db.announcements);
 });
 
-router.post('/announcements', (req, res) => {
+app.post('/api/announcements', (req, res) => {
     const newAnnouncement = {
         ...req.body,
         id: Date.now(),
@@ -56,7 +53,7 @@ router.post('/announcements', (req, res) => {
     res.status(201).json(newAnnouncement);
 });
 
-router.put('/announcements/:id', (req, res) => {
+app.put('/api/announcements/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);
     const index = db.announcements.findIndex(a => a.id === id);
     if (index > -1) {
@@ -67,7 +64,7 @@ router.put('/announcements/:id', (req, res) => {
     }
 });
 
-router.delete('/announcements/:id', (req, res) => {
+app.delete('/api/announcements/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);
     const initialLength = db.announcements.length;
     db.announcements = db.announcements.filter(a => a.id !== id);
@@ -79,11 +76,11 @@ router.delete('/announcements/:id', (req, res) => {
 });
 
 // --- PAPERS ---
-router.get('/papers', (req, res) => {
+app.get('/api/papers', (req, res) => {
     res.json(db.papers);
 });
 
-router.post('/papers', (req, res) => {
+app.post('/api/papers', (req, res) => {
     const formData = req.body;
     const newPaper = {
         id: Date.now(),
@@ -100,7 +97,7 @@ router.post('/papers', (req, res) => {
     res.status(201).json(newPaper);
 });
 
-router.put('/papers/:id', (req, res) => {
+app.put('/api/papers/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);
     const index = db.papers.findIndex(p => p.id === id);
     if (index > -1) {
@@ -111,7 +108,7 @@ router.put('/papers/:id', (req, res) => {
     }
 });
 
-router.delete('/papers/:id', (req, res) => {
+app.delete('/api/papers/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);
     const initialLength = db.papers.length;
     db.papers = db.papers.filter(p => p.id !== id);
@@ -123,19 +120,14 @@ router.delete('/papers/:id', (req, res) => {
 });
 
 // --- SITE CONTENT ---
-router.get('/site-content', (req, res) => {
+app.get('/api/site-content', (req, res) => {
     res.json(db.siteContent);
 });
 
-router.put('/site-content', (req, res) => {
+app.put('/api/site-content', (req, res) => {
     db.siteContent = { ...db.siteContent, ...req.body };
     res.json(db.siteContent);
 });
-
-
-// --- MOUNT THE ROUTER TO THE APP WITH THE /api PREFIX ---
-app.use('/api', router);
-
 
 // Export the app for Vercel
 module.exports = app;

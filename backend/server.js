@@ -11,20 +11,23 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json({ limit: '10mb' })); // Increase limit to handle base64 images
 
-// API routes
+// API routes are handled first
 app.use('/api', apiRoutes);
 
-// Serve static files from the React app
-// In a real production environment, the frontend code would be built and placed in a 'dist' or 'build' folder.
-// This example assumes a 'dist' folder.
-app.use(express.static(path.join(__dirname, '../dist')));
+// --- Serving Frontend Files ---
+// Point to the root directory to serve index.html and other assets
+const frontendPath = path.join(__dirname, '..');
+app.use(express.static(frontendPath));
 
-// The "catchall" handler: for any request that doesn't match one above, send back React's index.html file.
+// The "catchall" handler for Single Page Applications (SPA):
+// For any request that doesn't match an API route or a static file,
+// send back the main index.html file. This allows React Router to handle routing.
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../dist/index.html'));
+  res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
 
 app.listen(PORT, () => {
   console.log(`Backend server is running on http://localhost:${PORT}`);
+  console.log('Open your browser and navigate to this address to see the application.');
 });

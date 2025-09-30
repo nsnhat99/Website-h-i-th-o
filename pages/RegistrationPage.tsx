@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { registerUser } from '../api';
+import type { Registration } from '../types';
 
 const RegistrationPage: React.FC = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<Registration>({
     name: '',
     organization: '',
     email: '',

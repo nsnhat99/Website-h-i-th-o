@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { getAdminStats } from '../api';
 import type { AdminStats } from '../types';
 import { useSiteContent } from '../contexts/SiteContentContext';
@@ -146,6 +147,16 @@ const AdminPage: React.FC = () => {
                         currentImage={siteContent.callForPapersImage}
                         onImageSelect={(file) => handleImageUpload('callForPapersImage', file)}
                     />
+                </div>
+            </div>
+
+            <div className="mt-16">
+                <h2 className="text-3xl font-bold text-center mb-8 text-slate-100">Database Management</h2>
+                <div className="bg-slate-800/50 p-6 rounded-lg shadow-md border border-slate-700/50 text-center">
+                    <p className="text-slate-300 mb-4">View the raw data used in this mock application.</p>
+                    <Link to="/admin/database" className="inline-block bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-transform transform hover:scale-105 shadow-lg">
+                        <i className="fas fa-database mr-2"></i>View Mock Database
+                    </Link>
                 </div>
             </div>
         </div>

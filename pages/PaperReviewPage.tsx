@@ -28,7 +28,7 @@ const topicStyles: { [key: number]: string } = {
 
 const PaperReviewPage: React.FC = () => {
     const { currentUser } = useAuth();
-    const { papers, updateAbstractStatus, updateFullTextStatus, updateReviewStatus, updatePresentationStatus } = usePapers();
+    const { papers, updateAbstractStatus, updateFullTextStatus, updateReviewStatus, updatePresentationStatus, deletePaper } = usePapers();
 
     const handleAbstractStatusChange = (id: number, newStatus: ReviewStatus) => {
         updateAbstractStatus(id, newStatus);
@@ -44,6 +44,12 @@ const PaperReviewPage: React.FC = () => {
 
     const handlePresentationStatusChange = (id: number, newStatus: PresentationStatus) => {
         updatePresentationStatus(id, newStatus);
+    };
+
+    const handleDelete = (id: number) => {
+        if (window.confirm('Bạn có chắc chắn muốn xóa bài báo này không? Thao tác này không thể hoàn tác.')) {
+            deletePaper(id);
+        }
     };
 
     const selectBaseClasses = "w-full min-w-[120px] text-xs font-bold rounded-md p-2 focus:ring-2 focus:ring-sky-500 focus:outline-none transition appearance-none text-center";
@@ -70,6 +76,9 @@ const PaperReviewPage: React.FC = () => {
                                 <th scope="col" className="px-6 py-3 text-center">Toàn văn</th>
                                 <th scope="col" className="px-6 py-3 text-center">Kết quả</th>
                                 <th scope="col" className="px-6 py-3 text-center">Trình bày</th>
+                                {currentUser?.role === 'admin' && (
+                                    <th scope="col" className="px-6 py-3 text-center text-sm">Hành động</th>
+                                )}
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-700/50">
@@ -155,6 +164,17 @@ const PaperReviewPage: React.FC = () => {
                                             </span>
                                         )}
                                     </td>
+                                    {currentUser?.role === 'admin' && (
+                                        <td className="px-6 py-4 text-center">
+                                            <button
+                                                onClick={() => handleDelete(paper.id)}
+                                                className="text-red-400 hover:text-red-300 font-bold py-1 px-3 rounded-lg bg-red-900/50 hover:bg-red-800/50 border border-red-700/50 transition-colors"
+                                                title="Xóa bài báo"
+                                            >
+                                                <i className="fas fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    )}
                                 </tr>
                             ))}
                         </tbody>

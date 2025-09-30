@@ -98,3 +98,11 @@ export type PaperSubmissionFormData = {
   topic: '1' | '2' | '3';
   fullPaperFile: File | null;
 };
+
+export type Registration = {
+  name: string;
+  organization: string;
+  email: string;
+  phone: string;
+  withPaper: string;
+};

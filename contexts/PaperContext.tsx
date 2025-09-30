@@ -5,6 +5,7 @@ import { DETAILED_PAPER_SUBMISSIONS_DATA } from '../constants';
 interface PaperContextType {
   papers: DetailedPaperSubmission[];
   addPaper: (formData: PaperSubmissionFormData) => void;
+  deletePaper: (id: number) => void;
   updateAbstractStatus: (id: number, status: ReviewStatus) => void;
   updateFullTextStatus: (id: number, status: ReviewStatus) => void;
   updateReviewStatus: (id: number, status: ReviewStatus) => void;
@@ -31,6 +32,10 @@ export const PaperProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     setPapers(prevPapers => [newPaper, ...prevPapers]);
   };
 
+  const deletePaper = (id: number) => {
+    setPapers(prevPapers => prevPapers.filter(p => p.id !== id));
+  };
+
   const updateAbstractStatus = (id: number, status: ReviewStatus) => {
     setPapers(papers.map(p => (p.id === id ? { ...p, abstractStatus: status } : p)));
   };
@@ -48,7 +53,7 @@ export const PaperProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   };
 
   return (
-    <PaperContext.Provider value={{ papers, addPaper, updateAbstractStatus, updateFullTextStatus, updateReviewStatus, updatePresentationStatus }}>
+    <PaperContext.Provider value={{ papers, addPaper, deletePaper, updateAbstractStatus, updateFullTextStatus, updateReviewStatus, updatePresentationStatus }}>
       {children}
     </PaperContext.Provider>
   );

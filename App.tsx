@@ -20,6 +20,7 @@ import PaperReviewPage from './pages/PaperReviewPage';
 import { PaperProvider } from './contexts/PaperContext';
 import SubmitPaperPage from './pages/SubmitPaperPage';
 import { SiteContentProvider } from './contexts/SiteContentContext';
+import DatabaseViewPage from './pages/DatabaseViewPage';
 
 const App: React.FC = () => {
   return (
@@ -49,6 +50,14 @@ const App: React.FC = () => {
                     element={
                       <ProtectedRoute>
                         <AdminPage />
+                      </ProtectedRoute>
+                    } 
+                  />
+                   <Route 
+                    path="/admin/database" 
+                    element={
+                      <ProtectedRoute>
+                        <DatabaseViewPage />
                       </ProtectedRoute>
                     } 
                   />

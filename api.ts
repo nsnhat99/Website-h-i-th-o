@@ -1,4 +1,4 @@
-import type { AdminStats, User } from './types';
+import type { AdminStats, User, Registration } from './types';
 
 // Mock database to simulate a real database
 const mockDB = {
@@ -8,7 +8,7 @@ const mockDB = {
     { id: 1, username: 'admin', password: 'password', role: 'admin' as const, email: 'admin1@email.com' },
     { id: 2, username: 'user', password: 'password', role: 'user' as const, email: 'user1@email.com' },
   ],
-  registrations: [],
+  registrations: [] as Registration[],
   stats: {
     totalRegistrations: 123,
     paidAttendees: 89,
@@ -45,14 +45,14 @@ export const login = (username: string, password: string): Promise<User> => {
  * @param userData - The user's registration data.
  * @returns A promise that resolves on successful registration or rejects on error.
  */
-export const registerUser = (userData: { name: string; organization: string; email: string; phone: string; withPaper: string; }): Promise<{ success: boolean; message: string; }> => {
+export const registerUser = (userData: Registration): Promise<{ success: boolean; message: string; }> => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       // Basic validation
       if (!userData.email) {
         return reject(new Error('Email is required.'));
       }
-      mockDB.registrations.push(userData as never);
+      mockDB.registrations.push(userData);
       mockDB.stats.totalRegistrations++;
       if (userData.withPaper === 'yes') {
         mockDB.stats.papersSubmitted++;
@@ -72,5 +72,30 @@ export const getAdminStats = (): Promise<AdminStats> => {
         setTimeout(() => {
             resolve(mockDB.stats);
         }, API_LATENCY / 2);
+    });
+};
+
+/**
+ * Retrieves a list of all users from the mock database, excluding their passwords.
+ * @returns A promise that resolves with an array of user objects.
+ */
+export const getUsers = (): Promise<User[]> => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            const usersWithoutPasswords = mockDB.users.map(({ password, ...user }) => user);
+            resolve(usersWithoutPasswords);
+        }, API_LATENCY / 4);
+    });
+};
+
+/**
+ * Retrieves a list of all registrations from the mock database.
+ * @returns A promise that resolves with an array of registration objects.
+ */
+export const getRegistrations = (): Promise<Registration[]> => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(mockDB.registrations);
+        }, API_LATENCY / 4);
     });
 };

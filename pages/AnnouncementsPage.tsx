@@ -16,34 +16,36 @@ const AnnouncementForm: React.FC<{
     onSave({ id: announcement?.id, title, content });
   };
 
+  const inputStyles = "mt-1 block w-full px-3 py-2 bg-slate-800/50 border border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500";
+
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md text-gray-800 mb-6 border-l-4 border-yellow-500">
-      <h2 className="text-2xl font-bold mb-4">{announcement ? 'Edit Announcement' : 'Add New Announcement'}</h2>
+    <div className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-lg shadow-md mb-6 border-l-4 border-yellow-500">
+      <h2 className="text-2xl font-bold mb-4 text-slate-100">{announcement ? 'Edit Announcement' : 'Add New Announcement'}</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-gray-700">Title</label>
+          <label htmlFor="title" className="block text-sm font-medium text-slate-300">Title</label>
           <input
             type="text"
             id="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            className={inputStyles}
             required
           />
         </div>
         <div>
-          <label htmlFor="content" className="block text-sm font-medium text-gray-700">Content</label>
+          <label htmlFor="content" className="block text-sm font-medium text-slate-300">Content</label>
           <textarea
             id="content"
             rows={4}
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            className={inputStyles}
             required
           ></textarea>
         </div>
         <div className="flex justify-end gap-4">
-          <button type="button" onClick={onCancel} className="px-4 py-2 rounded-md text-gray-700 bg-gray-200 hover:bg-gray-300">Cancel</button>
+          <button type="button" onClick={onCancel} className="px-4 py-2 rounded-md text-slate-200 bg-slate-600 hover:bg-slate-500">Cancel</button>
           <button type="submit" className="px-4 py-2 rounded-md text-white bg-blue-600 hover:bg-blue-700">Save Announcement</button>
         </div>
       </form>
@@ -92,8 +94,8 @@ const AnnouncementsPage: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="text-center mb-10">
-        <h1 className="text-4xl font-bold mb-4 text-white">Thông báo Hội thảo</h1>
-        <p className="text-gray-300">Cập nhật các thông tin mới nhất từ ban tổ chức.</p>
+        <h1 className="text-4xl font-bold mb-4 text-slate-100">Thông báo Hội thảo</h1>
+        <p className="text-slate-300 text-lg">Cập nhật các thông tin mới nhất từ ban tổ chức.</p>
          {currentUser?.role === 'admin' && !isFormVisible && (
             <button onClick={handleAddNew} className="mt-6 bg-green-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-green-700 transition-transform transform hover:scale-105 shadow-lg">
                 <i className="fas fa-plus mr-2"></i>Thêm thông báo mới
@@ -111,20 +113,20 @@ const AnnouncementsPage: React.FC = () => {
       
       <div className="space-y-6">
         {announcements.map((announcement: Announcement) => (
-          <div key={announcement.id} className="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-500 text-gray-800">
+          <div key={announcement.id} className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-lg shadow-md border-l-4 border-sky-500">
             <div className="flex justify-between items-start mb-2">
-              <h2 className="text-2xl font-bold text-gray-800 flex-grow">{announcement.title}</h2>
+              <h2 className="text-2xl font-bold text-slate-100 flex-grow">{announcement.title}</h2>
               <div className="flex-shrink-0 text-right">
-                <span className="text-sm text-gray-500">{announcement.date}</span>
+                <span className="text-sm text-slate-400">{announcement.date}</span>
                  {currentUser?.role === 'admin' && (
                   <div className="mt-2">
-                    <button onClick={() => handleEdit(announcement)} className="text-sm text-blue-600 hover:underline mr-4">Edit</button>
-                    <button onClick={() => handleDelete(announcement.id)} className="text-sm text-red-600 hover:underline">Delete</button>
+                    <button onClick={() => handleEdit(announcement)} className="text-sm text-sky-400 hover:underline mr-4">Edit</button>
+                    <button onClick={() => handleDelete(announcement.id)} className="text-sm text-red-500 hover:underline">Delete</button>
                   </div>
                 )}
               </div>
             </div>
-            <p className="text-gray-600 text-lg">
+            <p className="text-slate-300 text-lg">
               {announcement.content}
             </p>
           </div>

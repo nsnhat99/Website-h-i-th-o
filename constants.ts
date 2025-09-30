@@ -1,4 +1,4 @@
-import type { NavLink, ScheduleDay, Announcement, Sponsor, KeynoteSpeaker, PaperSubmission } from './types';
+import type { NavLink, ScheduleDay, Announcement, Sponsor, KeynoteSpeaker, PaperSubmission, DetailedPaperSubmission } from './types';
 
 export const CONFERENCE_TITLE = "Hội thảo quốc tế về nghiên cứu giáo dục";
 export const CONFERENCE_DATE = "08-09/11/2025";
@@ -6,43 +6,75 @@ export const CONFERENCE_LOCATION = "Hà Nội, Việt Nam";
 
 export const NAV_LINKS: NavLink[] = [
   { name: "Trang chủ", path: "/" },
-  { name: "Đăng ký tham dự", path: "/register" },
+  { name: "Giới thiệu", path: "/introduction" },
   { name: "Chương trình", path: "/program" },
-  { name: "Call for Papers", path: "/call-for-papers" },
   { name: "Thông báo", path: "/announcements" },
-  { name: "Liên hệ", path: "/contact" },
+  { name: "Đăng ký & Nộp bài", path: "/participation-guide" },
+  { name: "Kết quả duyệt bài", path: "/paper-review" },
   { name: "Admin", path: "/admin" },
 ];
+
+export const ABSTRACT_SUBMISSION_FORM_URL = "https://forms.gle/placeholder";
+
 
 export const SCHEDULE_DATA: ScheduleDay[] = [
   {
     day: "Ngày 1",
     date: "08/11/2025",
-    sessions: [
-      { time: "08:00 - 09:00", title: "Đăng ký và Check-in", speaker: "Ban tổ chức", location: "Sảnh chính" },
-      { time: "09:00 - 09:30", title: "Phát biểu khai mạc", speaker: "GS. TS. Nguyễn Văn A", location: "Hội trường A" },
-      { time: "09:30 - 10:30", title: "Bài phát biểu chính: Xu hướng giáo dục trong kỷ nguyên số", speaker: "PGS. TS. Trần Thị B", location: "Hội trường A" },
-      { time: "10:30 - 11:00", title: "Giải lao", speaker: "", location: "Khu vực sảnh" },
-      { time: "11:00 - 12:30", title: "Phiên 1: Công nghệ và đổi mới trong giảng dạy", speaker: "Nhiều diễn giả", location: "Phòng 101, 102" },
-      { time: "12:30 - 14:00", title: "Ăn trưa", speaker: "", location: "Nhà hàng" },
-      { time: "14:00 - 15:30", title: "Phiên 2: Đánh giá và kiểm định chất lượng giáo dục", speaker: "Nhiều diễn giả", location: "Phòng 201, 202" },
-      { time: "15:30 - 16:00", title: "Giải lao", speaker: "", location: "Khu vực sảnh" },
-      { time: "16:00 - 17:30", title: "Workshop: Phương pháp nghiên cứu khoa học giáo dục", speaker: "TS. Lê Văn C", location: "Phòng Lab" },
-    ],
+    parts: [
+      {
+        title: "Sáng",
+        events: [
+          { time: "8h00 - 8h30", activity: "Khai mạc phiên toàn thể" },
+          { time: "8h30 - 10h00", activity: "Báo cáo tham luận" },
+          { time: "10h00 - 10h30", activity: "Nghỉ giữa giờ" },
+          { time: "10h30 - 12h00", activity: "Báo cáo tham luận" },
+          { time: "12h00 - 12h10", activity: "Kết thúc phiên toàn thể" },
+        ]
+      },
+      {
+        title: "Trưa",
+        events: [
+          { time: "12h10 - 13h30", activity: "Ăn trưa" }
+        ]
+      },
+      {
+        title: "Chiều",
+        events: [
+          { time: "13h30 - 13h45", activity: "Nghỉ giữa giờ" },
+          { 
+            time: "13h45 - 16h30", 
+            activity: "Phiên 3 tiểu ban đồng thời:",
+            subSessions: [
+              { title: "Tiểu ban 1: Bản sắc văn hoá trong kỷ nguyên số", location: "Phòng họp A, CS1" },
+              { title: "Tiểu ban 2: Giáo dục sáng tạo và phát triển bền vững trong kỷ nguyên số", location: "Hội trường lớn, CS1" },
+              { title: "Tiểu ban 3: Trí tuệ nhân tạo trong bảo tồn, phát triển văn hóa và giáo dục", location: "Phòng họp A5, CS1" }
+            ]
+          },
+          { time: "16h30 - 17h00", activity: "Thảo luận" },
+          { time: "17h00", activity: "Bế mạc hội thảo" }
+        ]
+      },
+      {
+        title: "Tối",
+        events: [
+          { time: "19h00", activity: "Gala Dinner" }
+        ]
+      }
+    ]
   },
   {
     day: "Ngày 2",
     date: "09/11/2025",
-    sessions: [
-      { time: "09:00 - 10:30", title: "Phiên 3: Tâm lý học đường và tư vấn hướng nghiệp", speaker: "Nhiều diễn giả", location: "Phòng 101, 102" },
-      { time: "10:30 - 11:00", title: "Giải lao", speaker: "", location: "Khu vực sảnh" },
-      { time: "11:00 - 12:30", title: "Phiên 4: Quản lý giáo dục và chính sách", speaker: "Nhiều diễn giả", location: "Phòng 201, 202" },
-      { time: "12:30 - 14:00", title: "Ăn trưa", speaker: "", location: "Nhà hàng" },
-      { time: "14:00 - 15:30", title: "Diễn đàn: Tương lai của giáo dục Việt Nam", speaker: "Các chuyên gia hàng đầu", location: "Hội trường A" },
-      { time: "15:30 - 16:00", title: "Trao giải thưởng bài báo xuất sắc", speaker: "Ban giám khảo", location: "Hội trường A" },
-      { time: "16:00 - 16:30", title: "Phát biểu bế mạc", speaker: "GS. TS. Nguyễn Văn A", location: "Hội trường A" },
-    ],
-  },
+    parts: [
+      {
+        title: "Cả ngày",
+        events: [
+          { time: "", activity: "Chuyến du lịch tham quan di sản văn hóa tại Hà Nội" }
+        ]
+      }
+    ]
+  }
 ];
 
 export const ANNOUNCEMENTS_DATA: Announcement[] = [
@@ -51,12 +83,15 @@ export const ANNOUNCEMENTS_DATA: Announcement[] = [
     { id: 3, title: "Mở cổng đăng ký sớm với giá ưu đãi", date: "15/07/2025", content: "Cổng đăng ký tham dự hội thảo đã chính thức mở. Đăng ký sớm trước ngày 15/09/2025 để nhận được mức phí ưu đãi. Xin vui lòng truy cập trang Đăng ký để biết thêm chi tiết." },
 ];
 
-export const SPONSORS_DATA: Sponsor[] = [
-    { name: "Sponsor 1", logoUrl: "https://picsum.photos/seed/sponsor1/150/60" },
-    { name: "Sponsor 2", logoUrl: "https://picsum.photos/seed/sponsor2/150/60" },
-    { name: "Sponsor 3", logoUrl: "https://picsum.photos/seed/sponsor3/150/60" },
-    { name: "Sponsor 4", logoUrl: "https://picsum.photos/seed/sponsor4/150/60" },
+export const CO_ORGANIZERS_DATA: Sponsor[] = [
+    { name: "Tạp chí Giáo dục", logoUrl: "https://picsum.photos/seed/coorganizer1/150/60" },
 ];
+
+export const SPONSORS_DATA: Sponsor[] = [
+    { name: "Báo Kinh tế - Đô thị", logoUrl: "https://picsum.photos/seed/sponsor1/150/60" },
+    { name: "Nhà xuất bản Hà Nội", logoUrl: "https://picsum.photos/seed/sponsor2/150/60" },
+];
+
 
 export const KEYNOTE_SPEAKERS_DATA: KeynoteSpeaker[] = [
   { id: 1, name: "GS. TS. Lê Minh Trí", affiliation: "Đại học Quốc gia", imageUrl: "https://picsum.photos/seed/speaker1/200/200", bio: "Chuyên gia hàng đầu về trí tuệ nhân tạo trong giáo dục, với hơn 20 năm kinh nghiệm nghiên cứu và giảng dạy.", keynoteTopic: "AI và Tương lai của Việc học Cá nhân hóa" },
@@ -81,5 +116,20 @@ export const PAPER_SUBMISSIONS_DATA: PaperSubmission[] = [
   { id: 9, title: "Đánh giá sách giáo khoa theo định hướng năng lực", author: "Trịnh Văn Minh", status: "approved", submissionDate: "16/09/2025", abstract: "Nghiên cứu xây dựng bộ tiêu chí và quy trình đánh giá sách giáo khoa mới, đảm bảo phù hợp với mục tiêu phát triển năng lực học sinh." },
   { id: 10, title: "Tư vấn hướng nghiệp trong bối cảnh 4.0", author: "Bùi Thúy Nga", status: "rejected", submissionDate: "11/09/2025", abstract: "Bài báo đề cập đến vai trò và những yêu cầu mới đối với công tác tư vấn hướng nghiệp trong thời đại công nghệ số." },
   { id: 11, title: "Ảnh hưởng của mạng xã hội đến học sinh", author: "Lý Thành Nam", status: "pending", submissionDate: "28/09/2025", abstract: "Nghiên cứu khảo sát các tác động tích cực và tiêu cực của mạng xã hội đối với kết quả học tập và sức khỏe tinh thần của học sinh." },
-  { id: 12, title: "Xây dựng văn hóa đọc trong trường học", author: "Đỗ Mỹ Linh", status: "approved", submissionDate: "19/09/2025", abstract: "Đề xuất các giải pháp sáng tạo và bền vững nhằm thúc đẩy văn hóa đọc cho học sinh các cấp." },
+  { id: 12, "title": "Xây dựng văn hóa đọc trong trường học", author: "Đỗ Mỹ Linh", status: "approved", submissionDate: "19/09/2025", abstract: "Đề xuất các giải pháp sáng tạo và bền vững nhằm thúc đẩy văn hóa đọc cho học sinh các cấp." },
+];
+
+export const DETAILED_PAPER_SUBMISSIONS_DATA: DetailedPaperSubmission[] = [
+    { id: 1, authorName: 'Nguyễn Văn An', organization: 'Đại học Quốc gia', paperTitle: 'Ứng dụng AI trong đánh giá kết quả học tập', topic: 3, abstractStatus: 'Duyệt', fullTextStatus: 'Duyệt', reviewStatus: 'Duyệt', presentationStatus: 'Trình bày' },
+    { id: 2, authorName: 'Trần Thị Bình', organization: 'Viện Khoa học Giáo dục', paperTitle: 'Mô hình Blended Learning cho giáo dục đại học', topic: 2, abstractStatus: 'Duyệt', fullTextStatus: 'Duyệt', reviewStatus: 'Duyệt', presentationStatus: 'Trình bày' },
+    { id: 3, authorName: 'Lê Văn Cường', organization: 'Đại học Sư phạm', paperTitle: 'Tác động của STEM đến tư duy sáng tạo', topic: 2, abstractStatus: 'Duyệt', fullTextStatus: 'Đang chờ duyệt', reviewStatus: 'Đang chờ duyệt', presentationStatus: 'Không trình bày' },
+    { id: 4, authorName: 'Phạm Thị Dung', organization: 'Tổ chức UNICEF', paperTitle: 'Giáo dục hòa nhập cho trẻ tự kỷ', topic: 2, abstractStatus: 'Duyệt', fullTextStatus: 'Không duyệt', reviewStatus: 'Không duyệt', presentationStatus: 'Không trình bày' },
+    { id: 5, authorName: 'Hoàng Minh Hải', organization: 'Trường Quốc tế XYZ', paperTitle: 'Chuyển đổi số trong quản lý trường học', topic: 1, abstractStatus: 'Duyệt', fullTextStatus: 'Duyệt', reviewStatus: 'Duyệt', presentationStatus: 'Không trình bày' },
+    { id: 6, authorName: 'Vũ Thu Hoài', organization: 'Đại học Stanford', paperTitle: 'Kỹ năng mềm cho sinh viên thế kỷ 21', topic: 1, abstractStatus: 'Duyệt', fullTextStatus: 'Duyệt', reviewStatus: 'Duyệt', presentationStatus: 'Trình bày' },
+    { id: 7, authorName: 'Đặng Quốc Hưng', organization: 'Đại học Công nghệ Nanyang', paperTitle: 'Gamification trong lớp học ngoại ngữ', topic: 3, abstractStatus: 'Duyệt', fullTextStatus: 'Đang chờ duyệt', reviewStatus: 'Đang chờ duyệt', presentationStatus: 'Không trình bày' },
+    { id: 8, authorName: 'Ngô Thị Lan', organization: 'Bộ Giáo dục và Đào tạo', paperTitle: 'Phát triển chương trình giáo dục phổ thông mới', topic: 2, abstractStatus: 'Duyệt', fullTextStatus: 'Duyệt', reviewStatus: 'Duyệt', presentationStatus: 'Trình bày' },
+    { id: 9, authorName: 'Trịnh Văn Minh', organization: 'Đại học Quốc gia', paperTitle: 'Đánh giá sách giáo khoa theo định hướng năng lực', topic: 2, abstractStatus: 'Duyệt', fullTextStatus: 'Duyệt', reviewStatus: 'Duyệt', presentationStatus: 'Không trình bày' },
+    { id: 10, authorName: 'Bùi Thúy Nga', organization: 'Coursera', paperTitle: 'Tư vấn hướng nghiệp trong bối cảnh 4.0', topic: 1, abstractStatus: 'Không duyệt', fullTextStatus: 'Không duyệt', reviewStatus: 'Không duyệt', presentationStatus: 'Không trình bày' },
+    { id: 11, authorName: 'Lý Thành Nam', organization: 'Viện Khoa học Giáo dục', paperTitle: 'Ảnh hưởng của mạng xã hội đến học sinh', topic: 1, abstractStatus: 'Duyệt', fullTextStatus: 'Đang chờ duyệt', reviewStatus: 'Đang chờ duyệt', presentationStatus: 'Không trình bày' },
+    { id: 12, authorName: 'Đỗ Mỹ Linh', organization: 'Đại học Sư phạm', paperTitle: 'Xây dựng văn hóa đọc trong trường học', topic: 1, abstractStatus: 'Duyệt', fullTextStatus: 'Duyệt', reviewStatus: 'Duyệt', presentationStatus: 'Trình bày' },
 ];

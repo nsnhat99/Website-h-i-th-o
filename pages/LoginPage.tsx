@@ -22,44 +22,46 @@ const LoginPage: React.FC = () => {
       setError(err instanceof Error ? err.message : 'Login failed.');
     }
   };
+  
+  const inputStyles = "mt-1 block w-full px-3 py-2 bg-slate-800/50 border border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500";
 
   return (
     <div className="flex justify-center items-center py-10">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-md p-8 text-gray-800">
-        <h2 className="text-2xl font-bold text-center mb-6">Administrator Login</h2>
-        <div className="text-sm bg-blue-50 border border-blue-200 text-blue-800 p-3 rounded-md mb-6">
+      <div className="bg-slate-800/50 backdrop-blur-md rounded-lg shadow-xl w-full max-w-md p-8 border border-slate-700/50">
+        <h2 className="text-2xl font-bold text-center mb-6 text-slate-100">Administrator Login</h2>
+        <div className="text-sm bg-sky-900/50 border border-sky-700/50 text-sky-200 p-3 rounded-md mb-6">
             <p>This login is for administrators only.</p>
             <p><strong>Hint:</strong> username: admin / password: password</p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
+            <label htmlFor="username" className="block text-sm font-medium text-slate-300">Username</label>
             <input
               type="text"
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              className={inputStyles}
               required
             />
           </div>
           <div>
-            <label htmlFor="password"  className="block text-sm font-medium text-gray-700">Password</label>
+            <label htmlFor="password"  className="block text-sm font-medium text-slate-300">Password</label>
             <input
               type="password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              className={inputStyles}
               required
             />
           </div>
-          {error && <p className="text-sm text-red-600">{error}</p>}
+          {error && <p className="text-sm text-red-400">{error}</p>}
           <div>
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-400"
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 disabled:bg-slate-600"
             >
               {isLoading ? 'Logging in...' : 'Login'}
             </button>

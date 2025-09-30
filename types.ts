@@ -1,19 +1,31 @@
 export type NavLink = {
   name: string;
-  path: string;
+  path?: string;
+  children?: NavLink[];
 };
 
-export type Session = {
-  time: string;
+export type SubSession = {
   title: string;
-  speaker: string;
   location: string;
+};
+
+export type ScheduleEvent = {
+  time: string;
+  activity: string;
+  details?: string;
+  location?: string;
+  subSessions?: SubSession[];
+};
+
+export type SchedulePart = {
+  title: string;
+  events: ScheduleEvent[];
 };
 
 export type ScheduleDay = {
   day: string;
   date: string;
-  sessions: Session[];
+  parts: SchedulePart[];
 };
 
 export type Announcement = {
@@ -60,4 +72,29 @@ export type User = {
   username: string;
   role: 'user' | 'admin';
   email: string;
+};
+
+export type ReviewStatus = 'Duyệt' | 'Không duyệt' | 'Đang chờ duyệt';
+export type PresentationStatus = 'Trình bày' | 'Không trình bày';
+
+export type DetailedPaperSubmission = {
+  id: number;
+  authorName: string;
+  organization: string;
+  paperTitle: string;
+  topic: 1 | 2 | 3;
+  abstractStatus: ReviewStatus;
+  fullTextStatus: ReviewStatus;
+  reviewStatus: ReviewStatus;
+  presentationStatus: PresentationStatus;
+};
+
+export type PaperSubmissionFormData = {
+  authorName: string;
+  organization: string;
+  email: string;
+  phone: string;
+  paperTitle: string;
+  topic: '1' | '2' | '3';
+  fullPaperFile: File | null;
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
@@ -32,7 +32,7 @@ const App: React.FC = () => {
         <PaperProvider>
           <RegistrationProvider>
             <AnnouncementProvider>
-              <HashRouter>
+              <BrowserRouter>
                 <div className="flex flex-col min-h-screen">
                   <Header />
                   <main className="flex-grow container mx-auto px-4 py-8 md:py-12">
@@ -71,7 +71,7 @@ const App: React.FC = () => {
                   </main>
                   <Footer />
                 </div>
-              </HashRouter>
+              </BrowserRouter>
             </AnnouncementProvider>
           </RegistrationProvider>
         </PaperProvider>

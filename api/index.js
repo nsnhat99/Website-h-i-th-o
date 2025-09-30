@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json({ limit: '10mb' })); // Increase limit to handle base64 images
 
 // --- AUTH & USERS ---
-app.post('/api/login', (req, res) => {
+app.post('/login', (req, res) => {
     const { username, password } = req.body;
     const user = db.users.find(u => u.username === username && u.password === password);
     if (user) {
@@ -20,16 +20,16 @@ app.post('/api/login', (req, res) => {
     }
 });
 
-app.get('/api/users', (req, res) => {
+app.get('/users', (req, res) => {
     const usersWithoutPasswords = db.users.map(({ password, ...user }) => user);
     res.json(usersWithoutPasswords);
 });
 
 // --- REGISTRATIONS ---
-app.get('/api/registrations', (req, res) => {
+app.get('/registrations', (req, res) => {
     res.json(db.registrations);
 });
-app.post('/api/registrations', (req, res) => {
+app.post('/registrations', (req, res) => {
     const newRegistration = {
         id: Date.now(),
         ...req.body,
@@ -39,11 +39,11 @@ app.post('/api/registrations', (req, res) => {
 });
 
 // --- ANNOUNCEMENTS ---
-app.get('/api/announcements', (req, res) => {
+app.get('/announcements', (req, res) => {
     res.json(db.announcements);
 });
 
-app.post('/api/announcements', (req, res) => {
+app.post('/announcements', (req, res) => {
     const newAnnouncement = {
         ...req.body,
         id: Date.now(),
@@ -53,7 +53,7 @@ app.post('/api/announcements', (req, res) => {
     res.status(201).json(newAnnouncement);
 });
 
-app.put('/api/announcements/:id', (req, res) => {
+app.put('/announcements/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);
     const index = db.announcements.findIndex(a => a.id === id);
     if (index > -1) {
@@ -64,7 +64,7 @@ app.put('/api/announcements/:id', (req, res) => {
     }
 });
 
-app.delete('/api/announcements/:id', (req, res) => {
+app.delete('/announcements/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);
     const initialLength = db.announcements.length;
     db.announcements = db.announcements.filter(a => a.id !== id);
@@ -76,11 +76,11 @@ app.delete('/api/announcements/:id', (req, res) => {
 });
 
 // --- PAPERS ---
-app.get('/api/papers', (req, res) => {
+app.get('/papers', (req, res) => {
     res.json(db.papers);
 });
 
-app.post('/api/papers', (req, res) => {
+app.post('/papers', (req, res) => {
     const formData = req.body;
     const newPaper = {
         id: Date.now(),
@@ -97,7 +97,7 @@ app.post('/api/papers', (req, res) => {
     res.status(201).json(newPaper);
 });
 
-app.put('/api/papers/:id', (req, res) => {
+app.put('/papers/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);
     const index = db.papers.findIndex(p => p.id === id);
     if (index > -1) {
@@ -108,7 +108,7 @@ app.put('/api/papers/:id', (req, res) => {
     }
 });
 
-app.delete('/api/papers/:id', (req, res) => {
+app.delete('/papers/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);
     const initialLength = db.papers.length;
     db.papers = db.papers.filter(p => p.id !== id);
@@ -120,11 +120,11 @@ app.delete('/api/papers/:id', (req, res) => {
 });
 
 // --- SITE CONTENT ---
-app.get('/api/site-content', (req, res) => {
+app.get('/site-content', (req, res) => {
     res.json(db.siteContent);
 });
 
-app.put('/api/site-content', (req, res) => {
+app.put('/site-content', (req, res) => {
     db.siteContent = { ...db.siteContent, ...req.body };
     res.json(db.siteContent);
 });

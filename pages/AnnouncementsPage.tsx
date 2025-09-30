@@ -1,19 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ANNOUNCEMENTS_DATA } from '../constants';
 import type { Announcement } from '../types';
 import { useAuth } from '../contexts/AuthContext';
 
 const AnnouncementForm: React.FC<{
   announcement?: Announcement | null;
-  onSave: (announcement: Omit<Announcement, 'id' | 'date'> & { id?: number }) => void;
+  onSave: (announcement: Omit<Announcement, 'id' | 'date'> & { id?: number; imageUrl?: string }) => void;
   onCancel: () => void;
 }> = ({ announcement, onSave, onCancel }) => {
   const [title, setTitle] = useState(announcement?.title || '');
   const [content, setContent] = useState(announcement?.content || '');
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState(announcement?.imageUrl || null);
+
+  useEffect(() => {
+    return () => {
+      if (imagePreview && imagePreview.startsWith('blob:')) {
+        URL.revokeObjectURL(imagePreview);
+      }
+    };
+  }, [imagePreview]);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setImageFile(file);
+      if (imagePreview && imagePreview.startsWith('blob:')) {
+        URL.revokeObjectURL(imagePreview);
+      }
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSave({ id: announcement?.id, title, content });
+    if (imageFile) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        onSave({ id: announcement?.id, title, content, imageUrl: base64String });
+      };
+      reader.readAsDataURL(imageFile);
+    } else {
+      onSave({ id: announcement?.id, title, content, imageUrl: announcement?.imageUrl });
+    }
   };
 
   const inputStyles = "mt-1 block w-full px-3 py-2 bg-slate-800/50 border border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500";
@@ -44,6 +74,16 @@ const AnnouncementForm: React.FC<{
             required
           ></textarea>
         </div>
+        <div>
+            <label className="block text-sm font-medium text-slate-300">Image</label>
+            {imagePreview && <img src={imagePreview} alt="Preview" className="w-full h-48 object-cover rounded-md my-2 bg-slate-900" />}
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="mt-1 block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-sky-900/50 file:text-sky-300 hover:file:bg-sky-800/50"
+            />
+          </div>
         <div className="flex justify-end gap-4">
           <button type="button" onClick={onCancel} className="px-4 py-2 rounded-md text-slate-200 bg-slate-600 hover:bg-slate-500">Cancel</button>
           <button type="submit" className="px-4 py-2 rounded-md text-white bg-blue-600 hover:bg-blue-700">Save Announcement</button>
@@ -59,15 +99,20 @@ const AnnouncementsPage: React.FC = () => {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [editingAnnouncement, setEditingAnnouncement] = useState<Announcement | null>(null);
 
-  const handleSave = (announcement: Omit<Announcement, 'id' | 'date'> & { id?: number }) => {
+  const handleSave = (announcement: Omit<Announcement, 'id' | 'date'> & { id?: number; imageUrl?: string }) => {
     if (announcement.id) { // Editing existing
-      setAnnouncements(announcements.map(a => a.id === announcement.id ? { ...a, title: announcement.title, content: announcement.content } : a));
+      setAnnouncements(announcements.map(a => 
+        a.id === announcement.id 
+          ? { ...a, title: announcement.title, content: announcement.content, imageUrl: announcement.imageUrl } 
+          : a
+      ));
     } else { // Adding new
       const newAnnouncement: Announcement = {
         id: Date.now(),
         title: announcement.title,
         content: announcement.content,
         date: new Intl.DateTimeFormat('en-GB').format(new Date()),
+        imageUrl: announcement.imageUrl,
       };
       setAnnouncements([newAnnouncement, ...announcements]);
     }
@@ -111,24 +156,29 @@ const AnnouncementsPage: React.FC = () => {
         />
       )}
       
-      <div className="space-y-6">
+      <div className="space-y-8">
         {announcements.map((announcement: Announcement) => (
-          <div key={announcement.id} className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-lg shadow-md border-l-4 border-sky-500">
-            <div className="flex justify-between items-start mb-2">
-              <h2 className="text-2xl font-bold text-slate-100 flex-grow">{announcement.title}</h2>
-              <div className="flex-shrink-0 text-right">
-                <span className="text-sm text-slate-400">{announcement.date}</span>
-                 {currentUser?.role === 'admin' && (
-                  <div className="mt-2">
-                    <button onClick={() => handleEdit(announcement)} className="text-sm text-sky-400 hover:underline mr-4">Edit</button>
-                    <button onClick={() => handleDelete(announcement.id)} className="text-sm text-red-500 hover:underline">Delete</button>
-                  </div>
-                )}
+          <div key={announcement.id} className="bg-slate-800/50 backdrop-blur-sm rounded-lg shadow-md border border-slate-700/50 overflow-hidden">
+            {announcement.imageUrl && (
+              <img src={announcement.imageUrl} alt={announcement.title} className="w-full h-56 object-cover" />
+            )}
+            <div className="p-6">
+              <div className="flex justify-between items-start mb-2">
+                <h2 className="text-2xl font-bold text-slate-100 flex-grow">{announcement.title}</h2>
+                <div className="flex-shrink-0 text-right ml-4">
+                  <span className="text-sm text-slate-400">{announcement.date}</span>
+                  {currentUser?.role === 'admin' && (
+                    <div className="mt-2 flex gap-3">
+                      <button onClick={() => handleEdit(announcement)} className="text-sm text-sky-400 hover:underline">Edit</button>
+                      <button onClick={() => handleDelete(announcement.id)} className="text-sm text-red-500 hover:underline">Delete</button>
+                    </div>
+                  )}
+                </div>
               </div>
+              <p className="text-slate-300 text-lg mt-2">
+                {announcement.content}
+              </p>
             </div>
-            <p className="text-slate-300 text-lg">
-              {announcement.content}
-            </p>
           </div>
         ))}
       </div>

@@ -1,4 +1,7 @@
+import type { NavLink as BaseNavLink } from 'react-router-dom';
+
 export type NavLink = {
+  id: number;
   name: string;
   path?: string;
   children?: NavLink[];
@@ -33,6 +36,7 @@ export type Announcement = {
   title: string;
   date: string;
   content: string;
+  imageUrl?: string;
 };
 
 export type Sponsor = {
@@ -101,6 +105,7 @@ export type PaperSubmissionFormData = {
 };
 
 export type Registration = {
+  id: number;
   name: string;
   organization: string;
   email: string;

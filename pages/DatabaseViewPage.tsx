@@ -112,8 +112,9 @@ const DatabaseViewPage: React.FC = () => {
 
              {/* Registrations Table */}
             <TableCard title="Registrations" headers={['Name', 'Organization', 'Email', 'With Paper?']}>
-                {registrations.length > 0 ? registrations.map((item, index) => (
-                    <tr key={index} className="hover:bg-slate-700/30">
+                {/* FIX: Use item.id as the key for the list item instead of the index. */}
+                {registrations.length > 0 ? registrations.map((item) => (
+                    <tr key={item.id} className="hover:bg-slate-700/30">
                         <td className="px-6 py-4 font-medium text-slate-100">{item.name}</td>
                         <td className="px-6 py-4">{item.organization}</td>
                         <td className="px-6 py-4">{item.email}</td>

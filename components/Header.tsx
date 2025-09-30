@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
-import { NAV_LINKS } from '../constants';
-import type { NavLink as NavLinkType } from '../types';
+import { NavLink as RouterNavLink, Link } from 'react-router-dom';
+import type { NavLink } from '../types';
 import { useAuth } from '../contexts/AuthContext';
 import { useSiteContent } from '../contexts/SiteContentContext';
 
@@ -10,6 +9,7 @@ const Header: React.FC = () => {
   const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(null);
   const { currentUser, logout } = useAuth();
   const { siteContent } = useSiteContent();
+  const { navLinks } = siteContent;
 
   const linkClasses = "block py-2 px-3 text-slate-300 rounded hover:bg-slate-700/50 md:hover:bg-transparent md:border-0 md:hover:text-sky-400 md:p-0 transition-colors duration-200";
   const activeLinkClasses = "text-sky-400 font-semibold md:bg-transparent";
@@ -78,7 +78,7 @@ const Header: React.FC = () => {
           
           <div className={`${isMenuOpen ? 'block' : 'hidden'} w-full md:block md:w-auto md:order-1`} id="navbar-default">
             <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-slate-700 rounded-lg bg-slate-800/80 md:flex-row md:items-center md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-transparent">
-              {NAV_LINKS.map((link: NavLinkType) => {
+              {navLinks.map((link: NavLink) => {
                 if (link.path === '/admin' && currentUser?.role !== 'admin') {
                   return null;
                 }
@@ -86,7 +86,7 @@ const Header: React.FC = () => {
                 if (link.children) {
                   const isMobileDropdownOpen = openMobileDropdown === link.name;
                   return (
-                    <li key={link.name} className="relative group">
+                    <li key={link.id} className="relative group">
                       <button
                         onClick={() => setOpenMobileDropdown(isMobileDropdownOpen ? null : link.name)}
                         className="w-full flex items-center justify-between py-2 px-3 text-slate-300 rounded hover:bg-slate-700/50 md:hover:bg-transparent md:border-0 md:hover:text-sky-400 md:p-0 transition-colors duration-200"
@@ -103,10 +103,10 @@ const Header: React.FC = () => {
                       <div className="absolute top-full left-0 z-20 w-56 hidden group-hover:block bg-slate-800 rounded-lg shadow-lg border border-slate-700 mt-1">
                           <ul className="py-2 text-sm text-slate-300" aria-label={link.name}>
                               {link.children.map((child) => (
-                                  <li key={child.name}>
-                                      <NavLink to={child.path!} className={({ isActive }) => `block px-4 py-2 hover:bg-slate-700 ${isActive ? 'text-sky-400' : ''}`} onClick={closeAllMenus}>
+                                  <li key={child.id}>
+                                      <RouterNavLink to={child.path!} className={({ isActive }) => `block px-4 py-2 hover:bg-slate-700 ${isActive ? 'text-sky-400' : ''}`} onClick={closeAllMenus}>
                                           {child.name}
-                                      </NavLink>
+                                      </RouterNavLink>
                                   </li>
                               ))}
                           </ul>
@@ -117,10 +117,10 @@ const Header: React.FC = () => {
                           <div className="pt-2 ps-4 md:hidden">
                               <ul className="space-y-2">
                                   {link.children.map((child) => (
-                                      <li key={child.name}>
-                                          <NavLink to={child.path!} className={({ isActive }) => `block px-4 py-2 rounded-lg hover:bg-slate-700 ${isActive ? 'text-sky-400 bg-slate-700' : ''}`} onClick={closeAllMenus}>
+                                      <li key={child.id}>
+                                          <RouterNavLink to={child.path!} className={({ isActive }) => `block px-4 py-2 rounded-lg hover:bg-slate-700 ${isActive ? 'text-sky-400 bg-slate-700' : ''}`} onClick={closeAllMenus}>
                                               {child.name}
-                                          </NavLink>
+                                          </RouterNavLink>
                                       </li>
                                   ))}
                               </ul>
@@ -131,14 +131,14 @@ const Header: React.FC = () => {
                 }
 
                 return (
-                  <li key={link.name}>
-                    <NavLink
+                  <li key={link.id}>
+                    <RouterNavLink
                       to={link.path!}
                       className={({ isActive }) => `${linkClasses} ${isActive ? activeLinkClasses : ''}`}
                       onClick={closeAllMenus}
                     >
                       {link.name}
-                    </NavLink>
+                    </RouterNavLink>
                   </li>
                 );
               })}

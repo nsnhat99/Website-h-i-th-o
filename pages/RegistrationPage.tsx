@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { registerUser } from '../api';
+import { useRegistrations } from '../contexts/RegistrationContext';
 import type { Registration } from '../types';
 
 const RegistrationPage: React.FC = () => {
-  const [formData, setFormData] = useState<Registration>({
+  const [formData, setFormData] = useState({
     name: '',
     organization: '',
     email: '',
@@ -13,6 +13,7 @@ const RegistrationPage: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const { addRegistration } = useRegistrations();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -28,8 +29,10 @@ const RegistrationPage: React.FC = () => {
     setError('');
     setIsLoading(true);
     
+    // Simulate API call and then add to context
+    await new Promise(resolve => setTimeout(resolve, 500));
     try {
-      await registerUser(formData);
+      addRegistration(formData);
       setIsSubmitted(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unexpected error occurred.');

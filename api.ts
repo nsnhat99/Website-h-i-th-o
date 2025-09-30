@@ -1,4 +1,4 @@
-import type { AdminStats, User, Registration } from './types';
+import type { User, Registration } from './types';
 
 // Mock database to simulate a real database
 const mockDB = {
@@ -8,12 +8,13 @@ const mockDB = {
     { id: 1, username: 'admin', password: 'password', role: 'admin' as const, email: 'admin1@email.com' },
     { id: 2, username: 'user', password: 'password', role: 'user' as const, email: 'user1@email.com' },
   ],
-  registrations: [] as Registration[],
-  stats: {
-    totalRegistrations: 123,
-    paidAttendees: 89,
-    papersSubmitted: 45,
-  }
+  // FIX: Add mock registration data.
+  registrations: [
+    { id: 1, name: 'Nguyễn Văn An', organization: 'Đại học Quốc gia', email: 'nva@email.com', phone: '123456789', withPaper: 'yes' },
+    { id: 2, name: 'Trần Thị Bình', organization: 'Viện Khoa học Giáo dục', email: 'ttb@email.com', phone: '123456789', withPaper: 'yes' },
+    { id: 3, name: 'Lê Văn Cường', organization: 'Đại học Sư phạm', email: 'lvc@email.com', phone: '123456789', withPaper: 'yes' },
+    { id: 4, name: 'Some Attendee', organization: 'Some Company', email: 'sa@email.com', phone: '123456789', withPaper: 'no' },
+  ] as Registration[],
 };
 
 // Simulate API latency to mimic real network conditions
@@ -39,42 +40,6 @@ export const login = (username: string, password: string): Promise<User> => {
   });
 };
 
-
-/**
- * Simulates registering a user by saving their data to a mock database.
- * @param userData - The user's registration data.
- * @returns A promise that resolves on successful registration or rejects on error.
- */
-export const registerUser = (userData: Registration): Promise<{ success: boolean; message: string; }> => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      // Basic validation
-      if (!userData.email) {
-        return reject(new Error('Email is required.'));
-      }
-      mockDB.registrations.push(userData);
-      mockDB.stats.totalRegistrations++;
-      if (userData.withPaper === 'yes') {
-        mockDB.stats.papersSubmitted++;
-      }
-      console.log('Mock DB Registrations:', mockDB.registrations);
-      resolve({ success: true, message: 'Registration successful!' });
-    }, API_LATENCY);
-  });
-};
-
-/**
- * Simulates fetching admin statistics from the backend.
- * @returns A promise that resolves with the admin statistics.
- */
-export const getAdminStats = (): Promise<AdminStats> => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(mockDB.stats);
-        }, API_LATENCY / 2);
-    });
-};
-
 /**
  * Retrieves a list of all users from the mock database, excluding their passwords.
  * @returns A promise that resolves with an array of user objects.
@@ -88,6 +53,7 @@ export const getUsers = (): Promise<User[]> => {
     });
 };
 
+// FIX: Add and export getRegistrations function to resolve import error.
 /**
  * Retrieves a list of all registrations from the mock database.
  * @returns A promise that resolves with an array of registration objects.

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CONFERENCE_TITLE, CONFERENCE_DATE, CONFERENCE_LOCATION } from '../constants';
 import type { KeynoteSpeaker } from '../types';
 import { useSiteContent } from '../contexts/SiteContentContext';
 
@@ -17,10 +16,10 @@ const HomePage: React.FC = () => {
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4">
-            {CONFERENCE_TITLE}
+            {siteContent.heroTitle}
           </h1>
           <p className="text-xl md:text-2xl text-slate-200">
-            Cơ hội kết nối, chia sẻ và phát triển trong lĩnh vực giáo dục.
+            {siteContent.heroSubtitle}
           </p>
         </div>
       </section>
@@ -33,14 +32,14 @@ const HomePage: React.FC = () => {
                 <i className="fas fa-calendar-alt fa-2x"></i>
              </div>
             <h3 className="text-xl font-bold mb-2 text-slate-100">Thời gian</h3>
-            <p className="text-lg text-slate-300">{CONFERENCE_DATE}</p>
+            <p className="text-lg text-slate-300">{siteContent.conferenceDate}</p>
           </div>
           <div className="flex flex-col items-center">
             <div className="bg-emerald-900/50 text-emerald-300 rounded-full p-4 mb-3">
                 <i className="fas fa-map-marker-alt fa-2x"></i>
             </div>
             <h3 className="text-xl font-bold mb-2 text-slate-100">Địa điểm</h3>
-            <p className="text-lg text-slate-300">{CONFERENCE_LOCATION}</p>
+            <p className="text-lg text-slate-300">{siteContent.conferenceLocation}</p>
           </div>
           <div className="flex flex-col items-center">
             <div className="bg-violet-900/50 text-violet-300 rounded-full p-4 mb-3">

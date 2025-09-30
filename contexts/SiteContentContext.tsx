@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react';
-import type { KeynoteSpeaker, ConferenceTopic, Sponsor } from '../types';
-import { KEYNOTE_SPEAKERS_DATA, CONFERENCE_TOPICS_DATA, SPONSORS_DATA, CO_ORGANIZERS_DATA } from '../constants';
+import type { KeynoteSpeaker, ConferenceTopic, Sponsor, NavLink } from '../types';
+import { KEYNOTE_SPEAKERS_DATA, CONFERENCE_TOPICS_DATA, SPONSORS_DATA, CO_ORGANIZERS_DATA, NAV_LINKS } from '../constants';
 
 // Define the shape of the site content
 export interface SiteContent {
@@ -12,13 +12,24 @@ export interface SiteContent {
   conferenceTopics: ConferenceTopic[];
   sponsors: Sponsor[];
   coOrganizers: Sponsor[];
+  navLinks: NavLink[];
+  heroTitle: string;
+  heroSubtitle: string;
+  conferenceDate: string;
+  conferenceLocation: string;
 }
 
 // Define the context type
 interface SiteContentContextType {
   siteContent: SiteContent;
-  updateImage: (key: keyof Omit<SiteContent, 'keynoteSpeakers' | 'conferenceTopics' | 'sponsors' | 'coOrganizers'>, newUrl: string) => void;
-  
+  updateImage: (key: keyof Omit<SiteContent, 'keynoteSpeakers' | 'conferenceTopics' | 'sponsors' | 'coOrganizers' | 'navLinks' | 'heroTitle' | 'heroSubtitle' | 'conferenceDate' | 'conferenceLocation'>, newUrl: string) => void;
+  updateConferenceInfo: (data: { title: string; subtitle: string; date: string; location: string }) => void;
+
+  // NavLink methods
+  addNavLink: (navLinkData: Omit<NavLink, 'id'>) => void;
+  updateNavLink: (navLinkId: number, navLinkData: Partial<NavLink>) => void;
+  deleteNavLink: (navLinkId: number) => void;
+
   // Speaker methods
   addKeynoteSpeaker: (speakerData: Omit<KeynoteSpeaker, 'id'>) => void;
   updateKeynoteSpeaker: (speakerId: number, speakerData: Partial<KeynoteSpeaker>) => void;
@@ -46,14 +57,49 @@ const initialState: SiteContent = {
   conferenceTopics: CONFERENCE_TOPICS_DATA,
   sponsors: SPONSORS_DATA,
   coOrganizers: CO_ORGANIZERS_DATA,
+  navLinks: NAV_LINKS,
+  heroTitle: "Hội thảo quốc tế về nghiên cứu giáo dục",
+  heroSubtitle: "Cơ hội kết nối, chia sẻ và phát triển trong lĩnh vực giáo dục.",
+  conferenceDate: "08-09/11/2025",
+  conferenceLocation: "Hà Nội, Việt Nam",
 };
 
 // Create the provider component
 export const SiteContentProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [siteContent, setSiteContent] = useState<SiteContent>(initialState);
 
-  const updateImage = (key: keyof Omit<SiteContent, 'keynoteSpeakers' | 'conferenceTopics' | 'sponsors' | 'coOrganizers'>, newUrl: string) => {
+  const updateImage = (key: keyof Omit<SiteContent, 'keynoteSpeakers' | 'conferenceTopics' | 'sponsors' | 'coOrganizers' | 'navLinks' | 'heroTitle' | 'heroSubtitle' | 'conferenceDate' | 'conferenceLocation'>, newUrl: string) => {
     setSiteContent(prevState => ({ ...prevState, [key]: newUrl }));
+  };
+  
+  const updateConferenceInfo = (data: { title: string; subtitle: string; date: string; location: string }) => {
+    setSiteContent(prev => ({
+      ...prev,
+      heroTitle: data.title,
+      heroSubtitle: data.subtitle,
+      conferenceDate: data.date,
+      conferenceLocation: data.location,
+    }));
+  };
+
+  // NavLink implementations
+  const addNavLink = (navLinkData: Omit<NavLink, 'id'>) => {
+    const newLink: NavLink = { id: Date.now(), ...navLinkData };
+    setSiteContent(prev => ({ ...prev, navLinks: [...prev.navLinks, newLink] }));
+  };
+
+  const updateNavLink = (navLinkId: number, navLinkData: Partial<NavLink>) => {
+    setSiteContent(prev => ({
+      ...prev,
+      navLinks: prev.navLinks.map(link => link.id === navLinkId ? { ...link, ...navLinkData } : link),
+    }));
+  };
+
+  const deleteNavLink = (navLinkId: number) => {
+    setSiteContent(prev => ({
+      ...prev,
+      navLinks: prev.navLinks.filter(link => link.id !== navLinkId),
+    }));
   };
 
   // Speaker implementations
@@ -113,7 +159,7 @@ export const SiteContentProvider: React.FC<{ children: ReactNode }> = ({ childre
 
 
   return (
-    <SiteContentContext.Provider value={{ siteContent, updateImage, addKeynoteSpeaker, updateKeynoteSpeaker, deleteKeynoteSpeaker, updateConferenceTopic, addSponsorOrCoOrganizer, updateSponsorOrCoOrganizer, deleteSponsorOrCoOrganizer }}>
+    <SiteContentContext.Provider value={{ siteContent, updateImage, updateConferenceInfo, addNavLink, updateNavLink, deleteNavLink, addKeynoteSpeaker, updateKeynoteSpeaker, deleteKeynoteSpeaker, updateConferenceTopic, addSponsorOrCoOrganizer, updateSponsorOrCoOrganizer, deleteSponsorOrCoOrganizer }}>
       {children}
     </SiteContentContext.Provider>
   );

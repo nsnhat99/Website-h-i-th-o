@@ -1,17 +1,13 @@
 import type { NavLink, ScheduleDay, Announcement, Sponsor, KeynoteSpeaker, PaperSubmission, DetailedPaperSubmission, ConferenceTopic } from './types';
 
-export const CONFERENCE_TITLE = "Hội thảo quốc tế về nghiên cứu giáo dục";
-export const CONFERENCE_DATE = "08-09/11/2025";
-export const CONFERENCE_LOCATION = "Hà Nội, Việt Nam";
-
 export const NAV_LINKS: NavLink[] = [
-  { name: "Trang chủ", path: "/" },
-  { name: "Giới thiệu", path: "/introduction" },
-  { name: "Chương trình", path: "/program" },
-  { name: "Thông báo", path: "/announcements" },
-  { name: "Đăng ký & Nộp bài", path: "/participation-guide" },
-  { name: "Kết quả duyệt bài", path: "/paper-review" },
-  { name: "Admin", path: "/admin" },
+  { id: 1, name: "Trang chủ", path: "/" },
+  { id: 2, name: "Giới thiệu", path: "/introduction" },
+  { id: 3, name: "Chương trình", path: "/program" },
+  { id: 4, name: "Thông báo", path: "/announcements" },
+  { id: 5, name: "Đăng ký & Nộp bài", path: "/participation-guide" },
+  { id: 6, name: "Kết quả duyệt bài", path: "/paper-review" },
+  { id: 7, name: "Admin", path: "/admin" },
 ];
 
 export const ABSTRACT_SUBMISSION_FORM_URL = "https://forms.gle/placeholder";
@@ -78,9 +74,9 @@ export const SCHEDULE_DATA: ScheduleDay[] = [
 ];
 
 export const ANNOUNCEMENTS_DATA: Announcement[] = [
-    { id: 1, title: "Gia hạn thời gian nộp bài báo", date: "15/08/2025", content: "Do nhận được nhiều yêu cầu, ban tổ chức quyết định gia hạn thời gian nộp bài báo toàn văn đến hết ngày 30/09/2025. Vui lòng xem chi tiết tại trang Call for Papers." },
-    { id: 2, title: "Công bố danh sách diễn giả chính", date: "01/08/2025", content: "Chúng tôi vinh dự công bố danh sách các diễn giả chính sẽ tham gia hội thảo, bao gồm các chuyên gia hàng đầu trong và ngoài nước. Chi tiết về các diễn giả và chủ đề bài nói sẽ được cập nhật trong trang Chương trình." },
-    { id: 3, title: "Mở cổng đăng ký sớm với giá ưu đãi", date: "15/07/2025", content: "Cổng đăng ký tham dự hội thảo đã chính thức mở. Đăng ký sớm trước ngày 15/09/2025 để nhận được mức phí ưu đãi. Xin vui lòng truy cập trang Đăng ký để biết thêm chi tiết." },
+    { id: 1, title: "Gia hạn thời gian nộp bài báo", date: "15/08/2025", content: "Do nhận được nhiều yêu cầu, ban tổ chức quyết định gia hạn thời gian nộp bài báo toàn văn đến hết ngày 30/09/2025. Vui lòng xem chi tiết tại trang Call for Papers.", imageUrl: "https://picsum.photos/seed/announcement1/800/400" },
+    { id: 2, title: "Công bố danh sách diễn giả chính", date: "01/08/2025", content: "Chúng tôi vinh dự công bố danh sách các diễn giả chính sẽ tham gia hội thảo, bao gồm các chuyên gia hàng đầu trong và ngoài nước. Chi tiết về các diễn giả và chủ đề bài nói sẽ được cập nhật trong trang Chương trình.", imageUrl: "https://picsum.photos/seed/announcement2/800/400" },
+    { id: 3, title: "Mở cổng đăng ký sớm với giá ưu đãi", date: "15/07/2025", content: "Cổng đăng ký tham dự hội thảo đã chính thức mở. Đăng ký sớm trước ngày 15/09/2025 để nhận được mức phí ưu đãi. Xin vui lòng truy cập trang Đăng ký để biết thêm chi tiết.", imageUrl: "https://picsum.photos/seed/announcement3/800/400" },
 ];
 
 export const CO_ORGANIZERS_DATA: Sponsor[] = [

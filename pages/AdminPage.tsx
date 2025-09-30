@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getAdminStats } from '../api';
-import type { AdminStats, KeynoteSpeaker, Sponsor } from '../types';
+import type { KeynoteSpeaker, Sponsor, NavLink } from '../types';
 import { useSiteContent } from '../contexts/SiteContentContext';
 import type { SiteContent } from '../contexts/SiteContentContext';
+import { usePapers } from '../contexts/PaperContext';
+import { useRegistrations } from '../contexts/RegistrationContext';
 
 const StatCard: React.FC<{ icon: string; title: string; value: number; color: string }> = ({ icon, title, value, color }) => (
     <div className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-lg shadow-md flex items-center border border-slate-700/50">
@@ -66,8 +67,8 @@ const ImageUploadCard: React.FC<{
 
 // Generic Modal for editing items
 const EditModal: React.FC<{
-    item: KeynoteSpeaker | Sponsor | null;
-    itemType: 'speaker' | 'sponsor';
+    item: KeynoteSpeaker | Sponsor | NavLink | null;
+    itemType: 'speaker' | 'sponsor' | 'navLink';
     onClose: () => void;
     onSave: (itemData: any) => void;
 }> = ({ item, itemType, onClose, onSave }) => {
@@ -93,7 +94,7 @@ const EditModal: React.FC<{
     };
 
     const handleSubmit = () => {
-        if (imageFile) {
+        if (imageFile && itemType !== 'navLink') {
             const reader = new FileReader();
             reader.onloadend = () => {
                 const base64String = reader.result as string;
@@ -112,12 +113,22 @@ const EditModal: React.FC<{
     const inputStyles = "mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500";
     const labelStyles = "block text-sm font-medium text-slate-300";
 
+    const getTitle = () => {
+        if (itemType === 'speaker') return 'Keynote Speaker';
+        if (itemType === 'sponsor') return 'Sponsor/Partner';
+        if (itemType === 'navLink') return 'Navigation Link';
+        return 'Item';
+    }
+
     return (
         <div className="fixed inset-0 bg-black/60 z-50 flex justify-center items-center p-4" onClick={onClose}>
             <div className="bg-slate-800 rounded-lg shadow-xl w-full max-w-lg p-6 border border-slate-700" onClick={e => e.stopPropagation()}>
-                <h2 className="text-2xl font-bold text-slate-100 mb-4">{item?.id ? 'Edit' : 'Add'} {itemType === 'speaker' ? 'Keynote Speaker' : 'Sponsor/Partner'}</h2>
+                <h2 className="text-2xl font-bold text-slate-100 mb-4">{item?.id ? 'Edit' : 'Add'} {getTitle()}</h2>
                 <div className="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
                     <input type="text" name="name" value={formData.name || ''} onChange={handleChange} placeholder="Name" className={inputStyles} />
+                    {itemType === 'navLink' && (
+                         <input type="text" name="path" value={formData.path || ''} onChange={handleChange} placeholder="Path (e.g., /contact)" className={inputStyles} />
+                    )}
                     {itemType === 'speaker' && (
                         <>
                             <input type="text" name="affiliation" value={formData.affiliation || ''} onChange={handleChange} placeholder="Affiliation" className={inputStyles} />
@@ -125,11 +136,13 @@ const EditModal: React.FC<{
                             <input type="text" name="keynoteTopic" value={formData.keynoteTopic || ''} onChange={handleChange} placeholder="Keynote Topic" className={inputStyles} />
                         </>
                     )}
-                    <div>
-                        <label className={labelStyles}>Image/Logo</label>
-                        {imagePreview && <img src={imagePreview} alt="Preview" className="w-full h-40 object-contain rounded-md my-2 bg-slate-900" />}
-                        <input type="file" accept="image/*" onChange={handleFileChange} className="mt-1 block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-sky-900/50 file:text-sky-300 hover:file:bg-sky-800/50"/>
-                    </div>
+                    {(itemType === 'speaker' || itemType === 'sponsor') && (
+                        <div>
+                            <label className={labelStyles}>Image/Logo</label>
+                            {imagePreview && <img src={imagePreview} alt="Preview" className="w-full h-40 object-contain rounded-md my-2 bg-slate-900" />}
+                            <input type="file" accept="image/*" onChange={handleFileChange} className="mt-1 block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-sky-900/50 file:text-sky-300 hover:file:bg-sky-800/50"/>
+                        </div>
+                    )}
                 </div>
                 <div className="mt-6 flex justify-end gap-4">
                     <button onClick={onClose} className="px-4 py-2 rounded-md text-slate-200 bg-slate-600 hover:bg-slate-500">Cancel</button>
@@ -142,34 +155,34 @@ const EditModal: React.FC<{
 
 
 const AdminPage: React.FC = () => {
-    const [stats, setStats] = useState<AdminStats | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState('');
-    const { siteContent, updateImage, addKeynoteSpeaker, updateKeynoteSpeaker, deleteKeynoteSpeaker, addSponsorOrCoOrganizer, updateSponsorOrCoOrganizer, deleteSponsorOrCoOrganizer } = useSiteContent();
+    const { siteContent, updateImage, updateConferenceInfo, addNavLink, updateNavLink, deleteNavLink, addKeynoteSpeaker, updateKeynoteSpeaker, deleteKeynoteSpeaker, addSponsorOrCoOrganizer, updateSponsorOrCoOrganizer, deleteSponsorOrCoOrganizer } = useSiteContent();
+    const { papers } = usePapers();
+    const { registrations } = useRegistrations();
 
     const [modalState, setModalState] = useState<{
         isOpen: boolean;
-        item: KeynoteSpeaker | Sponsor | null;
-        itemType: 'speaker' | 'sponsor';
+        item: KeynoteSpeaker | Sponsor | NavLink | null;
+        itemType: 'speaker' | 'sponsor' | 'navLink';
         subType?: 'sponsor' | 'coOrganizer';
     }>({ isOpen: false, item: null, itemType: 'sponsor' });
 
-    useEffect(() => {
-        const fetchStats = async () => {
-            try {
-                setIsLoading(true);
-                const data = await getAdminStats();
-                setStats(data);
-            } catch (err) {
-                setError('Could not fetch admin statistics.');
-            } finally {
-                setIsLoading(false);
-            }
-        };
-        fetchStats();
-    }, []);
+    const [confInfo, setConfInfo] = useState({
+        title: siteContent.heroTitle,
+        subtitle: siteContent.heroSubtitle,
+        date: siteContent.conferenceDate,
+        location: siteContent.conferenceLocation,
+    });
+
+    const handleConfInfoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setConfInfo({ ...confInfo, [e.target.name]: e.target.value });
+    }
+
+    const handleSaveConfInfo = () => {
+        updateConferenceInfo(confInfo);
+        alert('Conference info updated!');
+    }
     
-    const handleImageUpload = (imageKey: keyof Omit<SiteContent, 'keynoteSpeakers' | 'conferenceTopics' | 'sponsors' | 'coOrganizers'>, file: File) => {
+    const handleImageUpload = (imageKey: keyof Omit<SiteContent, 'keynoteSpeakers' | 'conferenceTopics' | 'sponsors' | 'coOrganizers' | 'navLinks' | 'heroTitle' | 'heroSubtitle' | 'conferenceDate' | 'conferenceLocation'>, file: File) => {
         const reader = new FileReader();
         reader.onloadend = () => {
             updateImage(imageKey, reader.result as string);
@@ -177,7 +190,7 @@ const AdminPage: React.FC = () => {
         reader.readAsDataURL(file);
     };
 
-    const handleOpenModal = (item: KeynoteSpeaker | Sponsor | null, itemType: 'speaker' | 'sponsor', subType?: 'sponsor' | 'coOrganizer') => {
+    const handleOpenModal = (item: KeynoteSpeaker | Sponsor | NavLink | null, itemType: 'speaker' | 'sponsor' | 'navLink', subType?: 'sponsor' | 'coOrganizer') => {
         setModalState({ isOpen: true, item, itemType, subType });
     };
 
@@ -188,39 +201,88 @@ const AdminPage: React.FC = () => {
     const handleSave = (itemData: any) => {
         if (modalState.itemType === 'speaker') {
             itemData.id ? updateKeynoteSpeaker(itemData.id, itemData) : addKeynoteSpeaker(itemData);
+        } else if (modalState.itemType === 'navLink') {
+            itemData.id ? updateNavLink(itemData.id, itemData) : addNavLink(itemData);
         } else {
             itemData.id ? updateSponsorOrCoOrganizer(itemData.id, itemData, modalState.subType!) : addSponsorOrCoOrganizer(itemData, modalState.subType!);
         }
         handleCloseModal();
     };
     
-    const handleDelete = (id: number, type: 'speaker' | 'sponsor' | 'coOrganizer') => {
+    const handleDelete = (id: number, type: 'speaker' | 'sponsor' | 'coOrganizer' | 'navLink') => {
         if (!window.confirm(`Are you sure you want to delete this ${type}?`)) return;
         if(type === 'speaker') deleteKeynoteSpeaker(id);
+        else if (type === 'navLink') deleteNavLink(id);
         else deleteSponsorOrCoOrganizer(id, type);
     }
-    
-    if (isLoading) { /* loading state... */ }
-    if (error) { /* error state... */ }
 
     return (
         <div className="max-w-7xl mx-auto space-y-16">
             <div>
                 <h1 className="text-4xl font-bold text-center mb-4 text-slate-100">Admin Dashboard</h1>
                 <p className="text-center text-slate-300 text-lg mb-10">Thống kê và báo cáo tổng quan hội thảo.</p>
-                {stats && (
-                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <StatCard icon="fa-users" title="Tổng số đăng ký" value={stats.totalRegistrations} color="bg-blue-500" />
-                        <StatCard icon="fa-check-circle" title="Đã thanh toán" value={stats.paidAttendees} color="bg-green-500" />
-                        <StatCard icon="fa-file-alt" title="Bài báo đã nộp" value={stats.papersSubmitted} color="bg-purple-500" />
-                    </div>
-                )}
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <StatCard icon="fa-users" title="Tổng số đăng ký" value={registrations.length} color="bg-blue-500" />
+                    <StatCard icon="fa-file-alt" title="Bài báo đã nộp" value={papers.length} color="bg-purple-500" />
+                </div>
             </div>
 
             {/* Content Management Section */}
             <div className="space-y-12">
                 <h2 className="text-3xl font-bold text-center text-slate-100 border-b-2 border-slate-700 pb-4">Content Management</h2>
                 
+                {/* General Conference Info */}
+                <div>
+                     <h3 className="text-2xl font-semibold text-sky-400 mb-8">General Conference Info</h3>
+                     <div className="bg-slate-800/50 p-6 rounded-lg shadow-md border border-slate-700/50 space-y-4">
+                        <div>
+                            <label className="block text-sm font-medium text-slate-300">Homepage Hero Title</label>
+                            <input type="text" name="title" value={confInfo.title} onChange={handleConfInfoChange} className="mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md"/>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-slate-300">Homepage Hero Subtitle</label>
+                            <input type="text" name="subtitle" value={confInfo.subtitle} onChange={handleConfInfoChange} className="mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md"/>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-sm font-medium text-slate-300">Conference Date</label>
+                                <input type="text" name="date" value={confInfo.date} onChange={handleConfInfoChange} className="mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md"/>
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-slate-300">Conference Location</label>
+                                <input type="text" name="location" value={confInfo.location} onChange={handleConfInfoChange} className="mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md"/>
+                            </div>
+                        </div>
+                        <div className="text-right">
+                            <button onClick={handleSaveConfInfo} className="bg-sky-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-sky-700 transition-colors">Save Info</button>
+                        </div>
+                     </div>
+                </div>
+
+                {/* Navigation Menu */}
+                <div>
+                    <div className="flex justify-between items-center mb-8">
+                         <h3 className="text-2xl font-semibold text-sky-400">Navigation Menu</h3>
+                         <button onClick={() => handleOpenModal(null, 'navLink')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Add Nav Link</button>
+                    </div>
+                    <div className="bg-slate-800/50 p-4 rounded-lg shadow-md border border-slate-700/50">
+                        <ul className="space-y-2">
+                            {siteContent.navLinks.map(link => (
+                                <li key={link.id} className="flex items-center justify-between p-2 bg-slate-900/50 rounded-md">
+                                    <div>
+                                        <span className="font-semibold text-slate-100">{link.name}</span>
+                                        <span className="text-sm text-slate-400 ml-4">{link.path}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <button onClick={() => handleOpenModal(link, 'navLink')} className="text-sm font-medium text-sky-400 hover:text-sky-300 py-1 px-3 rounded bg-sky-900/50 hover:bg-sky-800/50">Edit</button>
+                                        <button onClick={() => handleDelete(link.id, 'navLink')} className="text-sm font-medium text-red-400 hover:text-red-300 py-1 px-3 rounded bg-red-900/50 hover:bg-red-800/50">Delete</button>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+
                 {/* Keynote Speakers */}
                 <div>
                     <div className="flex justify-between items-center mb-8">

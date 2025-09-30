@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CO_ORGANIZERS_DATA, SPONSORS_DATA, ABSTRACT_SUBMISSION_FORM_URL } from '../constants';
+import { ABSTRACT_SUBMISSION_FORM_URL } from '../constants';
 import type { Sponsor } from '../types';
+import { useSiteContent } from '../contexts/SiteContentContext';
 
 
 const SectionCard: React.FC<{ title: string; children: React.ReactNode; icon: string }> = ({ title, children, icon }) => (
@@ -44,6 +45,8 @@ const ContactCard: React.FC<{
 
 
 const ParticipationGuidePage: React.FC = () => {
+    const { siteContent } = useSiteContent();
+
     return (
         <div className="max-w-4xl mx-auto space-y-12">
             <div className="text-center">
@@ -164,8 +167,8 @@ const ParticipationGuidePage: React.FC = () => {
                  <section>
                     <h2 className="text-2xl font-bold text-sky-400 mb-4">Đơn vị đồng tổ chức</h2>
                     <div className="flex justify-center items-center gap-6 flex-wrap bg-slate-800/40 p-4 rounded-lg border border-slate-700/50">
-                        {CO_ORGANIZERS_DATA.map((org: Sponsor) => (
-                        <div key={org.name} className="p-2">
+                        {siteContent.coOrganizers.map((org: Sponsor) => (
+                        <div key={org.id} className="p-2">
                             <img src={org.logoUrl} alt={org.name} className="h-14 object-contain" />
                             <p className="mt-2 text-sm font-semibold text-slate-300">{org.name}</p>
                         </div>
@@ -175,8 +178,8 @@ const ParticipationGuidePage: React.FC = () => {
                 <section>
                     <h2 className="text-2xl font-bold text-sky-400 mb-4">Đơn vị tài trợ</h2>
                      <div className="flex justify-center items-center gap-6 flex-wrap bg-slate-800/40 p-4 rounded-lg border border-slate-700/50">
-                        {SPONSORS_DATA.map((sponsor: Sponsor) => (
-                        <div key={sponsor.name} className="p-2">
+                        {siteContent.sponsors.map((sponsor: Sponsor) => (
+                        <div key={sponsor.id} className="p-2">
                             <img src={sponsor.logoUrl} alt={sponsor.name} className="h-14 object-contain" />
                              <p className="mt-2 text-sm font-semibold text-slate-300">{sponsor.name}</p>
                         </div>

@@ -1,4 +1,4 @@
-import type { NavLink, ScheduleDay, Announcement, Sponsor, KeynoteSpeaker, PaperSubmission, DetailedPaperSubmission } from './types';
+import type { NavLink, ScheduleDay, Announcement, Sponsor, KeynoteSpeaker, PaperSubmission, DetailedPaperSubmission, ConferenceTopic } from './types';
 
 export const CONFERENCE_TITLE = "Hội thảo quốc tế về nghiên cứu giáo dục";
 export const CONFERENCE_DATE = "08-09/11/2025";
@@ -84,12 +84,12 @@ export const ANNOUNCEMENTS_DATA: Announcement[] = [
 ];
 
 export const CO_ORGANIZERS_DATA: Sponsor[] = [
-    { name: "Tạp chí Giáo dục", logoUrl: "https://picsum.photos/seed/coorganizer1/150/60" },
+    { id: 1, name: "Tạp chí Giáo dục", logoUrl: "https://picsum.photos/seed/coorganizer1/150/60" },
 ];
 
 export const SPONSORS_DATA: Sponsor[] = [
-    { name: "Báo Kinh tế - Đô thị", logoUrl: "https://picsum.photos/seed/sponsor1/150/60" },
-    { name: "Nhà xuất bản Hà Nội", logoUrl: "https://picsum.photos/seed/sponsor2/150/60" },
+    { id: 1, name: "Báo Kinh tế - Đô thị", logoUrl: "https://picsum.photos/seed/sponsor1/150/60" },
+    { id: 2, name: "Nhà xuất bản Hà Nội", logoUrl: "https://picsum.photos/seed/sponsor2/150/60" },
 ];
 
 
@@ -102,6 +102,12 @@ export const KEYNOTE_SPEAKERS_DATA: KeynoteSpeaker[] = [
   { id: 6, name: "Prof. Emily Chen", affiliation: "Đại học Công nghệ Nanyang", imageUrl: "https://picsum.photos/seed/speaker6/200/200", bio: "Chuyên gia về tâm lý học đường và sức khỏe tinh thần cho học sinh, sinh viên.", keynoteTopic: "Sức khỏe Tinh thần và Môi trường Học đường" },
   { id: 7, name: "TS. Vũ Đức Long", affiliation: "Bộ Giáo dục và Đào tạo", imageUrl: "https://picsum.photos/seed/speaker7/200/200", bio: "Nhà quản lý giáo dục có nhiều đóng góp trong việc xây dựng và triển khai chương trình giáo dục phổ thông mới.", keynoteTopic: "Quản lý Sự thay đổi trong Giáo dục" },
   { id: 8, name: "Ms. Sarah Jones", affiliation: "Coursera", imageUrl: "https://picsum.photos/seed/speaker8/200/200", bio: "Giám đốc đối tác chiến lược tại Coursera, chuyên về xu hướng học tập trực tuyến và kỹ năng tương lai.", keynoteTopic: "Học tập suốt đời trong Kỷ nguyên số" },
+];
+
+export const CONFERENCE_TOPICS_DATA: ConferenceTopic[] = [
+  { id: 1, title: 'Bản sắc văn hoá trong kỷ nguyên số', imageUrl: 'https://picsum.photos/seed/culture-digital/800/600', link: '/topics' },
+  { id: 2, title: 'Giáo dục sáng tạo và phát triển bền vững trong kỷ nguyên số', imageUrl: 'https://picsum.photos/seed/education-creative/800/600', link: '/topics' },
+  { id: 3, title: 'Trí tuệ nhân tạo trong bảo tồn, phát triển văn hoá và giáo dục', imageUrl: 'https://picsum.photos/seed/ai-future/800/600', link: '/topics' },
 ];
 
 export const PAPER_SUBMISSIONS_DATA: PaperSubmission[] = [

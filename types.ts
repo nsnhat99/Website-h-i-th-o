@@ -36,6 +36,7 @@ export type Announcement = {
 };
 
 export type Sponsor = {
+  id: number;
   name: string;
   logoUrl: string;
 };
@@ -105,4 +106,11 @@ export type Registration = {
   email: string;
   phone: string;
   withPaper: string;
+};
+
+export type ConferenceTopic = {
+  id: number;
+  title: string;
+  imageUrl: string;
+  link: string;
 };

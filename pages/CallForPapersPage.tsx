@@ -1,9 +1,11 @@
 
+
 import React from 'react';
-import { KEYNOTE_SPEAKERS_DATA } from '../constants';
 import type { KeynoteSpeaker } from '../types';
+import { useSiteContent } from '../contexts/SiteContentContext';
 
 const CallForPapersPage: React.FC = () => {
+  const { siteContent } = useSiteContent();
   return (
     <div className="max-w-7xl mx-auto">
       <h1 className="text-4xl font-bold text-center mb-10 text-white">Call for Papers & Keynote Speakers</h1>
@@ -26,7 +28,7 @@ const CallForPapersPage: React.FC = () => {
         <section className="lg:col-span-1">
           <h2 className="text-3xl font-bold mb-6 text-yellow-300 text-center">Báo cáo viên</h2>
           <div className="bg-slate-800/50 backdrop-blur-sm p-4 rounded-lg shadow-xl grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-4">
-            {KEYNOTE_SPEAKERS_DATA.map((speaker : KeynoteSpeaker) => (
+            {siteContent.keynoteSpeakers.map((speaker : KeynoteSpeaker) => (
               <div key={speaker.id} className="group relative aspect-square" title={`${speaker.name} - ${speaker.keynoteTopic}`}>
                 <img 
                   src={speaker.imageUrl} 

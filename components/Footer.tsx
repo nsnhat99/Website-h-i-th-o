@@ -1,16 +1,18 @@
 import React from 'react';
-import { SPONSORS_DATA } from '../constants';
 import type { Sponsor } from '../types';
+import { useSiteContent } from '../contexts/SiteContentContext';
 
 const Footer: React.FC = () => {
+  const { siteContent } = useSiteContent();
+  
   return (
     <footer className="bg-transparent border-t border-slate-700 mt-12">
       <div className="container mx-auto px-4 py-8">
         <div className="text-center mb-8">
           <h3 className="text-lg font-semibold text-slate-300 mb-4">Đối tác & Nhà tài trợ</h3>
           <div className="flex justify-center items-center gap-6 flex-wrap">
-            {SPONSORS_DATA.map((sponsor: Sponsor) => (
-              <div key={sponsor.name} className="bg-slate-200/80 p-2 rounded-md shadow-sm">
+            {siteContent.sponsors.map((sponsor: Sponsor) => (
+              <div key={sponsor.id} className="bg-slate-200/80 p-2 rounded-md shadow-sm">
                 <img src={sponsor.logoUrl} alt={sponsor.name} className="h-12 object-contain" />
               </div>
             ))}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CONFERENCE_TITLE, CONFERENCE_DATE, CONFERENCE_LOCATION, KEYNOTE_SPEAKERS_DATA } from '../constants';
+import { CONFERENCE_TITLE, CONFERENCE_DATE, CONFERENCE_LOCATION } from '../constants';
 import type { KeynoteSpeaker } from '../types';
 import { useSiteContent } from '../contexts/SiteContentContext';
 
@@ -70,7 +70,7 @@ const HomePage: React.FC = () => {
             <div>
                 <h3 className="text-2xl font-bold mb-6 text-sky-400 text-center">Báo cáo viên</h3>
                 <div className="bg-slate-800/50 backdrop-blur-sm p-4 rounded-lg shadow-xl grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4 border border-slate-700">
-                    {KEYNOTE_SPEAKERS_DATA.map((speaker: KeynoteSpeaker) => (
+                    {siteContent.keynoteSpeakers.map((speaker: KeynoteSpeaker) => (
                         <div key={speaker.id} className="group relative aspect-square" title={`${speaker.name} - ${speaker.keynoteTopic}`}>
                             <img
                                 src={speaker.imageUrl}

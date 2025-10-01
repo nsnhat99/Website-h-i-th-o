@@ -1,13 +1,14 @@
 require('dotenv').config();
-const { db } = require('@vercel/postgres');
-const { 
-    ANNOUNCEMENTS_DATA, 
-    DETAILED_PAPER_SUBMISSIONS_DATA, 
-    KEYNOTE_SPEAKERS_DATA, 
-    CONFERENCE_TOPICS_DATA, 
-    SPONSORS_DATA, 
-    CO_ORGANIZERS_DATA, 
-    NAV_LINKS 
+const { neon } = require('@neondatabase/serverless');
+
+const {
+    ANNOUNCEMENTS_DATA,
+    DETAILED_PAPER_SUBMISSIONS_DATA,
+    KEYNOTE_SPEAKERS_DATA,
+    CONFERENCE_TOPICS_DATA,
+    SPONSORS_DATA,
+    CO_ORGANIZERS_DATA,
+    NAV_LINKS
 } = require('./constants');
 
 const initialSiteContent = {
@@ -36,18 +37,17 @@ const initialRegistrations = [
     { id: 2, name: 'Trần Thị Bình', organization: 'Viện Khoa học Giáo dục', email: 'ttb@email.com', phone: '123456789', withPaper: 'yes' },
 ];
 
-
-async function seed(client) {
+async function seed(sql) {
     try {
-        await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+        await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
         console.log('PostgreSQL extensions checked/created.');
 
         // Drop tables if they exist to start fresh
-        await client.sql`DROP TABLE IF EXISTS users, registrations, announcements, papers, site_content;`;
+        await sql`DROP TABLE IF EXISTS users, registrations, announcements, papers, site_content;`;
         console.log('Dropped existing tables.');
 
         // Create tables
-        await client.sql`
+        await sql`
             CREATE TABLE users (
                 id SERIAL PRIMARY KEY,
                 username TEXT NOT NULL UNIQUE,
@@ -58,7 +58,7 @@ async function seed(client) {
         `;
         console.log('Created "users" table.');
 
-        await client.sql`
+        await sql`
             CREATE TABLE registrations (
                 id SERIAL PRIMARY KEY,
                 name TEXT NOT NULL,
@@ -70,7 +70,7 @@ async function seed(client) {
         `;
         console.log('Created "registrations" table.');
 
-        await client.sql`
+        await sql`
             CREATE TABLE announcements (
                 id SERIAL PRIMARY KEY,
                 title TEXT NOT NULL,
@@ -80,8 +80,8 @@ async function seed(client) {
             );
         `;
         console.log('Created "announcements" table.');
-        
-        await client.sql`
+
+        await sql`
             CREATE TABLE papers (
                 id SERIAL PRIMARY KEY,
                 "authorName" TEXT NOT NULL,
@@ -96,7 +96,7 @@ async function seed(client) {
         `;
         console.log('Created "papers" table.');
 
-        await client.sql`
+        await sql`
             CREATE TABLE site_content (
                 id INTEGER PRIMARY KEY,
                 content JSONB
@@ -106,8 +106,8 @@ async function seed(client) {
 
         // Insert data
         await Promise.all(
-            initialUsers.map(user => 
-                client.sql`
+            initialUsers.map(user =>
+                sql`
                     INSERT INTO users (id, username, password, role, email)
                     VALUES (${user.id}, ${user.username}, ${user.password}, ${user.role}, ${user.email});
                 `
@@ -117,7 +117,7 @@ async function seed(client) {
 
         await Promise.all(
             initialRegistrations.map(reg =>
-                client.sql`
+                sql`
                     INSERT INTO registrations (id, name, organization, email, phone, "withPaper")
                     VALUES (${reg.id}, ${reg.name}, ${reg.organization}, ${reg.email}, ${reg.phone}, ${reg.withPaper});
                 `
@@ -127,17 +127,17 @@ async function seed(client) {
 
         await Promise.all(
             ANNOUNCEMENTS_DATA.map(ann =>
-                client.sql`
+                sql`
                     INSERT INTO announcements (id, title, date, content, "imageUrl")
                     VALUES (${ann.id}, ${ann.title}, ${ann.date}, ${ann.content}, ${ann.imageUrl});
                 `
             )
         );
         console.log('Seeded "announcements" table.');
-        
+
         await Promise.all(
             DETAILED_PAPER_SUBMISSIONS_DATA.map(paper =>
-                client.sql`
+                sql`
                     INSERT INTO papers (id, "authorName", organization, "paperTitle", topic, "abstractStatus", "fullTextStatus", "reviewStatus", "presentationStatus")
                     VALUES (${paper.id}, ${paper.authorName}, ${paper.organization}, ${paper.paperTitle}, ${paper.topic}, ${paper.abstractStatus}, ${paper.fullTextStatus}, ${paper.reviewStatus}, ${paper.presentationStatus});
                 `
@@ -145,13 +145,11 @@ async function seed(client) {
         );
         console.log('Seeded "papers" table.');
 
-        await client.sql`
+        await sql`
             INSERT INTO site_content (id, content)
             VALUES (1, ${JSON.stringify(initialSiteContent)});
         `;
         console.log('Seeded "site_content" table.');
-
-
     } catch (error) {
         console.error('Error seeding database:', error);
         throw error;
@@ -159,18 +157,19 @@ async function seed(client) {
 }
 
 async function main() {
-    const client = await db.connect();
+    const sql = neon(process.env.DATABASE_URL);
     try {
-        await seed(client);
+        await seed(sql);
     } finally {
-        await client.end();
+        // No explicit client.end() needed with neon() as it manages connections automatically
+        console.log('Seeding completed.');
     }
 }
 
 main().catch((err) => {
-  console.error(
-    'An error occurred while attempting to seed the database:',
-    err,
-  );
-  process.exit(1);
+    console.error(
+        'An error occurred while attempting to seed the database:',
+        err,
+    );
+    process.exit(1);
 });

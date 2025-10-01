@@ -219,3 +219,4 @@ app.put('/site-content', async (req, res) => {
 
 // Export the app for Vercel
 module.exports = app;
+module.exports.default = app;

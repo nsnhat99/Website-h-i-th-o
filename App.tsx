@@ -24,6 +24,7 @@ import DatabaseViewPage from './pages/DatabaseViewPage';
 import TopicDetailPage from './pages/TopicDetailPage';
 import { RegistrationProvider } from './contexts/RegistrationContext';
 import { AnnouncementProvider } from './contexts/AnnouncementContext';
+import RegistrationPage from './pages/RegistrationPage';
 
 const App: React.FC = () => {
   return (
@@ -44,6 +45,7 @@ const App: React.FC = () => {
                       <Route path="/introduction" element={<IntroductionPage />} />
                       <Route path="/participation-guide" element={<ParticipationGuidePage />} />
                       <Route path="/submit-paper" element={<SubmitPaperPage />} />
+                      <Route path="/register" element={<RegistrationPage />} />
                       <Route path="/paper-review" element={<PaperReviewPage />} />
                       <Route path="/program" element={<ProgramPage />} />
                       <Route path="/announcements" element={<AnnouncementsPage />} />

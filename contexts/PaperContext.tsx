@@ -19,11 +19,7 @@ export const PaperProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const [papers, setPapers] = useState<DetailedPaperSubmission[]>([]);
 
   useEffect(() => {
-    const fetchPapers = async () => {
-        const data = await api.getPapers();
-        setPapers(data);
-    };
-    fetchPapers();
+    api.getPapers().then(setPapers).catch(err => console.error("Failed to fetch papers:", err));
   }, []);
 
 
@@ -44,7 +40,7 @@ export const PaperProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
   const updateStatus = async (id: number, field: keyof DetailedPaperSubmission, status: ReviewStatus | PresentationStatus) => {
       const updatedPaper = await api.updatePaper(id, { [field]: status });
-      setPapers(papers.map(p => (p.id === id ? updatedPaper : p)));
+      setPapers(prevPapers => prevPapers.map(p => (p.id === id ? updatedPaper : p)));
   };
 
   const updateAbstractStatus = (id: number, status: ReviewStatus) => updateStatus(id, 'abstractStatus', status);

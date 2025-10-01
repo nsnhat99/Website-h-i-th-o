@@ -13,11 +13,9 @@ export const RegistrationProvider: React.FC<{ children: ReactNode }> = ({ childr
   const [registrations, setRegistrations] = useState<Registration[]>([]);
 
   useEffect(() => {
-    const fetchRegistrations = async () => {
-        const data = await api.getRegistrations();
-        setRegistrations(data);
-    }
-    fetchRegistrations();
+    api.getRegistrations()
+      .then(setRegistrations)
+      .catch(err => console.error("Failed to fetch registrations:", err));
   }, []);
 
   const addRegistration = async (formData: Omit<Registration, 'id'>) => {

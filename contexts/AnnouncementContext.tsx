@@ -15,11 +15,9 @@ export const AnnouncementProvider: React.FC<{ children: ReactNode }> = ({ childr
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
 
   useEffect(() => {
-    const fetchAnnouncements = async () => {
-      const data = await api.getAnnouncements();
-      setAnnouncements(data);
-    };
-    fetchAnnouncements();
+    api.getAnnouncements()
+      .then(setAnnouncements)
+      .catch(err => console.error("Failed to fetch announcements:", err));
   }, []);
 
   const addAnnouncement = async (announcementData: Omit<Announcement, 'id' | 'date'>) => {

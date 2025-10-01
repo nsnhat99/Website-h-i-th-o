@@ -1,4 +1,3 @@
-
 import type { User, Registration, Announcement, DetailedPaperSubmission, PaperSubmissionFormData, SiteContent } from './types';
 
 const API_BASE_URL = '/api';

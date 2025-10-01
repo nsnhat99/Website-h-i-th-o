@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getUsers, getRegistrations } from '../api';
 import { usePapers } from '../contexts/PaperContext';
-import { ANNOUNCEMENTS_DATA } from '../constants';
-import type { User, DetailedPaperSubmission, Announcement, Registration } from '../types';
+import { useRegistrations } from '../contexts/RegistrationContext';
+import { useAnnouncements } from '../contexts/AnnouncementContext';
+import { getUsers } from '../api';
+import type { User } from '../types';
 
 const TableCard: React.FC<{ title: string; headers: string[]; children: React.ReactNode }> = ({ title, headers, children }) => (
     <div className="bg-slate-800/40 backdrop-blur-sm rounded-lg shadow-2xl border border-slate-700/50 overflow-hidden mb-12">
@@ -25,50 +26,24 @@ const TableCard: React.FC<{ title: string; headers: string[]; children: React.Re
 
 
 const DatabaseViewPage: React.FC = () => {
-    const [users, setUsers] = useState<User[]>([]);
-    const [registrations, setRegistrations] = useState<Registration[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
     const { papers } = usePapers();
-    const announcements = ANNOUNCEMENTS_DATA;
+    const { registrations } = useRegistrations();
+    const { announcements } = useAnnouncements();
+    const [users, setUsers] = useState<User[]>([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            setIsLoading(true);
-            try {
-                const [usersData, registrationsData] = await Promise.all([
-                    getUsers(),
-                    getRegistrations()
-                ]);
-                setUsers(usersData);
-                setRegistrations(registrationsData);
-            } catch (error) {
-                console.error("Failed to fetch database data:", error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchData();
+        getUsers()
+            .then(setUsers)
+            .catch(err => console.error("Failed to fetch users", err));
     }, []);
-    
-    if (isLoading) {
-        return (
-            <div className="text-center py-10">
-                 <svg className="animate-spin mx-auto h-10 w-10 text-sky-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                <p className="text-lg text-slate-300 mt-4">Loading Database Viewer...</p>
-            </div>
-        )
-    }
+
 
     return (
         <div className="max-w-screen-xl mx-auto">
             <div className="flex justify-between items-center mb-10">
                 <div>
-                    <h1 className="text-4xl font-bold text-slate-100">Mock Database Viewer</h1>
-                    <p className="text-slate-300 text-lg">A read-only view of the application's mock data.</p>
+                    <h1 className="text-4xl font-bold text-slate-100">Database Viewer</h1>
+                    <p className="text-slate-300 text-lg">A read-only view of the application's mock data from the API.</p>
                 </div>
                 <Link to="/admin" className="bg-slate-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-slate-500 transition-colors">
                     <i className="fas fa-arrow-left mr-2"></i>Back to Dashboard
@@ -112,7 +87,6 @@ const DatabaseViewPage: React.FC = () => {
 
              {/* Registrations Table */}
             <TableCard title="Registrations" headers={['Name', 'Organization', 'Email', 'With Paper?']}>
-                {/* FIX: Use item.id as the key for the list item instead of the index. */}
                 {registrations.length > 0 ? registrations.map((item) => (
                     <tr key={item.id} className="hover:bg-slate-700/30">
                         <td className="px-6 py-4 font-medium text-slate-100">{item.name}</td>

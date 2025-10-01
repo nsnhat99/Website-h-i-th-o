@@ -1,11 +1,8 @@
 import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
-// FIX: Import the 'SiteContent' type from the centralized types file.
 import type { KeynoteSpeaker, ConferenceTopic, Sponsor, NavLink, SiteContent } from '../types';
-import * as api from '../api';
 import LoadingSpinner from '../components/LoadingSpinner';
+import * as api from '../api';
 
-
-// FIX: The SiteContent interface has been moved to types.ts to be shared across the application.
 
 // Define the context type
 interface SiteContentContextType {
@@ -33,31 +30,26 @@ export const SiteContentProvider: React.FC<{ children: ReactNode }> = ({ childre
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchContent = async () => {
-        try {
-            const data = await api.getSiteContent();
-            setSiteContent(data);
-        } catch (err) {
-            console.error("Failed to fetch site content:", err);
-            setError("Không thể tải dữ liệu cần thiết của hội thảo. Vui lòng thử làm mới trang.");
-        }
-    }
-    fetchContent();
+    api.getSiteContent()
+      .then(setSiteContent)
+      .catch(err => {
+        console.error("Failed to load site content:", err);
+        setError("Không thể tải dữ liệu cần thiết của hội thảo. Vui lòng thử làm mới trang.");
+      });
   }, []);
   
   const updateContent = async (updatedData: Partial<SiteContent>) => {
       if (!siteContent) return;
-      const updatedContent = { ...siteContent, ...updatedData };
-      const result = await api.updateSiteContent(updatedContent);
-      setSiteContent(result);
+      const updatedContent = await api.updateSiteContent(updatedData);
+      setSiteContent(updatedContent);
   }
 
   const updateImage = async (key: keyof Omit<SiteContent, 'keynoteSpeakers' | 'conferenceTopics' | 'sponsors' | 'coOrganizers' | 'navLinks' | 'heroTitle' | 'heroSubtitle' | 'conferenceDate' | 'conferenceLocation'>, newUrl: string) => {
-    await updateContent({ [key]: newUrl });
+    updateContent({ [key]: newUrl });
   };
   
   const updateConferenceInfo = async (data: { title: string; subtitle: string; date: string; location: string }) => {
-    await updateContent({ 
+    updateContent({ 
         heroTitle: data.title, 
         heroSubtitle: data.subtitle,
         conferenceDate: data.date,
@@ -68,19 +60,19 @@ export const SiteContentProvider: React.FC<{ children: ReactNode }> = ({ childre
   const addNavLink = async (navLinkData: Omit<NavLink, 'id'>) => {
     if (!siteContent) return;
     const newLink: NavLink = { id: Date.now(), ...navLinkData };
-    await updateContent({ navLinks: [...siteContent.navLinks, newLink] });
+    updateContent({ navLinks: [...siteContent.navLinks, newLink] });
   };
 
   const updateNavLink = async (navLinkId: number, navLinkData: Partial<NavLink>) => {
     if (!siteContent) return;
-    await updateContent({
+    updateContent({
       navLinks: siteContent.navLinks.map(link => link.id === navLinkId ? { ...link, ...navLinkData } : link),
     });
   };
 
   const deleteNavLink = async (navLinkId: number) => {
     if (!siteContent) return;
-    await updateContent({
+    updateContent({
       navLinks: siteContent.navLinks.filter(link => link.id !== navLinkId),
     });
   };
@@ -88,26 +80,26 @@ export const SiteContentProvider: React.FC<{ children: ReactNode }> = ({ childre
   const addKeynoteSpeaker = async (speakerData: Omit<KeynoteSpeaker, 'id'>) => {
     if (!siteContent) return;
     const newSpeaker: KeynoteSpeaker = { id: Date.now(), ...speakerData };
-    await updateContent({ keynoteSpeakers: [...siteContent.keynoteSpeakers, newSpeaker]});
+    updateContent({ keynoteSpeakers: [...siteContent.keynoteSpeakers, newSpeaker]});
   };
   
   const updateKeynoteSpeaker = async (speakerId: number, speakerData: Partial<KeynoteSpeaker>) => {
     if (!siteContent) return;
-    await updateContent({
+    updateContent({
       keynoteSpeakers: siteContent.keynoteSpeakers.map(s => s.id === speakerId ? { ...s, ...speakerData } : s),
     });
   };
   
   const deleteKeynoteSpeaker = async (speakerId: number) => {
     if (!siteContent) return;
-    await updateContent({
+    updateContent({
       keynoteSpeakers: siteContent.keynoteSpeakers.filter(s => s.id !== speakerId),
     });
   };
 
   const updateConferenceTopic = async (topicId: number, data: { title: string; imageUrl: string; description: string }) => {
     if (!siteContent) return;
-    await updateContent({
+    updateContent({
       conferenceTopics: siteContent.conferenceTopics.map(topic =>
         topic.id === topicId ? { ...topic, ...data } : topic
       ),
@@ -118,13 +110,13 @@ export const SiteContentProvider: React.FC<{ children: ReactNode }> = ({ childre
     if (!siteContent) return;
     const newItem: Sponsor = { id: Date.now(), ...data };
     const key = type === 'sponsor' ? 'sponsors' : 'coOrganizers';
-    await updateContent({ [key]: [...siteContent[key], newItem] });
+    updateContent({ [key]: [...siteContent[key], newItem] });
   };
 
   const updateSponsorOrCoOrganizer = async (id: number, data: Partial<Sponsor>, type: 'sponsor' | 'coOrganizer') => {
     if (!siteContent) return;
     const key = type === 'sponsor' ? 'sponsors' : 'coOrganizers';
-    await updateContent({
+    updateContent({
       [key]: siteContent[key].map(item => item.id === id ? { ...item, ...data } : item),
     });
   };
@@ -132,7 +124,7 @@ export const SiteContentProvider: React.FC<{ children: ReactNode }> = ({ childre
   const deleteSponsorOrCoOrganizer = async (id: number, type: 'sponsor' | 'coOrganizer') => {
     if (!siteContent) return;
     const key = type === 'sponsor' ? 'sponsors' : 'coOrganizers';
-    await updateContent({
+    updateContent({
       [key]: siteContent[key].filter(item => item.id !== id),
     });
   };

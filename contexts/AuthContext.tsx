@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react';
-import { login as apiLogin } from '../api';
 import type { User } from '../types';
+import { login as apiLogin } from '../api';
 
 interface AuthContextType {
   currentUser: User | null;
@@ -21,8 +21,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       const user = await apiLogin(username, password);
       setCurrentUser(user);
     } catch (error) {
-      console.error('Login failed:', error);
-      throw error;
+      console.error("Login failed:", error);
+      throw error; // Re-throw the error to be caught by the form
     } finally {
       setIsLoading(false);
     }

@@ -217,5 +217,9 @@ app.put('/site-content', async (req, res) => {
     }
 });
 
+app.get("/api/hello", (req, res) => {
+  return res.send("Hello");
+});
+
 // Export the app for Vercel
 module.exports = app;

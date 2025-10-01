@@ -1,22 +1,20 @@
 const express = require('express');
 const cors = require('cors');
-const { neon } = require('@neondatabase/serverless');
+const { sql } = require('@vercel/postgres');
 
 const app = express();
 
+// Middleware
 app.use(cors());
-app.use(express.json({ limit: '10mb' }));
+app.use(express.json({ limit: '10mb' })); // Increase limit to handle base64 images
 
-const getSQL = () => neon(process.env.DATABASE_URL);
-
-// Remove /api prefix - Vercel adds it automatically
+// --- AUTH & USERS ---
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
     try {
-        const sql = getSQL();
         const { rows } = await sql`SELECT * FROM users WHERE username = ${username};`;
         const user = rows[0];
-        if (user && user.password === password) {
+        if (user && user.password === password) { // Note: In a real app, use hashed passwords!
             const { password, ...userWithoutPassword } = user;
             res.json(userWithoutPassword);
         } else {
@@ -29,7 +27,6 @@ app.post('/login', async (req, res) => {
 
 app.get('/users', async (req, res) => {
     try {
-        const sql = getSQL();
         const { rows } = await sql`SELECT id, username, role, email FROM users;`;
         res.json(rows);
     } catch (error) {
@@ -37,20 +34,18 @@ app.get('/users', async (req, res) => {
     }
 });
 
+// --- REGISTRATIONS ---
 app.get('/registrations', async (req, res) => {
     try {
-        const sql = getSQL();
         const { rows } = await sql`SELECT * FROM registrations ORDER BY id DESC;`;
         res.json(rows);
     } catch (error) {
         res.status(500).json({ message: 'Failed to fetch registrations', details: error.message });
     }
 });
-
 app.post('/registrations', async (req, res) => {
     const { name, organization, email, phone, withPaper } = req.body;
     try {
-        const sql = getSQL();
         const { rows } = await sql`
             INSERT INTO registrations (name, organization, email, phone, "withPaper")
             VALUES (${name}, ${organization}, ${email}, ${phone}, ${withPaper})
@@ -62,9 +57,9 @@ app.post('/registrations', async (req, res) => {
     }
 });
 
+// --- ANNOUNCEMENTS ---
 app.get('/announcements', async (req, res) => {
     try {
-        const sql = getSQL();
         const { rows } = await sql`SELECT * FROM announcements ORDER BY id DESC;`;
         res.json(rows);
     } catch (error) {
@@ -76,7 +71,6 @@ app.post('/announcements', async (req, res) => {
     const { title, content, imageUrl } = req.body;
     const date = new Intl.DateTimeFormat('en-GB').format(new Date());
     try {
-        const sql = getSQL();
         const { rows } = await sql`
             INSERT INTO announcements (title, content, "imageUrl", date)
             VALUES (${title}, ${content}, ${imageUrl}, ${date})
@@ -92,7 +86,6 @@ app.put('/announcements/:id', async (req, res) => {
     const id = parseInt(req.params.id, 10);
     const { title, content, imageUrl } = req.body;
     try {
-        const sql = getSQL();
         const { rows } = await sql`
             UPDATE announcements
             SET 
@@ -115,7 +108,6 @@ app.put('/announcements/:id', async (req, res) => {
 app.delete('/announcements/:id', async (req, res) => {
     const id = parseInt(req.params.id, 10);
     try {
-        const sql = getSQL();
         const result = await sql`DELETE FROM announcements WHERE id = ${id};`;
         if (result.rowCount > 0) {
             res.status(200).json({ id: id });
@@ -127,9 +119,9 @@ app.delete('/announcements/:id', async (req, res) => {
     }
 });
 
+// --- PAPERS ---
 app.get('/papers', async (req, res) => {
     try {
-        const sql = getSQL();
         const { rows } = await sql`SELECT * FROM papers ORDER BY id DESC;`;
         res.json(rows);
     } catch (error) {
@@ -140,7 +132,6 @@ app.get('/papers', async (req, res) => {
 app.post('/papers', async (req, res) => {
     const { authorName, organization, paperTitle, topic } = req.body;
     try {
-        const sql = getSQL();
         const { rows } = await sql`
             INSERT INTO papers ("authorName", organization, "paperTitle", topic, "abstractStatus", "fullTextStatus", "reviewStatus", "presentationStatus")
             VALUES (${authorName}, ${organization}, ${paperTitle}, ${parseInt(topic, 10)}, 'Duyệt', 'Đang chờ duyệt', 'Đang chờ duyệt', 'Không trình bày')
@@ -156,8 +147,7 @@ app.put('/papers/:id', async (req, res) => {
     const id = parseInt(req.params.id, 10);
     const { authorName, organization, paperTitle, abstractStatus, fullTextStatus, reviewStatus, presentationStatus } = req.body;
     try {
-        const sql = getSQL();
-        const { rows } = await sql`
+         const { rows } = await sql`
             UPDATE papers
             SET 
                 "authorName" = COALESCE(${authorName}, "authorName"),
@@ -183,7 +173,6 @@ app.put('/papers/:id', async (req, res) => {
 app.delete('/papers/:id', async (req, res) => {
     const id = parseInt(req.params.id, 10);
     try {
-        const sql = getSQL();
         const result = await sql`DELETE FROM papers WHERE id = ${id};`;
         if (result.rowCount > 0) {
             res.status(200).json({ id: id });
@@ -195,9 +184,9 @@ app.delete('/papers/:id', async (req, res) => {
     }
 });
 
+// --- SITE CONTENT ---
 app.get('/site-content', async (req, res) => {
     try {
-        const sql = getSQL();
         const { rows } = await sql`SELECT content FROM site_content WHERE id = 1;`;
         if (rows.length > 0) {
             res.json(rows[0].content);
@@ -212,7 +201,6 @@ app.get('/site-content', async (req, res) => {
 app.put('/site-content', async (req, res) => {
     const partialContent = req.body;
     try {
-        const sql = getSQL();
         const { rows } = await sql`
             UPDATE site_content
             SET content = content || ${JSON.stringify(partialContent)}::jsonb
@@ -229,9 +217,5 @@ app.put('/site-content', async (req, res) => {
     }
 });
 
-app.get('/test', (req, res) => {
-    res.json({ message: 'API is working!' });
-});
-
-// Export handler for Vercel
+// Export the app for Vercel
 module.exports = app;

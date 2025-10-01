@@ -12,8 +12,7 @@
   "dependencies": {
     "express": "^4.19.2",
     "cors": "^2.8.5",
-    "@vercel/postgres": "^0.8.0",
-    "serverless-http": "^3.0.1"
+    "@neondatabase/serverless": "^1.0.2"
   },
   "devDependencies": {
     "react": "^18.2.0",

@@ -9,8 +9,8 @@ app.use(express.json({ limit: '10mb' }));
 
 const getSQL = () => neon(process.env.DATABASE_URL);
 
-// --- AUTH & USERS ---
-app.post('/api/login', async (req, res) => {
+// Remove /api prefix - Vercel adds it automatically
+app.post('/login', async (req, res) => {
     const { username, password } = req.body;
     try {
         const sql = getSQL();
@@ -27,7 +27,7 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-app.get('/api/users', async (req, res) => {
+app.get('/users', async (req, res) => {
     try {
         const sql = getSQL();
         const { rows } = await sql`SELECT id, username, role, email FROM users;`;
@@ -37,7 +37,7 @@ app.get('/api/users', async (req, res) => {
     }
 });
 
-app.get('/api/registrations', async (req, res) => {
+app.get('/registrations', async (req, res) => {
     try {
         const sql = getSQL();
         const { rows } = await sql`SELECT * FROM registrations ORDER BY id DESC;`;
@@ -47,7 +47,7 @@ app.get('/api/registrations', async (req, res) => {
     }
 });
 
-app.post('/api/registrations', async (req, res) => {
+app.post('/registrations', async (req, res) => {
     const { name, organization, email, phone, withPaper } = req.body;
     try {
         const sql = getSQL();
@@ -62,7 +62,7 @@ app.post('/api/registrations', async (req, res) => {
     }
 });
 
-app.get('/api/announcements', async (req, res) => {
+app.get('/announcements', async (req, res) => {
     try {
         const sql = getSQL();
         const { rows } = await sql`SELECT * FROM announcements ORDER BY id DESC;`;
@@ -72,7 +72,7 @@ app.get('/api/announcements', async (req, res) => {
     }
 });
 
-app.post('/api/announcements', async (req, res) => {
+app.post('/announcements', async (req, res) => {
     const { title, content, imageUrl } = req.body;
     const date = new Intl.DateTimeFormat('en-GB').format(new Date());
     try {
@@ -88,7 +88,7 @@ app.post('/api/announcements', async (req, res) => {
     }
 });
 
-app.put('/api/announcements/:id', async (req, res) => {
+app.put('/announcements/:id', async (req, res) => {
     const id = parseInt(req.params.id, 10);
     const { title, content, imageUrl } = req.body;
     try {
@@ -112,7 +112,7 @@ app.put('/api/announcements/:id', async (req, res) => {
     }
 });
 
-app.delete('/api/announcements/:id', async (req, res) => {
+app.delete('/announcements/:id', async (req, res) => {
     const id = parseInt(req.params.id, 10);
     try {
         const sql = getSQL();
@@ -127,7 +127,7 @@ app.delete('/api/announcements/:id', async (req, res) => {
     }
 });
 
-app.get('/api/papers', async (req, res) => {
+app.get('/papers', async (req, res) => {
     try {
         const sql = getSQL();
         const { rows } = await sql`SELECT * FROM papers ORDER BY id DESC;`;
@@ -137,7 +137,7 @@ app.get('/api/papers', async (req, res) => {
     }
 });
 
-app.post('/api/papers', async (req, res) => {
+app.post('/papers', async (req, res) => {
     const { authorName, organization, paperTitle, topic } = req.body;
     try {
         const sql = getSQL();
@@ -152,7 +152,7 @@ app.post('/api/papers', async (req, res) => {
     }
 });
 
-app.put('/api/papers/:id', async (req, res) => {
+app.put('/papers/:id', async (req, res) => {
     const id = parseInt(req.params.id, 10);
     const { authorName, organization, paperTitle, abstractStatus, fullTextStatus, reviewStatus, presentationStatus } = req.body;
     try {
@@ -180,7 +180,7 @@ app.put('/api/papers/:id', async (req, res) => {
     }
 });
 
-app.delete('/api/papers/:id', async (req, res) => {
+app.delete('/papers/:id', async (req, res) => {
     const id = parseInt(req.params.id, 10);
     try {
         const sql = getSQL();
@@ -195,7 +195,7 @@ app.delete('/api/papers/:id', async (req, res) => {
     }
 });
 
-app.get('/api/site-content', async (req, res) => {
+app.get('/site-content', async (req, res) => {
     try {
         const sql = getSQL();
         const { rows } = await sql`SELECT content FROM site_content WHERE id = 1;`;
@@ -209,7 +209,7 @@ app.get('/api/site-content', async (req, res) => {
     }
 });
 
-app.put('/api/site-content', async (req, res) => {
+app.put('/site-content', async (req, res) => {
     const partialContent = req.body;
     try {
         const sql = getSQL();
@@ -229,11 +229,9 @@ app.put('/api/site-content', async (req, res) => {
     }
 });
 
-app.get('/api/test', (req, res) => {
+app.get('/test', (req, res) => {
     res.json({ message: 'API is working!' });
 });
 
-// CRITICAL: Export as serverless function for Vercel
-module.exports = (req, res) => {
-    return app(req, res);
-};
+// Export handler for Vercel
+module.exports = app;

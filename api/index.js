@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const { sql } = require('@vercel/postgres');
+const { neon } = require('@neondatabase/serverless');
+const sql = neon(process.env.DATABASE_URL);
 
 const app = express();
 

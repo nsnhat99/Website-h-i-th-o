@@ -222,6 +222,4 @@ app.get('/test', (req, res) => {
     res.json({ message: 'API is working!' });
 });
 
-// Export the app for Vercel
-const serverless = require('serverless-http');
-module.exports = serverless(app);
+module.exports = app;

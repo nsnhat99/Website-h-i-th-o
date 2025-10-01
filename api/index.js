@@ -217,6 +217,10 @@ app.put('/site-content', async (req, res) => {
     }
 });
 
+app.get('/test', (req, res) => {
+    res.json({ message: 'API is working!' });
+});
+
 // Export the app for Vercel
 module.exports = app;
 module.exports.default = app;

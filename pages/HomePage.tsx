@@ -96,13 +96,13 @@ const HomePage: React.FC = () => {
         <div className="flex justify-center items-center gap-4 flex-wrap">
             <Link 
                 to="/participation-guide" 
-                className="bg-sky-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-sky-700 transition-transform transform hover:scale-105 shadow-lg"
+                className="bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-yellow-700 transition-transform transform hover:scale-105 shadow-lg"
             >
                 Đăng ký ngay
             </Link>
             <Link 
                 to="/program"
-                className="bg-slate-700/50 text-slate-100 font-bold py-3 px-8 rounded-lg hover:bg-slate-600/50 transition-transform transform hover:scale-105 shadow-lg border border-slate-600"
+                className="bg-yellow-900/50 text-yellow-50 font-bold py-3 px-8 rounded-lg hover:bg-yellow-800/50 transition-transform transform hover:scale-105 shadow-lg border border-yellow-700"
             >
                 Xem chương trình
             </Link>

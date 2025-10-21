@@ -115,13 +115,13 @@ const SubmitPaperPage: React.FC = () => {
         </div>
          <div>
             <label htmlFor="fullPaperFile" className={labelStyles}>Tệp báo cáo toàn văn (PDF, DOC, DOCX) <span className="text-red-500">*</span></label>
-            <input type="file" name="fullPaperFile" id="fullPaperFile" onChange={handleFileChange} required accept=".pdf,.doc,.docx" className="mt-1 block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-sky-900/50 file:text-sky-300 hover:file:bg-sky-800/50" />
+            <input type="file" name="fullPaperFile" id="fullPaperFile" onChange={handleFileChange} required accept=".pdf,.doc,.docx" className="mt-1 block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-yellow-900/50 file:text-yellow-300 hover:file:bg-yellow-800/50" />
         </div>
        
         <div>
           <button 
             type="submit" 
-            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 disabled:bg-slate-600 disabled:cursor-not-allowed"
+            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 disabled:bg-slate-600 disabled:cursor-not-allowed"
             disabled={isLoading}
           >
             {isLoading ? (

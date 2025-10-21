@@ -28,7 +28,7 @@ const ProgramPage: React.FC = () => {
             <div className="space-y-20">
                 {SCHEDULE_DATA.map((day: ScheduleDay) => (
                     <div key={day.day}>
-                        <h2 className="text-3xl font-bold text-sky-400 text-center bg-slate-900/60 backdrop-blur-sm py-3 px-6 rounded-lg w-fit mx-auto mb-10 sticky top-20 z-20 border border-slate-700 shadow-md">
+                        <h2 className="text-3xl font-bold text-yellow-400 text-center bg-slate-900/60 backdrop-blur-sm py-3 px-6 rounded-lg w-fit mx-auto mb-10 sticky top-20 z-20 border border-slate-700 shadow-md">
                             {day.day} - {day.date}
                         </h2>
                         
@@ -43,7 +43,7 @@ const ProgramPage: React.FC = () => {
                                     {/* Event Card */}
                                     <div className="ml-8 md:ml-12">
                                         <div className="p-6 rounded-lg shadow-lg bg-slate-800/40 backdrop-blur-sm border border-slate-700/50">
-                                            {event.time && <p className="text-sky-400 font-semibold mb-2 text-lg">{event.time}</p>}
+                                            {event.time && <p className="text-yellow-400 font-semibold mb-2 text-lg">{event.time}</p>}
                                             <h3 className="text-2xl font-bold text-slate-100 mb-3">{event.activity}</h3>
                                             
                                             {event.subSessions && (

@@ -29,7 +29,7 @@ const LoginPage: React.FC = () => {
     <div className="flex justify-center items-center py-10">
       <div className="bg-slate-800/50 backdrop-blur-md rounded-lg shadow-xl w-full max-w-md p-8 border border-slate-700/50">
         <h2 className="text-2xl font-bold text-center mb-6 text-slate-100">Administrator Login</h2>
-        <div className="text-sm bg-sky-900/50 border border-sky-700/50 text-sky-200 p-3 rounded-md mb-6">
+        <div className="text-sm bg-yellow-900/50 border border-sky-700/50 text-yellow-200 p-3 rounded-md mb-6">
             <p>This login is for administrators only.</p>
             <p><strong>Hint:</strong> username: admin / password: password</p>
         </div>
@@ -61,7 +61,7 @@ const LoginPage: React.FC = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 disabled:bg-slate-600"
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 disabled:bg-slate-600"
             >
               {isLoading ? 'Logging in...' : 'Login'}
             </button>

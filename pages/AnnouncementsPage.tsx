@@ -81,7 +81,7 @@ const AnnouncementForm: React.FC<{
               type="file"
               accept="image/*"
               onChange={handleFileChange}
-              className="mt-1 block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-sky-900/50 file:text-sky-300 hover:file:bg-sky-800/50"
+              className="mt-1 block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-yellow-900/50 file:text-yellow-300 hover:file:bg-yellow-800/50"
             />
           </div>
         <div className="flex justify-end gap-4">
@@ -166,7 +166,7 @@ const AnnouncementsPage: React.FC = () => {
                   <span className="text-sm text-slate-400">{announcement.date}</span>
                   {currentUser?.role === 'admin' && (
                     <div className="mt-2 flex gap-3">
-                      <button onClick={() => handleEdit(announcement)} className="text-sm text-sky-400 hover:underline">Edit</button>
+                      <button onClick={() => handleEdit(announcement)} className="text-sm text-yellow-400 hover:underline">Edit</button>
                       <button onClick={() => handleDelete(announcement.id)} className="text-sm text-red-500 hover:underline">Delete</button>
                     </div>
                   )}

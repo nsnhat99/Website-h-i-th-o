@@ -11,8 +11,8 @@ const Header: React.FC = () => {
   const { siteContent } = useSiteContent();
   const { navLinks } = siteContent;
 
-  const linkClasses = "block py-2 px-3 text-slate-300 rounded hover:bg-slate-700/50 md:hover:bg-transparent md:border-0 md:hover:text-sky-400 md:p-0 transition-colors duration-200";
-  const activeLinkClasses = "text-sky-400 font-semibold md:bg-transparent";
+  const linkClasses = "block py-2 px-3 text-slate-300 rounded hover:bg-slate-700/50 md:hover:bg-transparent md:border-0 md:hover:text-yellow-400 md:p-0 transition-colors duration-200";
+  const activeLinkClasses = "text-yellow-400 font-semibold md:bg-transparent";
 
   const closeAllMenus = () => {
     setIsMenuOpen(false);
@@ -89,7 +89,7 @@ const Header: React.FC = () => {
                     <li key={link.id} className="relative group">
                       <button
                         onClick={() => setOpenMobileDropdown(isMobileDropdownOpen ? null : link.name)}
-                        className="w-full flex items-center justify-between py-2 px-3 text-slate-300 rounded hover:bg-slate-700/50 md:hover:bg-transparent md:border-0 md:hover:text-sky-400 md:p-0 transition-colors duration-200"
+                        className="w-full flex items-center justify-between py-2 px-3 text-slate-300 rounded hover:bg-slate-700/50 md:hover:bg-transparent md:border-0 md:hover:text-yellow-400 md:p-0 transition-colors duration-200"
                         aria-haspopup="true"
                         aria-expanded={isMobileDropdownOpen}
                       >
@@ -104,7 +104,7 @@ const Header: React.FC = () => {
                           <ul className="py-2 text-sm text-slate-300" aria-label={link.name}>
                               {link.children.map((child) => (
                                   <li key={child.id}>
-                                      <RouterNavLink to={child.path!} className={({ isActive }) => `block px-4 py-2 hover:bg-slate-700 ${isActive ? 'text-sky-400' : ''}`} onClick={closeAllMenus}>
+                                      <RouterNavLink to={child.path!} className={({ isActive }) => `block px-4 py-2 hover:bg-slate-700 ${isActive ? 'text-yellow-400' : ''}`} onClick={closeAllMenus}>
                                           {child.name}
                                       </RouterNavLink>
                                   </li>
@@ -118,7 +118,7 @@ const Header: React.FC = () => {
                               <ul className="space-y-2">
                                   {link.children.map((child) => (
                                       <li key={child.id}>
-                                          <RouterNavLink to={child.path!} className={({ isActive }) => `block px-4 py-2 rounded-lg hover:bg-slate-700 ${isActive ? 'text-sky-400 bg-slate-700' : ''}`} onClick={closeAllMenus}>
+                                          <RouterNavLink to={child.path!} className={({ isActive }) => `block px-4 py-2 rounded-lg hover:bg-slate-700 ${isActive ? 'text-yellow-400 bg-slate-700' : ''}`} onClick={closeAllMenus}>
                                               {child.name}
                                           </RouterNavLink>
                                       </li>

@@ -15,7 +15,7 @@ const reviewStatusText: { [key in ReviewStatus]: string } = {
 };
 
 const presentationStatusStyles: { [key in PresentationStatus]: string } = {
-  'Trình bày': 'bg-sky-900/60 text-sky-300 border border-sky-700',
+  'Trình bày': 'bg-yellow-900/60 text-yellow-300 border border-sky-700',
   'Không trình bày': 'bg-slate-700/60 text-slate-300 border border-slate-600',
 };
 
@@ -67,7 +67,7 @@ const EditPaperModal: React.FC<{
         </div>
         <div className="mt-6 flex justify-end gap-4">
           <button type="button" onClick={onClose} className="px-4 py-2 rounded-md text-slate-200 bg-slate-600 hover:bg-slate-500">Cancel</button>
-          <button type="button" onClick={handleSave} className="px-4 py-2 rounded-md text-white bg-sky-600 hover:bg-sky-700">Save Changes</button>
+          <button type="button" onClick={handleSave} className="px-4 py-2 rounded-md text-white bg-yellow-600 hover:bg-yellow-700">Save Changes</button>
         </div>
       </div>
     </div>
@@ -208,7 +208,7 @@ const PaperReviewPage: React.FC = () => {
                                             <td className="px-6 py-4 text-center">
                                                 <button
                                                     onClick={() => setEditingPaper(paper)}
-                                                    className="text-sky-400 hover:text-sky-300 py-1 px-3 rounded-lg bg-sky-900/50 hover:bg-sky-800/50 border border-sky-700/50 transition-colors mr-2"
+                                                    className="text-yellow-400 hover:text-yellow-300 py-1 px-3 rounded-lg bg-yellow-900/50 hover:bg-yellow-800/50 border border-sky-700/50 transition-colors mr-2"
                                                     title="Sửa thông tin bài báo"
                                                 >
                                                     <i className="fas fa-pencil-alt"></i>

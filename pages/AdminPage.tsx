@@ -32,7 +32,7 @@ const ManagementCard: React.FC<{
             {description && <p className="text-sm text-slate-400">{description}</p>}
         </div>
         <div className="mt-4 flex justify-end gap-2">
-            <button onClick={onEdit} className="text-sm font-medium text-sky-400 hover:text-sky-300 py-1 px-3 rounded bg-sky-900/50 hover:bg-sky-800/50">Edit</button>
+            <button onClick={onEdit} className="text-sm font-medium text-yellow-400 hover:text-yellow-300 py-1 px-3 rounded bg-yellow-900/50 hover:bg-yellow-800/50">Edit</button>
             <button onClick={onDelete} className="text-sm font-medium text-red-400 hover:text-red-300 py-1 px-3 rounded bg-red-900/50 hover:bg-red-800/50">Delete</button>
         </div>
     </div>
@@ -57,7 +57,7 @@ const ImageUploadCard: React.FC<{
             <div className="w-full h-32 mb-4">
               <img src={currentImage} alt={title} className="w-full h-full rounded-md bg-slate-900/50 p-1 object-contain" />
             </div>
-            <label htmlFor={inputId} className="cursor-pointer w-full text-center block bg-sky-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-sky-700 transition-colors mt-auto">
+            <label htmlFor={inputId} className="cursor-pointer w-full text-center block bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-yellow-700 transition-colors mt-auto">
                 Change Image
             </label>
             <input id={inputId} type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
@@ -140,13 +140,13 @@ const EditModal: React.FC<{
                         <div>
                             <label className={labelStyles}>Image/Logo</label>
                             {imagePreview && <img src={imagePreview} alt="Preview" className="w-full h-40 object-contain rounded-md my-2 bg-slate-900" />}
-                            <input type="file" accept="image/*" onChange={handleFileChange} className="mt-1 block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-sky-900/50 file:text-sky-300 hover:file:bg-sky-800/50"/>
+                            <input type="file" accept="image/*" onChange={handleFileChange} className="mt-1 block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-yellow-900/50 file:text-yellow-300 hover:file:bg-yellow-800/50"/>
                         </div>
                     )}
                 </div>
                 <div className="mt-6 flex justify-end gap-4">
                     <button onClick={onClose} className="px-4 py-2 rounded-md text-slate-200 bg-slate-600 hover:bg-slate-500">Cancel</button>
-                    <button onClick={handleSubmit} className="px-4 py-2 rounded-md text-white bg-sky-600 hover:bg-sky-700">Save</button>
+                    <button onClick={handleSubmit} className="px-4 py-2 rounded-md text-white bg-yellow-600 hover:bg-yellow-700">Save</button>
                 </div>
             </div>
         </div>
@@ -233,7 +233,7 @@ const AdminPage: React.FC = () => {
                 
                 {/* General Conference Info */}
                 <div>
-                     <h3 className="text-2xl font-semibold text-sky-400 mb-8">General Conference Info</h3>
+                     <h3 className="text-2xl font-semibold text-yellow-400 mb-8">General Conference Info</h3>
                      <div className="bg-slate-800/50 p-6 rounded-lg shadow-md border border-slate-700/50 space-y-4">
                         <div>
                             <label className="block text-sm font-medium text-slate-300">Homepage Hero Title</label>
@@ -254,7 +254,7 @@ const AdminPage: React.FC = () => {
                             </div>
                         </div>
                         <div className="text-right">
-                            <button onClick={handleSaveConfInfo} className="bg-sky-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-sky-700 transition-colors">Save Info</button>
+                            <button onClick={handleSaveConfInfo} className="bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-yellow-700 transition-colors">Save Info</button>
                         </div>
                      </div>
                 </div>
@@ -262,7 +262,7 @@ const AdminPage: React.FC = () => {
                 {/* Navigation Menu */}
                 <div>
                     <div className="flex justify-between items-center mb-8">
-                         <h3 className="text-2xl font-semibold text-sky-400">Navigation Menu</h3>
+                         <h3 className="text-2xl font-semibold text-yellow-400">Navigation Menu</h3>
                          <button onClick={() => handleOpenModal(null, 'navLink')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Add Nav Link</button>
                     </div>
                     <div className="bg-slate-800/50 p-4 rounded-lg shadow-md border border-slate-700/50">
@@ -274,7 +274,7 @@ const AdminPage: React.FC = () => {
                                         <span className="text-sm text-slate-400 ml-4">{link.path}</span>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <button onClick={() => handleOpenModal(link, 'navLink')} className="text-sm font-medium text-sky-400 hover:text-sky-300 py-1 px-3 rounded bg-sky-900/50 hover:bg-sky-800/50">Edit</button>
+                                        <button onClick={() => handleOpenModal(link, 'navLink')} className="text-sm font-medium text-yellow-400 hover:text-yellow-300 py-1 px-3 rounded bg-yellow-900/50 hover:bg-yellow-800/50">Edit</button>
                                         <button onClick={() => handleDelete(link.id, 'navLink')} className="text-sm font-medium text-red-400 hover:text-red-300 py-1 px-3 rounded bg-red-900/50 hover:bg-red-800/50">Delete</button>
                                     </div>
                                 </li>
@@ -286,7 +286,7 @@ const AdminPage: React.FC = () => {
                 {/* Keynote Speakers */}
                 <div>
                     <div className="flex justify-between items-center mb-8">
-                         <h3 className="text-2xl font-semibold text-sky-400">Keynote Speakers</h3>
+                         <h3 className="text-2xl font-semibold text-yellow-400">Keynote Speakers</h3>
                          <button onClick={() => handleOpenModal(null, 'speaker')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Add Speaker</button>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -306,7 +306,7 @@ const AdminPage: React.FC = () => {
                 {/* Sponsors & Partners */}
                 <div>
                     <div className="flex justify-between items-center mb-8">
-                         <h3 className="text-2xl font-semibold text-sky-400">Sponsors & Partners</h3>
+                         <h3 className="text-2xl font-semibold text-yellow-400">Sponsors & Partners</h3>
                          <div>
                             <button onClick={() => handleOpenModal(null, 'sponsor', 'coOrganizer')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors mr-2">Add Co-organizer</button>
                             <button onClick={() => handleOpenModal(null, 'sponsor', 'sponsor')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Add Sponsor</button>
@@ -340,7 +340,7 @@ const AdminPage: React.FC = () => {
 
                  {/* General Images */}
                 <div>
-                     <h3 className="text-2xl font-semibold text-sky-400 mb-8">General Site Images</h3>
+                     <h3 className="text-2xl font-semibold text-yellow-400 mb-8">General Site Images</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         <ImageUploadCard title="Conference Logo" currentImage={siteContent.conferenceLogo} onImageSelect={(file) => handleImageUpload('conferenceLogo', file)} />
                         <ImageUploadCard title="University Logo" currentImage={siteContent.universityLogo} onImageSelect={(file) => handleImageUpload('universityLogo', file)} />

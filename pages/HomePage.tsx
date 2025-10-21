@@ -28,7 +28,7 @@ const HomePage: React.FC = () => {
       <section className="bg-slate-900/40 backdrop-blur-sm p-8 rounded-lg shadow-lg border border-slate-700/50">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
           <div className="flex flex-col items-center">
-             <div className="bg-sky-900/50 text-sky-300 rounded-full p-4 mb-3">
+             <div className="bg-yellow-900/50 text-yellow-300 rounded-full p-4 mb-3">
                 <i className="fas fa-calendar-alt fa-2x"></i>
              </div>
             <h3 className="text-xl font-bold mb-2 text-slate-100">Thời gian</h3>
@@ -53,7 +53,7 @@ const HomePage: React.FC = () => {
 
       {/* Call for Papers & Keynote Speakers Section */}
       <section>
-        <h2 className="text-3xl font-bold mb-8 text-sky-400 text-center">Call for Papers & Báo cáo viên</h2>
+        <h2 className="text-3xl font-bold mb-8 text-yellow-400 text-center">Call for Papers & Báo cáo viên</h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             {/* Call for Papers Image Section (1/2 width) */}
             <div className="bg-slate-900/40 backdrop-blur-sm p-4 sm:p-6 rounded-lg shadow-lg border border-slate-700/50">
@@ -67,7 +67,7 @@ const HomePage: React.FC = () => {
 
             {/* Keynote Speakers Section (1/2 width) */}
             <div>
-                <h3 className="text-2xl font-bold mb-6 text-sky-400 text-center">Báo cáo viên</h3>
+                <h3 className="text-2xl font-bold mb-6 text-yellow-400 text-center">Báo cáo viên</h3>
                 <div className="bg-slate-800/50 backdrop-blur-sm p-4 rounded-lg shadow-xl grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4 border border-slate-700">
                     {siteContent.keynoteSpeakers.map((speaker: KeynoteSpeaker) => (
                         <div key={speaker.id} className="group relative aspect-square" title={`${speaker.name} - ${speaker.keynoteTopic}`}>

@@ -10,7 +10,7 @@ export const NAV_LINKS: NavLink[] = [
   { id: 7, name: "Admin", path: "/admin" },
 ];
 
-export const ABSTRACT_SUBMISSION_FORM_URL = "https://forms.gle/placeholder";
+export const SUBMISSION_FORM_URL = "https://forms.gle/sym2sYRpPXgHxu439";
 
 
 export const SCHEDULE_DATA: ScheduleDay[] = [
@@ -21,9 +21,10 @@ export const SCHEDULE_DATA: ScheduleDay[] = [
       {
         title: "Sáng",
         events: [
-          { time: "8h00 - 8h30", activity: "Khai mạc phiên toàn thể" },
-          { time: "8h30 - 10h00", activity: "Báo cáo tham luận" },
-          { time: "10h00 - 10h30", activity: "Nghỉ giữa giờ" },
+          { time: "07:30", activity: "Đón tiếp đại biểu" },
+          { time: "08:00", activity: "Tuyên bố lý do, giới thiệu đại biểu" },
+          { time: "08:05", activity: "Khai mạc Hội thảo và phát biểu đề dẫn" },
+          { time: "10:00", activity: "Nghỉ giữa giờ - Tiệc trà" },
           { time: "10h30 - 12h00", activity: "Báo cáo tham luận" },
           { time: "12h00 - 12h10", activity: "Kết thúc phiên toàn thể" },
         ]
@@ -31,13 +32,12 @@ export const SCHEDULE_DATA: ScheduleDay[] = [
       {
         title: "Trưa",
         events: [
-          { time: "12h10 - 13h30", activity: "Ăn trưa" }
+          { time: "12:00", activity: "Nghỉ trưa – Ăn trưa tại Nhà đa năng" }
         ]
       },
       {
         title: "Chiều",
         events: [
-          { time: "13h30 - 13h45", activity: "Nghỉ giữa giờ" },
           { 
             time: "13h45 - 16h30", 
             activity: "Phiên 3 tiểu ban đồng thời:",
@@ -47,8 +47,10 @@ export const SCHEDULE_DATA: ScheduleDay[] = [
               { title: "Tiểu ban 3: Trí tuệ nhân tạo trong bảo tồn, phát triển văn hóa và giáo dục", location: "Phòng họp A5, CS1" }
             ]
           },
-          { time: "16h30 - 17h00", activity: "Thảo luận" },
-          { time: "17h00", activity: "Bế mạc hội thảo" }
+          { time: "14:30", activity: "Thảo luận" },
+          { time: "16:00", activity: "Thảo luận" },
+          { time: "16:30", activity: "Kết thúc phiên Tiểu ban 3" },
+          { time: "17:00", activity: "Bế mạc tại Hội trường lớn" }
         ]
       },
       {

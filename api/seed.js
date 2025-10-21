@@ -22,8 +22,8 @@ const initialSiteContent = {
     navLinks: NAV_LINKS,
     heroTitle: "Hội thảo quốc tế về nghiên cứu giáo dục",
     heroSubtitle: "Cơ hội kết nối, chia sẻ và phát triển trong lĩnh vực giáo dục.",
-    conferenceDate: "08-09/11/2025",
-    conferenceLocation: "Hà Nội, Việt Nam",
+    conferenceDate: "08/11/2025",
+    conferenceLocation: "Trường Đại học Thủ đô Hà Nội, 98 Dương Quảng Hàm, Nghĩa Đô, Hà Nội",
 };
 
 const initialUsers = [

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ABSTRACT_SUBMISSION_FORM_URL } from '../constants';
+import { SUBMISSION_FORM_URL } from '../constants';
 import type { Sponsor } from '../types';
 import { useSiteContent } from '../contexts/SiteContentContext';
 
@@ -66,7 +66,7 @@ const ParticipationGuidePage: React.FC = () => {
                             Vui lòng nộp tóm tắt bài báo của bạn thông qua Google Form. Ban tổ chức sẽ xem xét và gửi thông báo kết quả qua email.
                         </p>
                         <a 
-                            href={ABSTRACT_SUBMISSION_FORM_URL}
+                            href={SUBMISSION_FORM_URL}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-block bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition-transform transform hover:scale-105 shadow-lg"

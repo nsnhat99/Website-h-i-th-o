@@ -28,7 +28,7 @@ const ProgramPage: React.FC = () => {
             <div className="space-y-20">
                 {SCHEDULE_DATA.map((day: ScheduleDay) => (
                     <div key={day.day}>
-                        <h2 className="text-3xl font-bold text-yellow-400 text-center bg-slate-900/60 backdrop-blur-sm py-3 px-6 rounded-lg w-fit mx-auto mb-10 sticky top-20 z-20 border border-slate-700 shadow-md">
+                        <h2 className="text-3xl font-bold text-yellow-400 text-center bg-slate-900/60 backdrop-blur-sm py-3 px-6 rounded-lg w-fit mx-auto mb-10 sticky top-44 z-20 border border-slate-700 shadow-md">
                             {day.day} - {day.date}
                         </h2>
                         

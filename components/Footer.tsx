@@ -25,7 +25,7 @@ const Footer: React.FC = () => {
                 <a href="#" className="text-slate-400 hover:text-blue-500 transition-colors">
                     <i className="fab fa-facebook-f fa-lg"></i>
                 </a>
-                <a href="#" className="text-slate-400 hover:text-yellow-400 transition-colors">
+                <a href="#" className="text-slate-400 hover:text-sky-400 transition-colors">
                     <i className="fab fa-twitter fa-lg"></i>
                 </a>
                 <a href="#" className="text-slate-400 hover:text-red-500 transition-colors">

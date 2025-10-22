@@ -34,52 +34,68 @@ const Header: React.FC = () => {
   return (
     <>
       <header className="bg-slate-900/50 backdrop-blur-sm shadow-lg sticky top-0 z-50 border-b border-slate-700/50">
-        <div className="container mx-auto flex flex-wrap items-center justify-between p-4">
-          {/* Logo and Title Section */}
-          <Link to="/" className="flex items-center space-x-4 rtl:space-x-reverse" onClick={closeAllMenus}>
-            <div className="flex items-center gap-2.5 flex-wrap">
-              <img src={siteContent.conferenceLogo} alt="Conference Logo" className="w-[50px] md:w-[60px] h-auto rounded-md object-contain" />
-              <img src={siteContent.universityLogo} alt="University Logo" className="w-[50px] md:w-[60px] h-auto rounded-md object-contain" />
-            </div>
-            <div className="text-left">
-              <h1 className="text-lg sm:text-xl md:text-3xl font-bold text-slate-100 uppercase">HỘI THẢO KHOA HỌC QUỐC TẾ</h1>
-              <h2 className="text-sm sm:text-base md:text-xl font-semibold text-slate-100 uppercase">DIỄN ĐÀN VĂN HOÁ VÀ GIÁO DỤC MÙA THU LẦN THỨ HAI</h2>
-              <h3 className="text-xs sm:text-sm md:text-lg italic text-slate-400 font-serif">Chủ đề: "Phát triển văn hoá và giáo dục sáng tạo trong kỷ nguyên số"</h3>
-            </div>
-          </Link>
+        <div className="container mx-auto p-4">
+          {/* Top row: Logo, Title, User Info, and Toggle */}
+          <div className="flex items-center justify-between gap-2">
+            {/* Logo and Title Section */}
+            <Link to="/" className="flex items-center space-x-2 sm:space-x-4 rtl:space-x-reverse min-w-0 flex-1" onClick={closeAllMenus}>
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <img src={siteContent.conferenceLogo} alt="Conference Logo" className="w-[40px] sm:w-[50px] md:w-[60px] h-auto rounded-md object-contain" />
+                <img src={siteContent.universityLogo} alt="University Logo" className="w-[40px] sm:w-[50px] md:w-[60px] h-auto rounded-md object-contain" />
+              </div>
+              <div className="text-left min-w-0">
+                <h1 className="text-sm sm:text-lg md:text-3xl font-bold text-slate-100 uppercase leading-tight">HỘI THẢO KHOA HỌC QUỐC TẾ</h1>
+                <h2 className="text-xs sm:text-sm md:text-xl font-semibold text-slate-100 uppercase leading-tight">DIỄN ĐÀN VĂN HOÁ VÀ GIÁO DỤC MÙA THU LẦN THỨ HAI</h2>
+                <h3 className="text-[10px] sm:text-xs md:text-lg italic text-slate-400 font-serif leading-tight">Chủ đề: "Phát triển văn hoá và giáo dục sáng tạo trong kỷ nguyên số"</h3>
+              </div>
+            </Link>
 
-          {/* User Info and Toggle Button */}
-          <div className="flex items-center md:order-2 space-x-3 rtl:space-x-reverse">
-            {currentUser ? (
-              <div className="flex items-center gap-4 text-sm">
-                <div className="text-right hidden sm:block">
-                  <p className="font-semibold text-slate-100">Welcome, {currentUser.username}</p>
+            {/* User Info and Toggle Button */}
+            <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+              {currentUser && (
+                <>
+                  <div className="text-right hidden sm:block">
+                    <p className="font-semibold text-slate-100 text-sm">Welcome, {currentUser.username}</p>
+                    <p className="text-xs text-amber-400 capitalize">{currentUser.role}</p>
+                  </div>
+                  <button onClick={handleLogout} className="hidden sm:inline-block text-white font-medium rounded-lg text-sm px-4 py-2 text-center bg-red-600 hover:bg-red-700 transition-colors">
+                    Logout
+                  </button>
+                </>
+              )}
+              <button
+                onClick={toggleMainMenu}
+                type="button"
+                className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-400 rounded-lg md:hidden hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-600 flex-shrink-0"
+                aria-controls="navbar-default"
+                aria-expanded={isMenuOpen}
+              >
+                <span className="sr-only">Open main menu</span>
+                <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile User Info (shown when logged in on mobile) */}
+          {currentUser && (
+            <div className="sm:hidden mt-2 pb-2 border-b border-slate-700/50">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="font-semibold text-slate-100 text-sm">Welcome, {currentUser.username}</p>
                   <p className="text-xs text-amber-400 capitalize">{currentUser.role}</p>
                 </div>
-                <button onClick={handleLogout} className="text-white font-medium rounded-lg text-sm px-4 py-2 text-center bg-red-600 hover:bg-red-700 transition-colors">
+                <button onClick={handleLogout} className="text-white font-medium rounded-lg text-sm px-3 py-1.5 text-center bg-red-600 hover:bg-red-700 transition-colors">
                   Logout
                 </button>
               </div>
-            ) : (
-              <div className="h-9"></div>
-            )}
-            <button
-              onClick={toggleMainMenu}
-              type="button"
-              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-400 rounded-lg md:hidden hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-600"
-              aria-controls="navbar-default"
-              aria-expanded={isMenuOpen}
-            >
-              <span className="sr-only">Open main menu</span>
-              <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
-              </svg>
-            </button>
-          </div>
+            </div>
+          )}
 
-          {/* Navigation Menu */}
-          <div className={`${isMenuOpen ? 'block' : 'hidden'} w-full md:block md:w-auto md:order-1`} id="navbar-default">
-            <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-slate-700 rounded-lg bg-slate-800/80 md:flex-row md:items-center md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-transparent">
+          {/* Navigation Menu - Full width below */}
+          <div className={`${isMenuOpen ? 'block' : 'hidden'} md:block mt-4 md:mt-0`} id="navbar-default">
+            <ul className="font-medium flex flex-col p-4 md:p-0 border border-slate-700 rounded-lg bg-slate-800/80 md:flex-row md:items-center md:space-x-8 rtl:space-x-reverse md:border-0 md:bg-transparent">
               {navLinks.map((link: NavLink) => {
                 if (link.path === '/admin' && currentUser?.role !== 'admin') {
                   return null;

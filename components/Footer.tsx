@@ -22,16 +22,16 @@ const Footer: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
             <p className="text-sm text-slate-100 mb-4 md:mb-0">&copy; {new Date().getFullYear()} Hội thảo quốc tế về nghiên cứu giáo dục. All Rights Reserved.</p>
             <div className="flex justify-center space-x-6">
-                <a href="#" className="text-slate-400 hover:text-blue-500 transition-colors">
+                <a href="#" className="text-yellow-600 hover:text-blue-500 transition-colors">
                     <i className="fab fa-facebook-f fa-lg"></i>
                 </a>
-                <a href="#" className="text-slate-400 hover:text-sky-400 transition-colors">
+                <a href="#" className="text-yellow-600 hover:text-sky-400 transition-colors">
                     <i className="fab fa-twitter fa-lg"></i>
                 </a>
-                <a href="#" className="text-slate-400 hover:text-red-500 transition-colors">
+                <a href="#" className="text-yellow-600 hover:text-red-500 transition-colors">
                     <i className="fab fa-youtube fa-lg"></i>
                 </a>
-                <a href="#" className="text-slate-400 hover:text-blue-400 transition-colors">
+                <a href="#" className="text-yellow-600 hover:text-blue-400 transition-colors">
                     <i className="fab fa-linkedin-in fa-lg"></i>
                 </a>
             </div>

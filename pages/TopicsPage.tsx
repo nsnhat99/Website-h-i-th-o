@@ -17,7 +17,7 @@ const conferenceTopics = [
 const TopicsPage: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg text-gray-800">
-      <h1 className="text-3xl font-bold text-center mb-6 text-blue-700">Chủ đề chính của Hội thảo</h1>
+      <h1 className="text-3xl sm:text-2xl sm:text-xl font-bold text-center mb-6 text-blue-700">Chủ đề chính của Hội thảo</h1>
       <p className="text-center text-gray-600 mb-8">
         Hội thảo tập trung vào các lĩnh vực nghiên cứu đa dạng và cấp thiết trong giáo dục hiện đại.
       </p>

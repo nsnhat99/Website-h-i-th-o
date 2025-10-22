@@ -50,7 +50,7 @@ const AnnouncementForm: React.FC<{
 
   return (
     <div className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-lg shadow-md mb-6 border-l-4 border-yellow-500">
-      <h2 className="text-2xl font-bold mb-4 text-slate-100">{announcement ? 'Edit Announcement' : 'Add New Announcement'}</h2>
+      <h2 className="text-2xl sm:text-xl font-bold mb-4 text-slate-100">{announcement ? 'Edit Announcement' : 'Add New Announcement'}</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="title" className="block text-sm font-medium text-slate-100">Title</label>
@@ -161,7 +161,7 @@ const AnnouncementsPage: React.FC = () => {
             )}
             <div className="p-6">
               <div className="flex justify-between items-start mb-2">
-                <h2 className="text-2xl font-bold text-slate-100 flex-grow">{announcement.title}</h2>
+                <h2 className="text-2xl sm:text-xl font-bold text-slate-100 flex-grow">{announcement.title}</h2>
                 <div className="flex-shrink-0 text-right ml-4">
                   <span className="text-sm text-slate-400">{announcement.date}</span>
                   {currentUser?.role === 'admin' && (

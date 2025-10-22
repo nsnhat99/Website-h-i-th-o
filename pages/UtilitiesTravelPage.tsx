@@ -15,17 +15,17 @@ const UtilitiesTravelPage: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg text-gray-800 space-y-10">
-      <h1 className="text-3xl font-bold text-center text-blue-700">Thông tin Tiện ích & Du lịch</h1>
+      <h1 className="text-3xl sm:text-2xl sm:text-xl font-bold text-center text-blue-700">Thông tin Tiện ích & Du lịch</h1>
       
       <section>
-        <h2 className="text-2xl font-semibold mb-4 border-b pb-2">Địa điểm và Tiện ích</h2>
+        <h2 className="text-2xl sm:text-xl font-semibold mb-4 border-b pb-2">Địa điểm và Tiện ích</h2>
         <p className="mb-2"><strong className="w-24 inline-block">Địa điểm:</strong> Trung tâm Hội nghị Quốc gia, Hà Nội.</p>
         <p className="mb-2"><strong className="w-24 inline-block">Wi-Fi:</strong> Mạng Wi-Fi miễn phí sẽ được cung cấp cho tất cả đại biểu.</p>
         <p><strong className="w-24 inline-block">Ăn uống:</strong> Tiệc trà và bữa trưa được phục vụ tại sảnh chính và nhà hàng trong khuôn viên.</p>
       </section>
 
       <section>
-        <h2 className="text-2xl font-semibold mb-4 border-b pb-2">Khách sạn gợi ý</h2>
+        <h2 className="text-2xl sm:text-xl font-semibold mb-4 border-b pb-2">Khách sạn gợi ý</h2>
         <ul className="space-y-2">
             {hotels.map((hotel, index) => (
                 <li key={index} className="flex justify-between items-center p-2 bg-gray-50 rounded">
@@ -37,7 +37,7 @@ const UtilitiesTravelPage: React.FC = () => {
       </section>
 
       <section>
-        <h2 className="text-2xl font-semibold mb-4 border-b pb-2">Địa điểm tham quan</h2>
+        <h2 className="text-2xl sm:text-xl font-semibold mb-4 border-b pb-2">Địa điểm tham quan</h2>
         <div className="space-y-3">
             {attractions.map((place, index) => (
                 <div key={index}>

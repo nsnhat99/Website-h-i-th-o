@@ -22,7 +22,7 @@ const presentationStatusStyles: { [key in PresentationStatus]: string } = {
 const topicStyles: { [key: number]: string } = {
   1: 'bg-amber-900/70 text-amber-300 border border-amber-700',
   2: 'bg-emerald-900/70 text-emerald-300 border border-emerald-700',
-  3: 'bg-indigo-900/70 text-indigo-300 border border-indigo-700',
+  3: 'bg-indigo-900/70 text-yellow-300 border border-indigo-700',
 };
 
 // Edit Paper Modal Component
@@ -50,7 +50,7 @@ const EditPaperModal: React.FC<{
   return (
     <div className="fixed inset-0 bg-black/60 z-50 flex justify-center items-center p-4" onClick={onClose}>
       <div className="bg-slate-800 rounded-lg shadow-xl w-full max-w-lg p-6 border border-slate-700" onClick={e => e.stopPropagation()}>
-        <h2 className="text-2xl font-bold text-slate-100 mb-4">Edit Paper Submission</h2>
+        <h2 className="text-2xl sm:text-xl font-bold text-slate-100 mb-4">Edit Paper Submission</h2>
         <div className="space-y-4">
           <div>
             <label htmlFor="authorName" className="block text-sm font-medium text-slate-100">Author Name</label>

@@ -13,7 +13,7 @@ const StatCard: React.FC<{ icon: string; title: string; value: number; color: st
         </div>
         <div>
             <p className="text-sm text-slate-400">{title}</p>
-            <p className="text-3xl font-bold text-slate-100">{value}</p>
+            <p className="text-3xl sm:text-2xl sm:text-xl font-bold text-slate-100">{value}</p>
         </div>
     </div>
 );
@@ -123,7 +123,7 @@ const EditModal: React.FC<{
     return (
         <div className="fixed inset-0 bg-black/60 z-50 flex justify-center items-center p-4" onClick={onClose}>
             <div className="bg-slate-800 rounded-lg shadow-xl w-full max-w-lg p-6 border border-slate-700" onClick={e => e.stopPropagation()}>
-                <h2 className="text-2xl font-bold text-slate-100 mb-4">{item?.id ? 'Edit' : 'Add'} {getTitle()}</h2>
+                <h2 className="text-2xl sm:text-xl font-bold text-slate-100 mb-4">{item?.id ? 'Edit' : 'Add'} {getTitle()}</h2>
                 <div className="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
                     <input type="text" name="name" value={formData.name || ''} onChange={handleChange} placeholder="Name" className={inputStyles} />
                     {itemType === 'navLink' && (
@@ -229,11 +229,11 @@ const AdminPage: React.FC = () => {
 
             {/* Content Management Section */}
             <div className="space-y-12">
-                <h2 className="text-3xl font-bold text-center text-slate-100 border-b-2 border-slate-700 pb-4">Content Management</h2>
+                <h2 className="text-3xl sm:text-2xl sm:text-xl font-bold text-center text-slate-100 border-b-2 border-slate-700 pb-4">Content Management</h2>
                 
                 {/* General Conference Info */}
                 <div>
-                     <h3 className="text-2xl font-semibold text-yellow-100 mb-8">General Conference Info</h3>
+                     <h3 className="text-2xl sm:text-xl font-semibold text-yellow-100 mb-8">General Conference Info</h3>
                      <div className="bg-slate-800/50 p-6 rounded-lg shadow-md border border-slate-700/50 space-y-4">
                         <div>
                             <label className="block text-sm font-medium text-slate-100">Homepage Hero Title</label>
@@ -262,7 +262,7 @@ const AdminPage: React.FC = () => {
                 {/* Navigation Menu */}
                 <div>
                     <div className="flex justify-between items-center mb-8">
-                         <h3 className="text-2xl font-semibold text-yellow-100">Navigation Menu</h3>
+                         <h3 className="text-2xl sm:text-xl font-semibold text-yellow-100">Navigation Menu</h3>
                          <button onClick={() => handleOpenModal(null, 'navLink')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Add Nav Link</button>
                     </div>
                     <div className="bg-slate-800/50 p-4 rounded-lg shadow-md border border-slate-700/50">
@@ -286,7 +286,7 @@ const AdminPage: React.FC = () => {
                 {/* Keynote Speakers */}
                 <div>
                     <div className="flex justify-between items-center mb-8">
-                         <h3 className="text-2xl font-semibold text-yellow-100">Keynote Speakers</h3>
+                         <h3 className="text-2xl sm:text-xl font-semibold text-yellow-100">Keynote Speakers</h3>
                          <button onClick={() => handleOpenModal(null, 'speaker')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Add Speaker</button>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -306,7 +306,7 @@ const AdminPage: React.FC = () => {
                 {/* Sponsors & Partners */}
                 <div>
                     <div className="flex justify-between items-center mb-8">
-                         <h3 className="text-2xl font-semibold text-yellow-100">Sponsors & Partners</h3>
+                         <h3 className="text-2xl sm:text-xl font-semibold text-yellow-100">Sponsors & Partners</h3>
                          <div>
                             <button onClick={() => handleOpenModal(null, 'sponsor', 'coOrganizer')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors mr-2">Add Co-organizer</button>
                             <button onClick={() => handleOpenModal(null, 'sponsor', 'sponsor')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Add Sponsor</button>
@@ -340,7 +340,7 @@ const AdminPage: React.FC = () => {
 
                  {/* General Images */}
                 <div>
-                     <h3 className="text-2xl font-semibold text-yellow-100 mb-8">General Site Images</h3>
+                     <h3 className="text-2xl sm:text-xl font-semibold text-yellow-100 mb-8">General Site Images</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         <ImageUploadCard title="Conference Logo" currentImage={siteContent.conferenceLogo} onImageSelect={(file) => handleImageUpload('conferenceLogo', file)} />
                         <ImageUploadCard title="University Logo" currentImage={siteContent.universityLogo} onImageSelect={(file) => handleImageUpload('universityLogo', file)} />
@@ -352,7 +352,7 @@ const AdminPage: React.FC = () => {
 
 
             <div className="mt-16">
-                <h2 className="text-3xl font-bold text-center mb-8 text-slate-100">Database Management</h2>
+                <h2 className="text-3xl sm:text-2xl sm:text-xl font-bold text-center mb-8 text-slate-100">Database Management</h2>
                 <div className="bg-slate-800/50 p-6 rounded-lg shadow-md border border-slate-700/50 text-center">
                     <p className="text-slate-100 mb-4">View the raw data used in this mock application.</p>
                     <Link to="/admin/database" className="inline-block bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-transform transform hover:scale-105 shadow-lg">

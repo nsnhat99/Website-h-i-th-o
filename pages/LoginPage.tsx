@@ -28,7 +28,7 @@ const LoginPage: React.FC = () => {
   return (
     <div className="flex justify-center items-center py-10">
       <div className="bg-slate-800/50 backdrop-blur-md rounded-lg shadow-xl w-full max-w-md p-8 border border-slate-700/50">
-        <h2 className="text-2xl font-bold text-center mb-6 text-slate-100">Administrator Login</h2>
+        <h2 className="text-2xl sm:text-xl font-bold text-center mb-6 text-slate-100">Administrator Login</h2>
         <div className="text-sm bg-yellow-900/50 border border-sky-700/50 text-yellow-200 p-3 rounded-md mb-6">
             <p>This login is for administrators only.</p>
             <p><strong>Hint:</strong> username: admin / password: password</p>

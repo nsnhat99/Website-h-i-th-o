@@ -134,7 +134,7 @@ export const SiteContentProvider: React.FC<{ children: ReactNode }> = ({ childre
     return (
       <div className="fixed inset-0 bg-slate-900 flex justify-center items-center z-50 p-4">
         <div className="text-center bg-red-900/50 border border-red-700 p-8 rounded-lg">
-          <h2 className="text-2xl font-bold text-red-300 mb-4">Lỗi tải trang</h2>
+          <h2 className="text-2xl sm:text-xl font-bold text-red-300 mb-4">Lỗi tải trang</h2>
           <p className="text-slate-200">{error}</p>
         </div>
       </div>

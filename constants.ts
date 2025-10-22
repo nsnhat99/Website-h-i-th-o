@@ -24,15 +24,19 @@ export const SCHEDULE_DATA: ScheduleDay[] = [
           { time: "07:30", activity: "Đón tiếp đại biểu" },
           { time: "08:00", activity: "Tuyên bố lý do, giới thiệu đại biểu" },
           { time: "08:05", activity: "Khai mạc Hội thảo và phát biểu đề dẫn" },
+          { time: "08:30", activity: "THE IMPACT OF THE DIGITAL ERA ON CULTURAL IDENTITY. THE EXAMPLE OF HEALTH IN DIGITAL MEDIA IN VIETNAM AND GERMANY" },
+          { time: "09:00", activity: "DESIGNING SECONDARY SCHOOLS AS KNOWLEDGE SYSTEMS-  INTEGRATING COLLECTIVE AND ARTIFICIAL INTELLIGENCE" },
+          { time: "09:30", activity: "TEACHING FOR TOMORROW, WITH A LITTLE HELP FROM ARTIFICIAL INTELLIGENCE (AI): INSIGHTS INTO PREPARING GRADUATES FOR SUSTAINABLE FUTURE EMPLOYMENT" },
           { time: "10:00", activity: "Nghỉ giữa giờ - Tiệc trà" },
-          { time: "10h30 - 12h00", activity: "Báo cáo tham luận" },
-          { time: "12h00 - 12h10", activity: "Kết thúc phiên toàn thể" },
+          { time: "10:30", activity: "MỘT SỐ SUY NGHĨ VỀ AI VÀ GIÁO DỤC" },
+          { time: "11:00", activity: "PHÁT TRIỂN MỸ THUẬT VIỆT NAM TRÊN KHÔNG GIAN MẠNG TRONG KỶ NGUYÊN SỐ" },
+          { time: "11:30", activity: "PHÁT TRIỂN VĂN HÓA VÀ GIÁO DỤC SÁNG TẠO TRONG BÔI CẢNH CHUYỂN ĐỔI SỐ" },
         ]
       },
       {
         title: "Trưa",
         events: [
-          { time: "12:00", activity: "Nghỉ trưa – Ăn trưa tại Nhà đa năng" }
+          { time: "12:00", activity: "Nghỉ trưa - Ăn trưa tại Nhà đa năng" }
         ]
       },
       {

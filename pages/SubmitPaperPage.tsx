@@ -58,7 +58,7 @@ const SubmitPaperPage: React.FC = () => {
             <div className="text-green-400 mb-4">
                 <i className="fas fa-check-circle fa-4x"></i>
             </div>
-            <h2 className="text-3xl font-bold text-slate-100 mb-3">Nộp Toàn văn thành công!</h2>
+            <h2 className="text-3xl sm:text-2xl sm:text-xl font-bold text-slate-100 mb-3">Nộp Toàn văn thành công!</h2>
             <p className="text-slate-100">
                 Cảm ơn bạn đã nộp báo cáo toàn văn. Thông tin của bạn đã được ghi nhận và sẽ xuất hiện trong trang kết quả duyệt bài.
                 <br/>
@@ -74,7 +74,7 @@ const SubmitPaperPage: React.FC = () => {
 
   return (
     <div className="max-w-2xl mx-auto bg-slate-800/50 backdrop-blur-sm p-8 rounded-lg shadow-lg border border-slate-700/50">
-      <h1 className="text-3xl font-bold text-center mb-2 text-slate-100">Nộp Báo cáo Toàn văn & Đăng ký</h1>
+      <h1 className="text-3xl sm:text-2xl sm:text-xl font-bold text-center mb-2 text-slate-100">Nộp Báo cáo Toàn văn & Đăng ký</h1>
       <p className="text-center text-slate-400 mb-8">Vui lòng điền thông tin và nộp báo cáo toàn văn của bạn.</p>
       
       {error && <div className="bg-red-900/50 border border-red-700 text-red-300 px-4 py-3 rounded relative mb-6" role="alert">{error}</div>}

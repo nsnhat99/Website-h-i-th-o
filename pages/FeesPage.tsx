@@ -9,7 +9,7 @@ const FeesPage: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg text-gray-800">
-      <h1 className="text-3xl font-bold text-center mb-6 text-blue-700">Lệ phí tham dự</h1>
+      <h1 className="text-3xl sm:text-2xl sm:text-xl font-bold text-center mb-6 text-blue-700">Lệ phí tham dự</h1>
       <p className="text-center text-gray-600 mb-8">
         Lệ phí bao gồm tài liệu hội thảo, tiệc trà giữa giờ, và bữa trưa trong các ngày diễn ra sự kiện.
       </p>
@@ -36,7 +36,7 @@ const FeesPage: React.FC = () => {
       </div>
 
       <div className="mt-8 space-y-4">
-        <h2 className="text-2xl font-semibold">Hướng dẫn thanh toán</h2>
+        <h2 className="text-2xl sm:text-xl font-semibold">Hướng dẫn thanh toán</h2>
         <p>Thông tin chi tiết về cách thức chuyển khoản sẽ được gửi đến email của bạn sau khi hoàn tất form đăng ký trực tuyến. Vui lòng kiểm tra hộp thư đến (và cả mục spam) để không bỏ lỡ thông tin quan trọng.</p>
         <p><strong>Lưu ý:</strong> Vui lòng giữ lại biên lai hoặc minh chứng chuyển khoản để đối chiếu khi cần thiết.</p>
       </div>

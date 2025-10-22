@@ -3,7 +3,7 @@ import React from 'react';
 const AboutPage: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg text-gray-800">
-      <h1 className="text-3xl font-bold text-center mb-6 text-blue-700">Về Hội thảo</h1>
+      <h1 className="text-3xl sm:text-2xl sm:text-xl font-bold text-center mb-6 text-blue-700">Về Hội thảo</h1>
       <div className="space-y-4 text-lg text-gray-700">
         <p>
             Chào mừng đến với Hội thảo quốc tế về nghiên cứu giáo dục. Đây là một diễn đàn học thuật uy tín, nơi các nhà nghiên cứu, nhà giáo dục, nhà quản lý và các chuyên gia từ khắp nơi trên thế giới cùng nhau gặp gỡ, chia sẻ những phát hiện mới nhất, thảo luận về các thách thức và định hình tương lai của ngành giáo dục.

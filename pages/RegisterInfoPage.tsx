@@ -4,17 +4,17 @@ import { Link } from 'react-router-dom';
 const RegisterInfoPage: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg text-gray-800">
-      <h1 className="text-3xl font-bold text-center mb-6 text-blue-700">Thông tin Đăng ký & Nộp bài</h1>
+      <h1 className="text-3xl sm:text-2xl sm:text-xl font-bold text-center mb-6 text-blue-700">Thông tin Đăng ký & Nộp bài</h1>
       <div className="space-y-6 text-lg">
         <section>
-          <h2 className="text-2xl font-semibold mb-3 border-b pb-2">Hướng dẫn chung</h2>
+          <h2 className="text-2xl sm:text-xl font-semibold mb-3 border-b pb-2">Hướng dẫn chung</h2>
           <p>
             Ban tổ chức hoan nghênh sự tham gia của các nhà khoa học, nhà nghiên cứu, giảng viên, và sinh viên. Vui lòng đọc kỹ các hướng dẫn dưới đây để hoàn tất thủ tục đăng ký tham dự và nộp bài báo.
           </p>
         </section>
 
         <section>
-          <h2 className="text-2xl font-semibold mb-3 border-b pb-2">Nộp bài báo (Call for Papers)</h2>
+          <h2 className="text-2xl sm:text-xl font-semibold mb-3 border-b pb-2">Nộp bài báo (Call for Papers)</h2>
           <p>
             Chúng tôi khuyến khích các tác giả gửi các công trình nghiên cứu gốc, chưa được công bố. Các bài báo sẽ được bình duyệt bởi hội đồng khoa học.
           </p>
@@ -26,7 +26,7 @@ const RegisterInfoPage: React.FC = () => {
         </section>
 
         <section>
-          <h2 className="text-2xl font-semibold mb-3 border-b pb-2">Đăng ký tham dự</h2>
+          <h2 className="text-2xl sm:text-xl font-semibold mb-3 border-b pb-2">Đăng ký tham dự</h2>
           <p>
             Tất cả đại biểu tham dự (bao gồm cả tác giả có bài báo) đều cần phải đăng ký.
           </p>
@@ -38,7 +38,7 @@ const RegisterInfoPage: React.FC = () => {
         </section>
         
         <section>
-          <h2 className="text-2xl font-semibold mb-3 border-b pb-2">Lệ phí</h2>
+          <h2 className="text-2xl sm:text-xl font-semibold mb-3 border-b pb-2">Lệ phí</h2>
           <p>
             Thông tin chi tiết về các mức lệ phí tham dự và hướng dẫn thanh toán.
           </p>

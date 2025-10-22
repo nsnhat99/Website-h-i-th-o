@@ -25,7 +25,7 @@ const TopicDetailPage: React.FC = () => {
       <div className="bg-slate-800/40 backdrop-blur-sm rounded-lg shadow-xl border border-slate-700/50 overflow-hidden">
         <img src={topic.imageUrl} alt={topic.title} className="w-full h-64 md:h-96 object-cover" />
         <div className="p-8 md:p-12">
-            <h1 className="text-3xl md:text-4xl font-bold text-yellow-100 mb-6">{topic.title}</h1>
+            <h1 className="text-3xl sm:text-2xl sm:text-xl md:text-4xl font-bold text-yellow-100 mb-6">{topic.title}</h1>
             <div 
               className="prose-lg text-slate-100 max-w-none space-y-4"
               dangerouslySetInnerHTML={{ __html: topic.description.replace(/\n/g, '<br />') }}

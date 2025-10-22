@@ -7,32 +7,50 @@ export type NavLink = {
   children?: NavLink[];
 };
 
-export type SubSession = {
-  activity: string;
-  location?: string;
-  time: string;
-  presenter: any;
-};
+// Types
+export interface Presenter {
+  name: string;
+  department?: string;
+}
 
-export type ScheduleEvent = {
+export interface Presentation {
+  time: string;
+  activity: string;
+  presenter?: Presenter[];
+}
+
+export interface ParallelSession {
+  title: string;
+  location: string;
+  timeRange: string;
+  preside: string;
+  presentations: Presentation[];
+}
+
+export interface SubSession {
   time?: string;
   activity: string;
-  details?: string;
-  location?: string;
-  subSessions?: SubSession[];
-  preside?: string;
-};
+  presenter?: Presenter[];
+}
 
-export type SchedulePart = {
+export interface ScheduleEvent {
+  time?: string;
+  activity: string;
+  preside?: string;
+  subSessions?: SubSession[];
+  parallelSessions?: ParallelSession[];
+}
+
+export interface SchedulePart {
   title: string;
   events: ScheduleEvent[];
-};
+}
 
-export type ScheduleDay = {
+export interface ScheduleDay {
   day: string;
   date: string;
   parts: SchedulePart[];
-};
+}
 
 export type Announcement = {
   id: number;

@@ -25,11 +25,12 @@ export const SCHEDULE_DATA: ScheduleDay[] = [
           { time: "08:00", activity: "Tuyên bố lý do, giới thiệu đại biểu" },
           { time: "08:05", activity: "Khai mạc Hội thảo và phát biểu đề dẫn" },
           {
-            activity: "BUỔI SÁNG: PHIÊN TOÀN THỂ 1",
+            activity: "PHIÊN TOÀN THỂ 1",
             preside: "GS.TS. Nguyễn Thị Mỹ Lộc, GS.TS. Nguyễn Quang Ngọc, PGS.TS. Đỗ Hồng Cường",
             subSessions: [
               {
-                time: "08:30", activity: "THE IMPACT OF THE DIGITAL ERA ON CULTURAL IDENTITY. THE EXAMPLE OF HEALTH IN DIGITAL MEDIA IN VIETNAM AND GERMANY",
+                time: "08:30",
+                activity: "THE IMPACT OF THE DIGITAL ERA ON CULTURAL IDENTITY. THE EXAMPLE OF HEALTH IN DIGITAL MEDIA IN VIETNAM AND GERMANY",
                 presenter: [
                   {
                     name: "Thi Kim Oanh Truong and Prof. Dr. Detlef Briesen",
@@ -38,7 +39,8 @@ export const SCHEDULE_DATA: ScheduleDay[] = [
                 ]
               },
               {
-                time: "08:30", activity: "DESIGNING SECONDARY SCHOOLS AS KNOWLEDGE SYSTEMS - INTEGRATING COLLECTIVE AND ARTIFICIAL INTELLIGENCE",
+                time: "08:50",
+                activity: "DESIGNING SECONDARY SCHOOLS AS KNOWLEDGE SYSTEMS - INTEGRATING COLLECTIVE AND ARTIFICIAL INTELLIGENCE",
                 presenter: [
                   {
                     name: "Prof. Dr. Yoshiteru Nakamori",
@@ -47,18 +49,19 @@ export const SCHEDULE_DATA: ScheduleDay[] = [
                   {
                     name: "Dr. Ho Vinh Thang",
                     department: "General Education Department, Ministry of Education and Training, Viet Nam"
-                  },
+                  }
                 ]
               },
               {
-                time: "08:30", activity: "TEACHING FOR TOMORROW, WITH A LITTLE HELP FROM ARTIFICIAL INTELLIGENCE (AI): INSIGHTS INTO PREPARING GRADUATES FOR SUSTAINABLE FUTURE EMPLOYMENT",
+                time: "09:10",
+                activity: "TEACHING FOR TOMORROW, WITH A LITTLE HELP FROM ARTIFICIAL INTELLIGENCE (AI): INSIGHTS INTO PREPARING GRADUATES FOR SUSTAINABLE FUTURE EMPLOYMENT",
                 presenter: [
                   {
                     name: "Prof. Dr. Jason Turner",
                     department: "Asia Pacific University of Technology & Innovation"
                   }
                 ]
-              },
+              }
             ]
           },
           { time: "10:00", activity: "Nghỉ giữa giờ - Tiệc trà" },
@@ -66,7 +69,8 @@ export const SCHEDULE_DATA: ScheduleDay[] = [
             activity: "PHIÊN TOÀN THỂ 2",
             subSessions: [
               {
-                time: "10:30", activity: "MỘT SỐ SUY NGHĨ VỀ AI VÀ GIÁO DỤC",
+                time: "10:30",
+                activity: "MỘT SỐ SUY NGHĨ VỀ AI VÀ GIÁO DỤC",
                 presenter: [
                   {
                     name: "HTB.GS. TSKH. Hồ Tú Bảo",
@@ -75,25 +79,27 @@ export const SCHEDULE_DATA: ScheduleDay[] = [
                 ]
               },
               {
-                time: "11:00", activity: "PHÁT TRIỂN MỸ THUẬT VIỆT NAM TRÊN KHÔNG GIAN MẠNG TRONG KỶ NGUYÊN SỐ",
+                time: "11:00",
+                activity: "PHÁT TRIỂN MỸ THUẬT VIỆT NAM TRÊN KHÔNG GIAN MẠNG TRONG KỶ NGUYÊN SỐ",
                 presenter: [
                   {
                     name: "GS.TS. Từ Thị Loan",
                     department: "Nguyên Viện trưởng Viện Văn hóa và Nghệ thuật quốc gia Việt Nam"
-                  },
+                  }
                 ]
               },
               {
-                time: "11:30", activity: "PHÁT TRIỂN VĂN HÓA VÀ GIÁO DỤC SÁNG TẠO TRONG BÔI CẢNH CHUYỂN ĐỔI SỐ",
+                time: "11:30",
+                activity: "PHÁT TRIỂN VĂN HÓA VÀ GIÁO DỤC SÁNG TẠO TRONG BÔI CẢNH CHUYỂN ĐỔI SỐ",
                 presenter: [
                   {
                     name: "GS.TS. Nguyễn Thị Mỹ Lộc, Nguyễn Thanh Lý",
                     department: "Trường Đại học Giáo dục, Đại học Quốc gia Hà Nội"
                   }
                 ]
-              },
+              }
             ]
-          },
+          }
         ]
       },
       {
@@ -106,51 +112,230 @@ export const SCHEDULE_DATA: ScheduleDay[] = [
         title: "Chiều",
         events: [
           {
-            activity: "PHIÊN TOÀN THỂ 2",
-            subSessions: [
+            activity: "BUỔI CHIỀU: PHIÊN CHUYÊN ĐỀ",
+            parallelSessions: [
               {
-                time: "08:30", activity: "MỘT SỐ SUY NGHĨ VỀ AI VÀ GIÁO DỤC",
-                presenter: [
+                title: "Tiểu ban 1: Giáo dục sáng tạo và phát triển bền vững trong kỷ nguyên số",
+                location: "Hội trường lớn",
+                timeRange: "13:30 - 16:30",
+                preside: "GS.TS. Trần Trung, PGS.TS. Nguyễn Văn Tuân, TS. Trần Thị Hà Giang",
+                presentations: [
                   {
-                    name: "Thi Kim Oanh Truong and Prof. Dr. Detlef Briesen",
-                    department: "Justus-Liebig-Universität DAAD Counselor for Higher Education Vietnam University of Social Sciences and Humanities, VNU, Hanoi"
-                  }
-                ]
-              },
-              {
-                time: "08:30", activity: "DESIGNING SECONDARY SCHOOLS AS KNOWLEDGE SYSTEMS - INTEGRATING COLLECTIVE AND ARTIFICIAL INTELLIGENCE",
-                presenter: [
-                  {
-                    name: "Prof. Dr. Yoshiteru Nakamori",
-                    department: "School of Knowledge Science, Japan Advanced Institute of Science and Technology, Japan"
+                    time: "13:30",
+                    activity: "THUẬT TOÁN ĐÁNH GIÁ THÍCH ỨNG TIẾP CẬN TRIẾT LÝ CÁ NHÂN HÓA GIÁO DỤC",
+                    presenter: [
+                      {
+                        name: "GS.TS. Trần Trung",
+                        department: "Giám đốc Học viện Dân tộc"
+                      }
+                    ]
                   },
                   {
-                    name: "Dr. Ho Vinh Thang",
-                    department: "General Education Department, Ministry of Education and Training, Viet Nam"
+                    time: "13:50",
+                    activity: "TOWARDS A SMART EDUCATION MODEL FOR THE CAPITAL CITY BASED ON EXPLAINABLE AI: POLICY, PERSONALIZED LEARNING, AND DIGITAL CULTURE",
+                    presenter: [
+                      {
+                        name: "PGS.TS. Nguyễn Thị Kim Sơn, Lê Thị Mai Hoa, Bùi Văn Đạt, Nguyễn Quang Anh",
+                        department: "Trường Đại học Công nghiệp Hà Nội, Trường Đại học Thủ đô Hà Nội"
+                      }
+                    ]
                   },
+                  {
+                    time: "14:10",
+                    activity: "INSTRUCTION AND ASSESSMENT ON ENGLISH FOR SPECIFIC PURPOSES (ESP) IN THE FOURTH INDUSTRIAL REVOLUTION: A CASE STUDY AT HANOI METROPOLITAN UNIVERSITY",
+                    presenter: [
+                      {
+                        name: "TS. Vương Thị Hải Yến",
+                        department: "Trường Đại học Thủ đô Hà Nội"
+                      }
+                    ]
+                  },
+                  { time: "14:30", activity: "Thảo luận" },
+                  {
+                    time: "15:00",
+                    activity: "HẠ TẦNG CÔNG NGHỆ THÔNG TIN ĐẢM BẢO ỨNG DỤNG MÔ HÌNH HỆ SINH THÁI HỌC TẬP SÁNG TẠO Ở CẤP TRUNG HỌC CƠ SỞ TẠI HÀ NỘI",
+                    presenter: [
+                      {
+                        name: "TS. Hoàng Thị Mai",
+                        department: "Trường Đại học Thủ đô Hà Nội"
+                      }
+                    ]
+                  },
+                  {
+                    time: "15:20",
+                    activity: "PHÁT TRIỂN NĂNG LỰC SÁNG TẠO HỌC SINH QUA DẠY HỌC LỊCH SỬ TRONG KỶ NGUYÊN SỐ (NGHIÊN CỨU THỰC TIỄN TẠI TRƯỜNG THCS CẦU GIẤY)",
+                    presenter: [
+                      {
+                        name: "ThS. Trần Thị Thu",
+                        department: "Trường THCS Cầu Giấy, Hà Nội"
+                      }
+                    ]
+                  },
+                  {
+                    time: "15:40",
+                    activity: "LAN TỎA GIÁ TRỊ VĂN HÓA TRUYỀN THỐNG DI SẢN LÀNG CỔ ĐƯỜNG LÂM TRONG GIÁO DỤC SÁNG TẠO TẠI BẬC TIỂU HỌC TRONG KỶ NGUYÊN SỐ",
+                    presenter: [
+                      {
+                        name: "ThS. Phan Thị Thúy An",
+                        department: "Trường TH Trung Sơn Trầm, Sơn Tây, Hà Nội"
+                      }
+                    ]
+                  },
+                  { time: "16:00", activity: "Thảo luận" },
+                  { time: "16:30", activity: "Kết thúc chuyên đề 1" }
                 ]
               },
               {
-                time: "08:30", activity: "TEACHING FOR TOMORROW, WITH A LITTLE HELP FROM ARTIFICIAL INTELLIGENCE (AI): INSIGHTS INTO PREPARING GRADUATES FOR SUSTAINABLE FUTURE EMPLOYMENT",
-                presenter: [
+                title: "Tiểu ban 2: Bản sắc văn hóa trong kỷ nguyên số",
+                location: "Phòng họp A5",
+                timeRange: "13:30 - 16:30",
+                preside: "GS.TS. Nguyễn Thị Hoàng Yến, PGS.TS. Nguyễn Anh Tuấn, TS. Lê Thị Thu Hương",
+                presentations: [
                   {
-                    name: "Prof. Dr. Jason Turner",
-                    department: "Asia Pacific University of Technology & Innovation"
-                  }
+                    time: "13:30",
+                    activity: "TÁI ĐỊNH HÌNH ĐẠI HỌC: KIẾN TẠO VĂN HÓA SÁNG TẠO MANG BẢN SẮC TRONG KỶ NGUYÊN SỐ",
+                    presenter: [
+                      {
+                        name: "GS.TS. Nguyễn Thị Hoàng Yến",
+                        department: "Trường Đại học Thủ đô Hà Nội"
+                      }
+                    ]
+                  },
+                  {
+                    time: "13:50",
+                    activity: "VĂN MINH TINH THẦN TRONG KHÔNG GIAN MẠNG VIỆT NAM HIỆN NAY: TỪ GIÁ TRỊ TRUYỀN THỐNG ĐẾN ĐỊNH HÌNH BẢN SẮC VĂN HÓA SỐ",
+                    presenter: [
+                      {
+                        name: "PSG.TS Phạm Lan Oanh",
+                        department: "Viện Văn hóa, Nghệ thuật, Thể thao và Du lịch Việt Nam"
+                      }
+                    ]
+                  },
+                  {
+                    time: "14:10",
+                    activity: "NHẬN DIỆN CÁC KHÔNG GIAN LỊCH SỬ - VĂN HÓA THĂNG LONG HÀ NỘI TRÊN TRỤC SÔNG HỒNG",
+                    presenter: [
+                      {
+                        name: "GS.TS. Nguyễn Quang Ngọc",
+                        department: "Phó Chủ tịch Hội Khoa học Lịch sử Việt Nam"
+                      }
+                    ]
+                  },
+                  { time: "14:30", activity: "Thảo luận" },
+                  {
+                    time: "15:00",
+                    activity: "HỘI GIÓNG TRONG CẤU TRÚC VĂN HÓA ĐÔ THỊ THĂNG LONG-HÀ NỘI: KHẢO CỨU HÀ NỘI HỌC VỀ ĐỊA VĂN HÓA, KHÔNG GIAN TÍN NGƯỠNG VÀ QUÁ TRÌNH DI SẢN HÓA",
+                    presenter: [
+                      {
+                        name: "PGS.TS. Vũ Công Hảo, Đặng Thế Truyền",
+                        department: "Trường Đại học Thủ đô Hà Nội"
+                      }
+                    ]
+                  },
+                  {
+                    time: "15:20",
+                    activity: "VAI TRÒ CỦA CÔNG NGHỆ HIỆN ĐẠI TRONG GÌN GIỮ BẢN SẮC VĂN HÓA LÀNG NGHỀ TRUYỀN THỐNG HÀ NỘI",
+                    presenter: [
+                      {
+                        name: "PGS.TS Đinh Thị Vân Chi",
+                        department: "Trường Đại học Văn hóa Hà Nội"
+                      }
+                    ]
+                  },
+                  {
+                    time: "15:40",
+                    activity: "PHÁT TRIỂN BẢN SẮC VĂN HÓA DÂN TỘC QUA GIẢNG DẠY DÂN CA VIỆT NAM TRONG GIÁO DỤC ĐẠI HỌC THỜI KỲ CHUYỂN ĐỔI SỐ",
+                    presenter: [
+                      {
+                        name: "TS. Đặng Thị Lan",
+                        department: "Trường Đại học Sư phạm Nghệ thuật Trung ương"
+                      }
+                    ]
+                  },
+                  { time: "16:00", activity: "Thảo luận" },
+                  { time: "16:30", activity: "Kết thúc chuyên đề 2" }
                 ]
               },
+              {
+                title: "Tiểu ban 3: Công nghệ số trong bảo tồn, phát triển văn hóa và giáo dục",
+                location: "Phòng họp A",
+                timeRange: "13:30 - 16:30",
+                preside: "GS.TS. Lê Phương Nga, TS. Bùi Quốc Hoàn, TS. Hoàng Thị Mai",
+                presentations: [
+                  {
+                    time: "13:30",
+                    activity: "VẬN DỤNG AI TRONG DẠY NỘI DUNG ĐẠI TỪ XƯNG HÔ NHẰM GIÁO DỤC VĂN HOÁ GIAO TIẾP VÀ TINH THẦN HỢP TÁC CHO HS LỚP 5",
+                    presenter: [
+                      {
+                        name: "GS.TS. Lê Phương Nga, Đỗ Thị Lan",
+                        department: "Trường Đại học Giáo dục, Đại học Quốc gia Hà Nội"
+                      }
+                    ]
+                  },
+                  {
+                    time: "13:50",
+                    activity: "ỨNG DỤNG TRÍ TUỆ NHÂN TẠO (AI) TRONG KIỂM TRA VÀ ĐÁNH GIÁ MÔN TOÁN Ở THPT MỘT NGHIÊN CỨU THEO TIẾP CẬN THEO MÔ HÌNH SAMR",
+                    presenter: [
+                      {
+                        name: "PGS. TS Nguyễn Chí Thành, PGS. TS Nguyễn Minh Tuấn",
+                        department: "Trường Đại học Giáo dục, Đại học Quốc gia Hà Nội"
+                      }
+                    ]
+                  },
+                  {
+                    time: "14:10",
+                    activity: "APPLICATION OF TECHNOLOGY IN LIVE THEATER - AUDIENCE RECEPTION PSYCHOLOGY: CASE STUDY FROM THE HOI AN MEMORIES PERFORMANCE PROGRAM",
+                    presenter: [
+                      {
+                        name: "TS. Đinh Thị Kim Thương",
+                        department: "Trường Đại học Thủ đô Hà Nội"
+                      }
+                    ]
+                  },
+                  { time: "14:30", activity: "Thảo luận" },
+                  {
+                    time: "15:00",
+                    activity: "ỨNG DỤNG AI TRONG CÁC LĨNH VỰC VĂN HÓA VÀ GIÁO DỤC: MÔ HÌNH SO SÁNH VÀ NHỮNG GÓP Ý CHÍNH SÁCH TẠI VIỆT NAM",
+                    presenter: [
+                      {
+                        name: "TS. Tống Hưng Tâm, CN. Nguyễn Hưng Bình",
+                        department: "Học viện chính sách và Phát triển. Bộ Kế hoạch Tài chính"
+                      }
+                    ]
+                  },
+                  {
+                    time: "15:20",
+                    activity: "AI MODELS IN CREATIVE EDUCATIONAL CONTENT DEVELOPMENT: ANALYZING THE IMPACT OF PERSONALIZED LEARNING, METHODOLOGICAL",
+                    presenter: [
+                      {
+                        name: "TS. Nghiêm Xuân Khoát, TS. Đặng Thị Minh Hiền",
+                        department: "Trường Đại học Công nghiệp Việt – Hung, Trường Đại học Thủ đô Hà Nội"
+                      }
+                    ]
+                  },
+                  {
+                    time: "15:40",
+                    activity: "ỨNG DỤNG TRÍ TUỆ NHÂN TẠO VÀO DẠY HỌC CHỦ ĐỀ \"MỘT SỐ NỀN VĂN MINH TRÊN ĐẤT NƯỚC VIỆT NAM (TRƯỚC 1858) NHẰM PHÁT HUY CÁC GIÁ TRỊ DI SẢN TRONG KỶ NGUYÊN SỐ",
+                    presenter: [
+                      {
+                        name: "TS. Trần Vân Anh",
+                        department: "Trường Đại học Thủ đô Hà Nội"
+                      }
+                    ]
+                  },
+                  { time: "16:00", activity: "Thảo luận" },
+                  { time: "16:30", activity: "Kết thúc phiên Tiểu ban 3" }
+                ]
+              }
             ]
           },
-          { time: "14:30", activity: "Thảo luận" },
-          { time: "16:00", activity: "Thảo luận" },
-          { time: "16:30", activity: "Kết thúc phiên Tiểu ban 3" },
           { time: "17:00", activity: "Bế mạc tại Hội trường lớn" }
         ]
       },
       {
         title: "Tối",
         events: [
-          { time: "19h00", activity: "Gala Dinner" }
+          { time: "19:00", activity: "Gala Dinner" }
         ]
       }
     ]

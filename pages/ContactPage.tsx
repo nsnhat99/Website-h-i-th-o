@@ -9,7 +9,7 @@ const ContactPage: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 bg-slate-800/50 backdrop-blur-sm p-8 rounded-lg shadow-lg border border-slate-700/50">
         {/* Contact Info */}
         <div className="space-y-6">
-          <h2 className="text-2xl sm:text-xl font-bold text-yellow-100">Thông tin Ban tổ chức</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-yellow-100">Thông tin Ban tổ chức</h2>
           <div>
             <h3 className="font-semibold text-lg text-slate-100 flex items-center"><i className="fas fa-map-marker-alt mr-3 text-yellow-500"></i>Địa chỉ</h3>
             <p className="text-slate-100 ml-8">144 Xuân Thủy, Cầu Giấy, Hà Nội, Việt Nam</p>
@@ -30,7 +30,7 @@ const ContactPage: React.FC = () => {
 
         {/* Map */}
         <div>
-          <h2 className="text-2xl sm:text-xl font-bold text-yellow-100 mb-4">Bản đồ chỉ đường</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-yellow-100 mb-4">Bản đồ chỉ đường</h2>
           <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-md">
             {/* Using a static image as a placeholder for an interactive map */}
             <img 

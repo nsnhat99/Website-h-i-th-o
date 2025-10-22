@@ -47,7 +47,7 @@ const RegistrationPage: React.FC = () => {
             <div className="text-green-500 mb-4">
                 <i className="fas fa-check-circle fa-4x"></i>
             </div>
-            <h2 className="text-3xl sm:text-2xl sm:text-xl font-bold text-gray-800 mb-3">Đăng ký thành công!</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-3">Đăng ký thành công!</h2>
             <p className="text-gray-600">Cảm ơn bạn đã đăng ký tham dự hội thảo. Một email xác nhận đã được gửi đến địa chỉ {formData.email}. Chúng tôi mong được chào đón bạn!</p>
         </div>
     );
@@ -55,7 +55,7 @@ const RegistrationPage: React.FC = () => {
 
   return (
     <div className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
-      <h1 className="text-3xl sm:text-2xl sm:text-xl font-bold text-center mb-2 text-gray-800">Đăng ký tham dự</h1>
+      <h1 className="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800">Đăng ký tham dự</h1>
       <p className="text-center text-gray-500 mb-8">Vui lòng điền thông tin của bạn vào biểu mẫu dưới đây.</p>
       
       {error && <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6" role="alert">{error}</div>}

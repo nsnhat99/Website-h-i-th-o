@@ -50,7 +50,7 @@ const EditPaperModal: React.FC<{
   return (
     <div className="fixed inset-0 bg-black/60 z-50 flex justify-center items-center p-4" onClick={onClose}>
       <div className="bg-slate-800 rounded-lg shadow-xl w-full max-w-lg p-6 border border-slate-700" onClick={e => e.stopPropagation()}>
-        <h2 className="text-2xl sm:text-xl font-bold text-slate-100 mb-4">Edit Paper Submission</h2>
+        <h2 className="text-xl sm:text-2xl font-bold text-slate-100 mb-4">Edit Paper Submission</h2>
         <div className="space-y-4">
           <div>
             <label htmlFor="authorName" className="block text-sm font-medium text-slate-100">Author Name</label>

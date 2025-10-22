@@ -22,13 +22,13 @@ const getEventStyle = (activity: string) => {
 const ProgramPage: React.FC = () => {
     return (
         <div className="max-w-5xl mx-auto px-4">
-            <h1 className="text-3xl sm:text-2xl sm:text-xl md:text-4xl font-bold text-center mb-4 text-slate-100">Chương trình Hội thảo</h1>
+            <h1 className="text-2xl md:text-3xl md:text-4xl font-bold text-center mb-4 text-slate-100">Chương trình Hội thảo</h1>
             <p className="text-center text-lg text-slate-100 mb-16">Lịch trình chi tiết các phiên thảo luận, diễn giả và sự kiện.</p>
             
             <div className="space-y-20">
                 {SCHEDULE_DATA.map((day: ScheduleDay) => (
                     <div key={day.day}>
-                        <h2 className="text-3xl sm:text-2xl sm:text-xl font-bold text-yellow-100 text-center bg-slate-900/60 backdrop-blur-sm py-3 px-6 rounded-lg w-fit mx-auto mb-10 sticky top-44 z-20 border border-slate-700 shadow-md">
+                        <h2 className="text-2xl md:text-3xl font-bold text-yellow-100 text-center bg-slate-900/60 backdrop-blur-sm py-3 px-6 rounded-lg w-fit mx-auto mb-10 sticky top-44 z-20 border border-slate-700 shadow-md">
                             {day.day} - {day.date}
                         </h2>
                         
@@ -44,7 +44,7 @@ const ProgramPage: React.FC = () => {
                                     <div className="ml-8 md:ml-12">
                                         <div className="p-6 rounded-lg shadow-lg bg-slate-800/40 backdrop-blur-sm border border-slate-700/50">
                                             {event.time && <p className="text-yellow-100 font-semibold mb-2 text-lg">{event.time}</p>}
-                                            <h3 className="text-2xl sm:text-xl font-bold text-slate-100 mb-3">{event.activity}</h3>
+                                            <h3 className="text-xl sm:text-2xl font-bold text-slate-100 mb-3">{event.activity}</h3>
                                             
                                             {event.subSessions && (
                                                 <div className="mt-4 space-y-4 pt-4 border-t border-slate-700">

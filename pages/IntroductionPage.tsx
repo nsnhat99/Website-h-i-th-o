@@ -55,7 +55,7 @@ const EditTopicModal: React.FC<{
   return (
     <div className="fixed inset-0 bg-black/60 z-50 flex justify-center items-center p-4" onClick={onClose}>
       <div className="bg-slate-800 rounded-lg shadow-xl w-full max-w-lg p-6 border border-slate-700" onClick={e => e.stopPropagation()}>
-        <h2 className="text-2xl sm:text-xl font-bold text-slate-100 mb-4">Edit Topic</h2>
+        <h2 className="text-xl sm:text-2xl font-bold text-slate-100 mb-4">Edit Topic</h2>
         <div className="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
           <div>
             <label htmlFor="topic-title" className="block text-sm font-medium text-slate-100">Title</label>
@@ -124,7 +124,7 @@ const IntroductionPage: React.FC = () => {
                 <i className="fas fa-edit mr-1"></i> Edit
             </div>
         )}
-        <h2 className="relative z-10 text-2xl sm:text-xl font-bold text-white leading-tight">
+        <h2 className="relative z-10 text-xl sm:text-2xl font-bold text-white leading-tight">
           {topic.title}
         </h2>
       </div>

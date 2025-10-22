@@ -7,7 +7,7 @@ import { useSiteContent } from '../contexts/SiteContentContext';
 
 const SectionCard: React.FC<{ title: string; children: React.ReactNode; icon: string }> = ({ title, children, icon }) => (
     <section className="bg-slate-800/40 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700/50">
-        <h2 className="text-2xl sm:text-xl md:text-3xl sm:text-2xl sm:text-xl font-bold text-yellow-100 mb-6 flex items-center">
+        <h2 className="text-xl sm:text-2xl md:text-3xl sm:text-xl sm:text-2xl font-bold text-yellow-100 mb-6 flex items-center">
             <i className={`fas ${icon} mr-4 text-yellow-500`}></i>
             {title}
         </h2>
@@ -165,7 +165,7 @@ const ParticipationGuidePage: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
                  <section>
-                    <h2 className="text-2xl sm:text-xl font-bold text-yellow-100 mb-4">Đơn vị đồng tổ chức</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold text-yellow-100 mb-4">Đơn vị đồng tổ chức</h2>
                     <div className="flex justify-center items-center gap-6 flex-wrap bg-slate-800/40 p-4 rounded-lg border border-slate-700/50">
                         {siteContent.coOrganizers.map((org: Sponsor) => (
                         <div key={org.id} className="p-2">
@@ -176,7 +176,7 @@ const ParticipationGuidePage: React.FC = () => {
                     </div>
                 </section>
                 <section>
-                    <h2 className="text-2xl sm:text-xl font-bold text-yellow-100 mb-4">Đơn vị tài trợ</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold text-yellow-100 mb-4">Đơn vị tài trợ</h2>
                      <div className="flex justify-center items-center gap-6 flex-wrap bg-slate-800/40 p-4 rounded-lg border border-slate-700/50">
                         {siteContent.sponsors.map((sponsor: Sponsor) => (
                         <div key={sponsor.id} className="p-2">

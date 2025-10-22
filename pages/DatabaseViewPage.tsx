@@ -8,9 +8,9 @@ import type { User } from '../types';
 
 const TableCard: React.FC<{ title: string; headers: string[]; children: React.ReactNode }> = ({ title, headers, children }) => (
     <div className="bg-slate-800/40 backdrop-blur-sm rounded-lg shadow-2xl border border-slate-700/50 overflow-hidden mb-12">
-        <h2 className="text-2xl font-bold text-yellow-400 p-4 bg-slate-900/50">{title}</h2>
+        <h2 className="text-2xl font-bold text-yellow-100 p-4 bg-slate-900/50">{title}</h2>
         <div className="overflow-x-auto">
-            <table className="min-w-full text-sm text-left text-slate-300">
+            <table className="min-w-full text-sm text-left text-slate-100">
                 <thead className="bg-slate-900/50 text-xs text-slate-400 uppercase tracking-wider">
                     <tr>
                         {headers.map(header => <th key={header} scope="col" className="px-6 py-3">{header}</th>)}
@@ -43,7 +43,7 @@ const DatabaseViewPage: React.FC = () => {
             <div className="flex justify-between items-center mb-10">
                 <div>
                     <h1 className="text-4xl font-bold text-slate-100">Database Viewer</h1>
-                    <p className="text-slate-300 text-lg">A read-only view of the application's mock data from the API.</p>
+                    <p className="text-slate-100 text-lg">A read-only view of the application's mock data from the API.</p>
                 </div>
                 <Link to="/admin" className="bg-slate-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-slate-500 transition-colors">
                     <i className="fas fa-arrow-left mr-2"></i>Back to Dashboard

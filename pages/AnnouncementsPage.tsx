@@ -53,7 +53,7 @@ const AnnouncementForm: React.FC<{
       <h2 className="text-2xl font-bold mb-4 text-slate-100">{announcement ? 'Edit Announcement' : 'Add New Announcement'}</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-slate-300">Title</label>
+          <label htmlFor="title" className="block text-sm font-medium text-slate-100">Title</label>
           <input
             type="text"
             id="title"
@@ -64,7 +64,7 @@ const AnnouncementForm: React.FC<{
           />
         </div>
         <div>
-          <label htmlFor="content" className="block text-sm font-medium text-slate-300">Content</label>
+          <label htmlFor="content" className="block text-sm font-medium text-slate-100">Content</label>
           <textarea
             id="content"
             rows={4}
@@ -75,7 +75,7 @@ const AnnouncementForm: React.FC<{
           ></textarea>
         </div>
         <div>
-            <label className="block text-sm font-medium text-slate-300">Image</label>
+            <label className="block text-sm font-medium text-slate-100">Image</label>
             {imagePreview && <img src={imagePreview} alt="Preview" className="w-full aspect-video object-cover rounded-md my-2 bg-slate-900" />}
             <input
               type="file"
@@ -137,7 +137,7 @@ const AnnouncementsPage: React.FC = () => {
     <div className="max-w-5xl mx-auto">
       <div className="text-center mb-10">
         <h1 className="text-4xl font-bold mb-4 text-slate-100">Thông báo Hội thảo</h1>
-        <p className="text-slate-300 text-lg">Cập nhật các thông tin mới nhất từ ban tổ chức.</p>
+        <p className="text-slate-100 text-lg">Cập nhật các thông tin mới nhất từ ban tổ chức.</p>
          {currentUser?.role === 'admin' && !isFormVisible && (
             <button onClick={handleAddNew} className="mt-6 bg-green-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-green-700 transition-transform transform hover:scale-105 shadow-lg">
                 <i className="fas fa-plus mr-2"></i>Thêm thông báo mới
@@ -166,13 +166,13 @@ const AnnouncementsPage: React.FC = () => {
                   <span className="text-sm text-slate-400">{announcement.date}</span>
                   {currentUser?.role === 'admin' && (
                     <div className="mt-2 flex gap-3">
-                      <button onClick={() => handleEdit(announcement)} className="text-sm text-yellow-400 hover:underline">Edit</button>
+                      <button onClick={() => handleEdit(announcement)} className="text-sm text-yellow-100 hover:underline">Edit</button>
                       <button onClick={() => handleDelete(announcement.id)} className="text-sm text-red-500 hover:underline">Delete</button>
                     </div>
                   )}
                 </div>
               </div>
-              <p className="text-slate-300 text-lg mt-2">
+              <p className="text-slate-100 text-lg mt-2">
                 {announcement.content}
               </p>
             </div>

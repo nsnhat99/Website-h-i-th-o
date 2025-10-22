@@ -11,8 +11,8 @@ const Header: React.FC = () => {
   const { siteContent } = useSiteContent();
   const { navLinks } = siteContent;
 
-  const linkClasses = "block py-2 px-3 text-slate-300 rounded hover:bg-slate-700/50 md:hover:bg-transparent md:border-0 md:hover:text-yellow-400 md:p-0 transition-colors duration-200";
-  const activeLinkClasses = "text-yellow-400 font-semibold md:bg-transparent";
+  const linkClasses = "block py-2 px-3 text-slate-100 rounded hover:bg-slate-700/50 md:hover:bg-transparent md:border-0 md:hover:text-yellow-100 md:p-0 transition-colors duration-200";
+  const activeLinkClasses = "text-yellow-100 font-semibold md:bg-transparent";
 
   const closeAllMenus = () => {
     setIsMenuOpen(false);
@@ -43,7 +43,7 @@ const Header: React.FC = () => {
             </div>
             <div className="text-left">
                 <h1 className="text-lg sm:text-xl md:text-3xl font-bold text-slate-100 uppercase">HỘI THẢO KHOA HỌC QUỐC TẾ</h1>
-                <h2 className="text-sm sm:text-base md:text-xl font-semibold text-slate-300 uppercase">DIỄN ĐÀN VĂN HOÁ VÀ GIÁO DỤC MÙA THU LẦN THỨ HAI</h2>
+                <h2 className="text-sm sm:text-base md:text-xl font-semibold text-slate-100 uppercase">DIỄN ĐÀN VĂN HOÁ VÀ GIÁO DỤC MÙA THU LẦN THỨ HAI</h2>
                 <h3 className="text-xs sm:text-sm md:text-lg italic text-slate-400 font-serif">Chủ đề: "Phát triển văn hoá và giáo dục sáng tạo trong kỷ nguyên số"</h3>
             </div>
           </Link>
@@ -89,7 +89,7 @@ const Header: React.FC = () => {
                     <li key={link.id} className="relative group">
                       <button
                         onClick={() => setOpenMobileDropdown(isMobileDropdownOpen ? null : link.name)}
-                        className="w-full flex items-center justify-between py-2 px-3 text-slate-300 rounded hover:bg-slate-700/50 md:hover:bg-transparent md:border-0 md:hover:text-yellow-400 md:p-0 transition-colors duration-200"
+                        className="w-full flex items-center justify-between py-2 px-3 text-slate-100 rounded hover:bg-slate-700/50 md:hover:bg-transparent md:border-0 md:hover:text-yellow-100 md:p-0 transition-colors duration-200"
                         aria-haspopup="true"
                         aria-expanded={isMobileDropdownOpen}
                       >
@@ -101,10 +101,10 @@ const Header: React.FC = () => {
                       
                       {/* Desktop Dropdown */}
                       <div className="absolute top-full left-0 z-20 w-56 hidden group-hover:block bg-slate-800 rounded-lg shadow-lg border border-slate-700 mt-1">
-                          <ul className="py-2 text-sm text-slate-300" aria-label={link.name}>
+                          <ul className="py-2 text-sm text-slate-100" aria-label={link.name}>
                               {link.children.map((child) => (
                                   <li key={child.id}>
-                                      <RouterNavLink to={child.path!} className={({ isActive }) => `block px-4 py-2 hover:bg-slate-700 ${isActive ? 'text-yellow-400' : ''}`} onClick={closeAllMenus}>
+                                      <RouterNavLink to={child.path!} className={({ isActive }) => `block px-4 py-2 hover:bg-slate-700 ${isActive ? 'text-yellow-100' : ''}`} onClick={closeAllMenus}>
                                           {child.name}
                                       </RouterNavLink>
                                   </li>
@@ -118,7 +118,7 @@ const Header: React.FC = () => {
                               <ul className="space-y-2">
                                   {link.children.map((child) => (
                                       <li key={child.id}>
-                                          <RouterNavLink to={child.path!} className={({ isActive }) => `block px-4 py-2 rounded-lg hover:bg-slate-700 ${isActive ? 'text-yellow-400 bg-slate-700' : ''}`} onClick={closeAllMenus}>
+                                          <RouterNavLink to={child.path!} className={({ isActive }) => `block px-4 py-2 rounded-lg hover:bg-slate-700 ${isActive ? 'text-yellow-100 bg-slate-700' : ''}`} onClick={closeAllMenus}>
                                               {child.name}
                                           </RouterNavLink>
                                       </li>

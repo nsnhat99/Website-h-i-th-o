@@ -32,7 +32,7 @@ const ManagementCard: React.FC<{
             {description && <p className="text-sm text-slate-400">{description}</p>}
         </div>
         <div className="mt-4 flex justify-end gap-2">
-            <button onClick={onEdit} className="text-sm font-medium text-yellow-400 hover:text-yellow-300 py-1 px-3 rounded bg-yellow-900/50 hover:bg-yellow-800/50">Edit</button>
+            <button onClick={onEdit} className="text-sm font-medium text-yellow-100 hover:text-yellow-300 py-1 px-3 rounded bg-yellow-900/50 hover:bg-yellow-800/50">Edit</button>
             <button onClick={onDelete} className="text-sm font-medium text-red-400 hover:text-red-300 py-1 px-3 rounded bg-red-900/50 hover:bg-red-800/50">Delete</button>
         </div>
     </div>
@@ -111,7 +111,7 @@ const EditModal: React.FC<{
     };
     
     const inputStyles = "mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500";
-    const labelStyles = "block text-sm font-medium text-slate-300";
+    const labelStyles = "block text-sm font-medium text-slate-100";
 
     const getTitle = () => {
         if (itemType === 'speaker') return 'Keynote Speaker';
@@ -220,7 +220,7 @@ const AdminPage: React.FC = () => {
         <div className="max-w-7xl mx-auto space-y-16">
             <div>
                 <h1 className="text-4xl font-bold text-center mb-4 text-slate-100">Admin Dashboard</h1>
-                <p className="text-center text-slate-300 text-lg mb-10">Thống kê và báo cáo tổng quan hội thảo.</p>
+                <p className="text-center text-slate-100 text-lg mb-10">Thống kê và báo cáo tổng quan hội thảo.</p>
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <StatCard icon="fa-users" title="Tổng số đăng ký" value={registrations.length} color="bg-blue-500" />
                     <StatCard icon="fa-file-alt" title="Bài báo đã nộp" value={papers.length} color="bg-purple-500" />
@@ -233,23 +233,23 @@ const AdminPage: React.FC = () => {
                 
                 {/* General Conference Info */}
                 <div>
-                     <h3 className="text-2xl font-semibold text-yellow-400 mb-8">General Conference Info</h3>
+                     <h3 className="text-2xl font-semibold text-yellow-100 mb-8">General Conference Info</h3>
                      <div className="bg-slate-800/50 p-6 rounded-lg shadow-md border border-slate-700/50 space-y-4">
                         <div>
-                            <label className="block text-sm font-medium text-slate-300">Homepage Hero Title</label>
+                            <label className="block text-sm font-medium text-slate-100">Homepage Hero Title</label>
                             <input type="text" name="title" value={confInfo.title} onChange={handleConfInfoChange} className="mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md"/>
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-slate-300">Homepage Hero Subtitle</label>
+                            <label className="block text-sm font-medium text-slate-100">Homepage Hero Subtitle</label>
                             <input type="text" name="subtitle" value={confInfo.subtitle} onChange={handleConfInfoChange} className="mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md"/>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm font-medium text-slate-300">Conference Date</label>
+                                <label className="block text-sm font-medium text-slate-100">Conference Date</label>
                                 <input type="text" name="date" value={confInfo.date} onChange={handleConfInfoChange} className="mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md"/>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-slate-300">Conference Location</label>
+                                <label className="block text-sm font-medium text-slate-100">Conference Location</label>
                                 <input type="text" name="location" value={confInfo.location} onChange={handleConfInfoChange} className="mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md"/>
                             </div>
                         </div>
@@ -262,7 +262,7 @@ const AdminPage: React.FC = () => {
                 {/* Navigation Menu */}
                 <div>
                     <div className="flex justify-between items-center mb-8">
-                         <h3 className="text-2xl font-semibold text-yellow-400">Navigation Menu</h3>
+                         <h3 className="text-2xl font-semibold text-yellow-100">Navigation Menu</h3>
                          <button onClick={() => handleOpenModal(null, 'navLink')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Add Nav Link</button>
                     </div>
                     <div className="bg-slate-800/50 p-4 rounded-lg shadow-md border border-slate-700/50">
@@ -274,7 +274,7 @@ const AdminPage: React.FC = () => {
                                         <span className="text-sm text-slate-400 ml-4">{link.path}</span>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <button onClick={() => handleOpenModal(link, 'navLink')} className="text-sm font-medium text-yellow-400 hover:text-yellow-300 py-1 px-3 rounded bg-yellow-900/50 hover:bg-yellow-800/50">Edit</button>
+                                        <button onClick={() => handleOpenModal(link, 'navLink')} className="text-sm font-medium text-yellow-100 hover:text-yellow-300 py-1 px-3 rounded bg-yellow-900/50 hover:bg-yellow-800/50">Edit</button>
                                         <button onClick={() => handleDelete(link.id, 'navLink')} className="text-sm font-medium text-red-400 hover:text-red-300 py-1 px-3 rounded bg-red-900/50 hover:bg-red-800/50">Delete</button>
                                     </div>
                                 </li>
@@ -286,7 +286,7 @@ const AdminPage: React.FC = () => {
                 {/* Keynote Speakers */}
                 <div>
                     <div className="flex justify-between items-center mb-8">
-                         <h3 className="text-2xl font-semibold text-yellow-400">Keynote Speakers</h3>
+                         <h3 className="text-2xl font-semibold text-yellow-100">Keynote Speakers</h3>
                          <button onClick={() => handleOpenModal(null, 'speaker')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Add Speaker</button>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -306,13 +306,13 @@ const AdminPage: React.FC = () => {
                 {/* Sponsors & Partners */}
                 <div>
                     <div className="flex justify-between items-center mb-8">
-                         <h3 className="text-2xl font-semibold text-yellow-400">Sponsors & Partners</h3>
+                         <h3 className="text-2xl font-semibold text-yellow-100">Sponsors & Partners</h3>
                          <div>
                             <button onClick={() => handleOpenModal(null, 'sponsor', 'coOrganizer')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors mr-2">Add Co-organizer</button>
                             <button onClick={() => handleOpenModal(null, 'sponsor', 'sponsor')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Add Sponsor</button>
                          </div>
                     </div>
-                    <h4 className="text-xl font-medium text-slate-300 mb-4">Co-organizers</h4>
+                    <h4 className="text-xl font-medium text-slate-100 mb-4">Co-organizers</h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
                          {siteContent.coOrganizers.map(item => (
                             <ManagementCard 
@@ -324,7 +324,7 @@ const AdminPage: React.FC = () => {
                             />
                         ))}
                     </div>
-                    <h4 className="text-xl font-medium text-slate-300 mb-4">Sponsors</h4>
+                    <h4 className="text-xl font-medium text-slate-100 mb-4">Sponsors</h4>
                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                          {siteContent.sponsors.map(item => (
                             <ManagementCard 
@@ -340,7 +340,7 @@ const AdminPage: React.FC = () => {
 
                  {/* General Images */}
                 <div>
-                     <h3 className="text-2xl font-semibold text-yellow-400 mb-8">General Site Images</h3>
+                     <h3 className="text-2xl font-semibold text-yellow-100 mb-8">General Site Images</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         <ImageUploadCard title="Conference Logo" currentImage={siteContent.conferenceLogo} onImageSelect={(file) => handleImageUpload('conferenceLogo', file)} />
                         <ImageUploadCard title="University Logo" currentImage={siteContent.universityLogo} onImageSelect={(file) => handleImageUpload('universityLogo', file)} />
@@ -354,7 +354,7 @@ const AdminPage: React.FC = () => {
             <div className="mt-16">
                 <h2 className="text-3xl font-bold text-center mb-8 text-slate-100">Database Management</h2>
                 <div className="bg-slate-800/50 p-6 rounded-lg shadow-md border border-slate-700/50 text-center">
-                    <p className="text-slate-300 mb-4">View the raw data used in this mock application.</p>
+                    <p className="text-slate-100 mb-4">View the raw data used in this mock application.</p>
                     <Link to="/admin/database" className="inline-block bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-transform transform hover:scale-105 shadow-lg">
                         <i className="fas fa-database mr-2"></i>View Mock Database
                     </Link>

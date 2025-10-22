@@ -7,11 +7,11 @@ import { useSiteContent } from '../contexts/SiteContentContext';
 
 const SectionCard: React.FC<{ title: string; children: React.ReactNode; icon: string }> = ({ title, children, icon }) => (
     <section className="bg-slate-800/40 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700/50">
-        <h2 className="text-2xl md:text-3xl font-bold text-yellow-400 mb-6 flex items-center">
+        <h2 className="text-2xl md:text-3xl font-bold text-yellow-100 mb-6 flex items-center">
             <i className={`fas ${icon} mr-4 text-yellow-500`}></i>
             {title}
         </h2>
-        <div className="space-y-4 text-slate-300 text-lg">
+        <div className="space-y-4 text-slate-100 text-lg">
             {children}
         </div>
     </section>
@@ -30,7 +30,7 @@ const ContactCard: React.FC<{
             <p className="text-sm text-slate-200 font-semibold">{name}</p>
             {position && <p className="text-xs text-slate-400 mb-3">{position}</p>}
         </div>
-        <div className="mt-2 space-y-1 text-sm text-slate-300">
+        <div className="mt-2 space-y-1 text-sm text-slate-100">
             <p>
                 <i className="fas fa-phone-alt w-5 text-center mr-2 text-slate-400"></i>
                 <a href={`tel:${phone.replace(/\./g, '')}`} className="hover:underline">{phone}</a>
@@ -51,7 +51,7 @@ const ParticipationGuidePage: React.FC = () => {
         <div className="max-w-4xl mx-auto space-y-12">
             <div className="text-center">
                 <h1 className="text-4xl font-bold mb-4 text-slate-100">Hướng dẫn Tham dự & Nộp bài</h1>
-                <p className="text-slate-300 text-xl">Tất cả thông tin bạn cần để tham gia và đóng góp cho hội thảo.</p>
+                <p className="text-slate-100 text-xl">Tất cả thông tin bạn cần để tham gia và đóng góp cho hội thảo.</p>
             </div>
 
             <SectionCard title="Quy trình nộp bài" icon="fa-file-alt">
@@ -62,7 +62,7 @@ const ParticipationGuidePage: React.FC = () => {
                     {/* Step 1: Abstract Submission */}
                     <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
                         <h3 className="text-xl font-semibold text-slate-100 mb-2">Giai đoạn 1: Nộp Tóm tắt</h3>
-                        <p className="mb-4 text-slate-300">
+                        <p className="mb-4 text-slate-100">
                             Vui lòng nộp tóm tắt bài báo của bạn thông qua Google Form. Ban tổ chức sẽ xem xét và gửi thông báo kết quả qua email.
                         </p>
                         <a 
@@ -78,7 +78,7 @@ const ParticipationGuidePage: React.FC = () => {
                     {/* Step 2: Full Paper Submission */}
                     <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
                         <h3 className="text-xl font-semibold text-slate-100 mb-2">Giai đoạn 2: Nộp Báo cáo Toàn văn</h3>
-                        <p className="mb-4 text-slate-300">
+                        <p className="mb-4 text-slate-100">
                             Sau khi tóm tắt được chấp thuận, tác giả vui lòng nộp báo cáo toàn văn và hoàn tất đăng ký thông tin tại đây.
                         </p>
                         <Link 
@@ -100,7 +100,7 @@ const ParticipationGuidePage: React.FC = () => {
                 </div>
                 <div className="mt-6 pt-4 border-t border-slate-600">
                     <h3 className="font-semibold text-xl text-slate-100 mb-3">Thông tin chuyển khoản</h3>
-                    <ul className="space-y-2 text-slate-300 bg-slate-900/50 p-4 rounded-md border border-slate-700">
+                    <ul className="space-y-2 text-slate-100 bg-slate-900/50 p-4 rounded-md border border-slate-700">
                         <li><strong>Chủ tài khoản:</strong> TRUONG DAI HOC THU DO HA NOI</li>
                         <li><strong>Số tài khoản:</strong> 115000147515</li>
                         <li><strong>Ngân hàng:</strong> Vietinbank - CN Nam Thăng Long</li>
@@ -147,7 +147,7 @@ const ParticipationGuidePage: React.FC = () => {
                             <p className="text-sm text-slate-200 font-semibold">TS. Đinh Thị Kim Thương</p>
                             <p className="text-xs text-slate-400 mb-3">Phó Trưởng phòng QLKHCN & HTPT</p>
                             
-                            <div className="mt-2 space-y-1 text-sm text-slate-300">
+                            <div className="mt-2 space-y-1 text-sm text-slate-100">
                                 <p>
                                     <i className="fas fa-phone-alt mr-2 text-slate-400"></i>
                                     <a href="tel:0900066030" className="hover:underline">0900.066.030</a>
@@ -165,23 +165,23 @@ const ParticipationGuidePage: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
                  <section>
-                    <h2 className="text-2xl font-bold text-yellow-400 mb-4">Đơn vị đồng tổ chức</h2>
+                    <h2 className="text-2xl font-bold text-yellow-100 mb-4">Đơn vị đồng tổ chức</h2>
                     <div className="flex justify-center items-center gap-6 flex-wrap bg-slate-800/40 p-4 rounded-lg border border-slate-700/50">
                         {siteContent.coOrganizers.map((org: Sponsor) => (
                         <div key={org.id} className="p-2">
                             <img src={org.logoUrl} alt={org.name} className="h-14 object-contain" />
-                            <p className="mt-2 text-sm font-semibold text-slate-300">{org.name}</p>
+                            <p className="mt-2 text-sm font-semibold text-slate-100">{org.name}</p>
                         </div>
                         ))}
                     </div>
                 </section>
                 <section>
-                    <h2 className="text-2xl font-bold text-yellow-400 mb-4">Đơn vị tài trợ</h2>
+                    <h2 className="text-2xl font-bold text-yellow-100 mb-4">Đơn vị tài trợ</h2>
                      <div className="flex justify-center items-center gap-6 flex-wrap bg-slate-800/40 p-4 rounded-lg border border-slate-700/50">
                         {siteContent.sponsors.map((sponsor: Sponsor) => (
                         <div key={sponsor.id} className="p-2">
                             <img src={sponsor.logoUrl} alt={sponsor.name} className="h-14 object-contain" />
-                             <p className="mt-2 text-sm font-semibold text-slate-300">{sponsor.name}</p>
+                             <p className="mt-2 text-sm font-semibold text-slate-100">{sponsor.name}</p>
                         </div>
                         ))}
                     </div>

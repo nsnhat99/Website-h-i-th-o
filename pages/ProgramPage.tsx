@@ -23,12 +23,12 @@ const ProgramPage: React.FC = () => {
     return (
         <div className="max-w-5xl mx-auto px-4">
             <h1 className="text-3xl md:text-4xl font-bold text-center mb-4 text-slate-100">Chương trình Hội thảo</h1>
-            <p className="text-center text-lg text-slate-300 mb-16">Lịch trình chi tiết các phiên thảo luận, diễn giả và sự kiện.</p>
+            <p className="text-center text-lg text-slate-100 mb-16">Lịch trình chi tiết các phiên thảo luận, diễn giả và sự kiện.</p>
             
             <div className="space-y-20">
                 {SCHEDULE_DATA.map((day: ScheduleDay) => (
                     <div key={day.day}>
-                        <h2 className="text-3xl font-bold text-yellow-400 text-center bg-slate-900/60 backdrop-blur-sm py-3 px-6 rounded-lg w-fit mx-auto mb-10 sticky top-44 z-20 border border-slate-700 shadow-md">
+                        <h2 className="text-3xl font-bold text-yellow-100 text-center bg-slate-900/60 backdrop-blur-sm py-3 px-6 rounded-lg w-fit mx-auto mb-10 sticky top-44 z-20 border border-slate-700 shadow-md">
                             {day.day} - {day.date}
                         </h2>
                         
@@ -43,7 +43,7 @@ const ProgramPage: React.FC = () => {
                                     {/* Event Card */}
                                     <div className="ml-8 md:ml-12">
                                         <div className="p-6 rounded-lg shadow-lg bg-slate-800/40 backdrop-blur-sm border border-slate-700/50">
-                                            {event.time && <p className="text-yellow-400 font-semibold mb-2 text-lg">{event.time}</p>}
+                                            {event.time && <p className="text-yellow-100 font-semibold mb-2 text-lg">{event.time}</p>}
                                             <h3 className="text-2xl font-bold text-slate-100 mb-3">{event.activity}</h3>
                                             
                                             {event.subSessions && (
@@ -51,7 +51,7 @@ const ProgramPage: React.FC = () => {
                                                     {event.subSessions.map((sub: SubSession, sIndex: number) => (
                                                         <div key={sIndex} className="p-4 rounded-md bg-slate-900/50 border-l-4 border-indigo-500">
                                                             <p className="font-bold text-indigo-300 text-lg">{sub.title}</p>
-                                                            <p className="text-sm text-slate-300 mt-1">
+                                                            <p className="text-sm text-slate-100 mt-1">
                                                                 <i className="fas fa-map-marker-alt mr-2 text-indigo-400"></i>{sub.location}
                                                             </p>
                                                         </div>

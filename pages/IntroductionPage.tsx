@@ -58,7 +58,7 @@ const EditTopicModal: React.FC<{
         <h2 className="text-2xl font-bold text-slate-100 mb-4">Edit Topic</h2>
         <div className="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
           <div>
-            <label htmlFor="topic-title" className="block text-sm font-medium text-slate-300">Title</label>
+            <label htmlFor="topic-title" className="block text-sm font-medium text-slate-100">Title</label>
             <input
               type="text"
               id="topic-title"
@@ -68,7 +68,7 @@ const EditTopicModal: React.FC<{
             />
           </div>
            <div>
-            <label htmlFor="topic-description" className="block text-sm font-medium text-slate-300">Description</label>
+            <label htmlFor="topic-description" className="block text-sm font-medium text-slate-100">Description</label>
             <textarea
               id="topic-description"
               rows={5}
@@ -78,7 +78,7 @@ const EditTopicModal: React.FC<{
             ></textarea>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-300">Image</label>
+            <label className="block text-sm font-medium text-slate-100">Image</label>
             <img src={imagePreview} alt="Preview" className="w-full h-48 object-cover rounded-md my-2 bg-slate-900" />
             <input
               type="file"
@@ -152,9 +152,9 @@ const IntroductionPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto">
       <h1 className="text-4xl font-bold text-center mb-4 text-slate-100">Giới thiệu</h1>
-      <p className="text-center text-slate-300 text-lg mb-10">
+      <p className="text-center text-slate-100 text-lg mb-10">
         Khám phá các chủ đề chính sẽ được thảo luận và nghiên cứu tại hội thảo.
-        {isAdmin && <span className="block text-sm text-yellow-400 mt-2">(Admin: Click vào một chủ đề để chỉnh sửa nội dung)</span>}
+        {isAdmin && <span className="block text-sm text-yellow-100 mt-2">(Admin: Click vào một chủ đề để chỉnh sửa nội dung)</span>}
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

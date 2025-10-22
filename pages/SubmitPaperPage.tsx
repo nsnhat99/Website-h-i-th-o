@@ -59,7 +59,7 @@ const SubmitPaperPage: React.FC = () => {
                 <i className="fas fa-check-circle fa-4x"></i>
             </div>
             <h2 className="text-3xl font-bold text-slate-100 mb-3">Nộp Toàn văn thành công!</h2>
-            <p className="text-slate-300">
+            <p className="text-slate-100">
                 Cảm ơn bạn đã nộp báo cáo toàn văn. Thông tin của bạn đã được ghi nhận và sẽ xuất hiện trong trang kết quả duyệt bài.
                 <br/>
                 Bạn sẽ được chuyển hướng đến trang kết quả sau giây lát...
@@ -69,7 +69,7 @@ const SubmitPaperPage: React.FC = () => {
   }
 
   const inputStyles = "mt-1 block w-full px-3 py-2 bg-slate-800/50 border border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500";
-  const labelStyles = "block text-sm font-medium text-slate-300 mb-1";
+  const labelStyles = "block text-sm font-medium text-slate-100 mb-1";
 
 
   return (

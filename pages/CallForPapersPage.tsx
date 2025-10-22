@@ -37,7 +37,7 @@ const CallForPapersPage: React.FC = () => {
                 />
                 <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-2 bg-black/70 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
                   <p className="text-xs sm:text-sm font-bold text-white leading-tight">{speaker.name}</p>
-                  <p className="text-[10px] sm:text-xs text-yellow-400 mt-1 font-semibold leading-tight hidden sm:block">{speaker.keynoteTopic}</p>
+                  <p className="text-[10px] sm:text-xs text-yellow-100 mt-1 font-semibold leading-tight hidden sm:block">{speaker.keynoteTopic}</p>
                 </div>
               </div>
             ))}

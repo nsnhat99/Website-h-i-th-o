@@ -16,7 +16,7 @@ const reviewStatusText: { [key in ReviewStatus]: string } = {
 
 const presentationStatusStyles: { [key in PresentationStatus]: string } = {
   'Trình bày': 'bg-yellow-900/60 text-yellow-300 border border-sky-700',
-  'Không trình bày': 'bg-slate-700/60 text-slate-300 border border-slate-600',
+  'Không trình bày': 'bg-slate-700/60 text-slate-100 border border-slate-600',
 };
 
 const topicStyles: { [key: number]: string } = {
@@ -53,15 +53,15 @@ const EditPaperModal: React.FC<{
         <h2 className="text-2xl font-bold text-slate-100 mb-4">Edit Paper Submission</h2>
         <div className="space-y-4">
           <div>
-            <label htmlFor="authorName" className="block text-sm font-medium text-slate-300">Author Name</label>
+            <label htmlFor="authorName" className="block text-sm font-medium text-slate-100">Author Name</label>
             <input type="text" id="authorName" name="authorName" value={formData.authorName} onChange={handleChange} className={inputStyles} />
           </div>
           <div>
-            <label htmlFor="organization" className="block text-sm font-medium text-slate-300">Organization</label>
+            <label htmlFor="organization" className="block text-sm font-medium text-slate-100">Organization</label>
             <input type="text" id="organization" name="organization" value={formData.organization} onChange={handleChange} className={inputStyles} />
           </div>
           <div>
-            <label htmlFor="paperTitle" className="block text-sm font-medium text-slate-300">Paper Title</label>
+            <label htmlFor="paperTitle" className="block text-sm font-medium text-slate-100">Paper Title</label>
             <input type="text" id="paperTitle" name="paperTitle" value={formData.paperTitle} onChange={handleChange} className={inputStyles} />
           </div>
         </div>
@@ -98,13 +98,13 @@ const PaperReviewPage: React.FC = () => {
         <>
             <div className="max-w-screen-xl mx-auto">
                 <h1 className="text-4xl font-bold text-center mb-4 text-slate-100">Kết quả duyệt bài tham dự hội thảo</h1>
-                <p className="text-center text-slate-300 text-lg mb-10">
+                <p className="text-center text-slate-100 text-lg mb-10">
                     Danh sách các bài báo đã nộp và trạng thái duyệt, trình bày.
                 </p>
 
                 <div className="bg-slate-800/40 backdrop-blur-sm rounded-lg shadow-2xl border border-slate-700/50 overflow-hidden">
                     <div className="overflow-x-auto">
-                        <table className="min-w-full text-sm text-left text-slate-300">
+                        <table className="min-w-full text-sm text-left text-slate-100">
                             <thead className="bg-slate-900/50 text-xs text-slate-400 uppercase tracking-wider">
                                 <tr>
                                     <th scope="col" className="px-6 py-3 w-16 text-center text-sm">TT</th>
@@ -208,7 +208,7 @@ const PaperReviewPage: React.FC = () => {
                                             <td className="px-6 py-4 text-center">
                                                 <button
                                                     onClick={() => setEditingPaper(paper)}
-                                                    className="text-yellow-400 hover:text-yellow-300 py-1 px-3 rounded-lg bg-yellow-900/50 hover:bg-yellow-800/50 border border-sky-700/50 transition-colors mr-2"
+                                                    className="text-yellow-100 hover:text-yellow-300 py-1 px-3 rounded-lg bg-yellow-900/50 hover:bg-yellow-800/50 border border-sky-700/50 transition-colors mr-2"
                                                     title="Sửa thông tin bài báo"
                                                 >
                                                     <i className="fas fa-pencil-alt"></i>

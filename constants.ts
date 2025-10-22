@@ -24,13 +24,76 @@ export const SCHEDULE_DATA: ScheduleDay[] = [
           { time: "07:30", activity: "Đón tiếp đại biểu" },
           { time: "08:00", activity: "Tuyên bố lý do, giới thiệu đại biểu" },
           { time: "08:05", activity: "Khai mạc Hội thảo và phát biểu đề dẫn" },
-          { time: "08:30", activity: "THE IMPACT OF THE DIGITAL ERA ON CULTURAL IDENTITY. THE EXAMPLE OF HEALTH IN DIGITAL MEDIA IN VIETNAM AND GERMANY" },
-          { time: "09:00", activity: "DESIGNING SECONDARY SCHOOLS AS KNOWLEDGE SYSTEMS-  INTEGRATING COLLECTIVE AND ARTIFICIAL INTELLIGENCE" },
-          { time: "09:30", activity: "TEACHING FOR TOMORROW, WITH A LITTLE HELP FROM ARTIFICIAL INTELLIGENCE (AI): INSIGHTS INTO PREPARING GRADUATES FOR SUSTAINABLE FUTURE EMPLOYMENT" },
+          {
+            activity: "BUỔI SÁNG: PHIÊN TOÀN THỂ 1",
+            preside: "GS.TS. Nguyễn Thị Mỹ Lộc, GS.TS. Nguyễn Quang Ngọc, PGS.TS. Đỗ Hồng Cường",
+            subSessions: [
+              {
+                time: "08:30", activity: "THE IMPACT OF THE DIGITAL ERA ON CULTURAL IDENTITY. THE EXAMPLE OF HEALTH IN DIGITAL MEDIA IN VIETNAM AND GERMANY",
+                presenter: [
+                  {
+                    name: "Thi Kim Oanh Truong and Prof. Dr. Detlef Briesen",
+                    department: "Justus-Liebig-Universität DAAD Counselor for Higher Education Vietnam University of Social Sciences and Humanities, VNU, Hanoi"
+                  }
+                ]
+              },
+              {
+                time: "08:30", activity: "DESIGNING SECONDARY SCHOOLS AS KNOWLEDGE SYSTEMS - INTEGRATING COLLECTIVE AND ARTIFICIAL INTELLIGENCE",
+                presenter: [
+                  {
+                    name: "Prof. Dr. Yoshiteru Nakamori",
+                    department: "School of Knowledge Science, Japan Advanced Institute of Science and Technology, Japan"
+                  },
+                  {
+                    name: "Dr. Ho Vinh Thang",
+                    department: "General Education Department, Ministry of Education and Training, Viet Nam"
+                  },
+                ]
+              },
+              {
+                time: "08:30", activity: "TEACHING FOR TOMORROW, WITH A LITTLE HELP FROM ARTIFICIAL INTELLIGENCE (AI): INSIGHTS INTO PREPARING GRADUATES FOR SUSTAINABLE FUTURE EMPLOYMENT",
+                presenter: [
+                  {
+                    name: "Prof. Dr. Jason Turner",
+                    department: "Asia Pacific University of Technology & Innovation"
+                  }
+                ]
+              },
+            ]
+          },
           { time: "10:00", activity: "Nghỉ giữa giờ - Tiệc trà" },
-          { time: "10:30", activity: "MỘT SỐ SUY NGHĨ VỀ AI VÀ GIÁO DỤC" },
-          { time: "11:00", activity: "PHÁT TRIỂN MỸ THUẬT VIỆT NAM TRÊN KHÔNG GIAN MẠNG TRONG KỶ NGUYÊN SỐ" },
-          { time: "11:30", activity: "PHÁT TRIỂN VĂN HÓA VÀ GIÁO DỤC SÁNG TẠO TRONG BÔI CẢNH CHUYỂN ĐỔI SỐ" },
+          {
+            activity: "PHIÊN TOÀN THỂ 2",
+            subSessions: [
+              {
+                time: "10:30", activity: "MỘT SỐ SUY NGHĨ VỀ AI VÀ GIÁO DỤC",
+                presenter: [
+                  {
+                    name: "HTB.GS. TSKH. Hồ Tú Bảo",
+                    department: "Viện Nghiên cứu cao cấp về Toán, thành viên Hội đồng tư vấn quốc gia về Khoa học, Công nghệ, Đổi mới sáng tạo, và Chuyển đổi số"
+                  }
+                ]
+              },
+              {
+                time: "11:00", activity: "PHÁT TRIỂN MỸ THUẬT VIỆT NAM TRÊN KHÔNG GIAN MẠNG TRONG KỶ NGUYÊN SỐ",
+                presenter: [
+                  {
+                    name: "GS.TS. Từ Thị Loan",
+                    department: "Nguyên Viện trưởng Viện Văn hóa và Nghệ thuật quốc gia Việt Nam"
+                  },
+                ]
+              },
+              {
+                time: "11:30", activity: "PHÁT TRIỂN VĂN HÓA VÀ GIÁO DỤC SÁNG TẠO TRONG BÔI CẢNH CHUYỂN ĐỔI SỐ",
+                presenter: [
+                  {
+                    name: "GS.TS. Nguyễn Thị Mỹ Lộc, Nguyễn Thanh Lý",
+                    department: "Trường Đại học Giáo dục, Đại học Quốc gia Hà Nội"
+                  }
+                ]
+              },
+            ]
+          },
         ]
       },
       {
@@ -42,13 +105,40 @@ export const SCHEDULE_DATA: ScheduleDay[] = [
       {
         title: "Chiều",
         events: [
-          { 
-            time: "13h45 - 16h30", 
-            activity: "Phiên 3 tiểu ban đồng thời:",
+          {
+            activity: "PHIÊN TOÀN THỂ 2",
             subSessions: [
-              { title: "Tiểu ban 1: Bản sắc văn hoá trong kỷ nguyên số", location: "Phòng họp A, CS1" },
-              { title: "Tiểu ban 2: Giáo dục sáng tạo và phát triển bền vững trong kỷ nguyên số", location: "Hội trường lớn, CS1" },
-              { title: "Tiểu ban 3: Trí tuệ nhân tạo trong bảo tồn, phát triển văn hóa và giáo dục", location: "Phòng họp A5, CS1" }
+              {
+                time: "08:30", activity: "MỘT SỐ SUY NGHĨ VỀ AI VÀ GIÁO DỤC",
+                presenter: [
+                  {
+                    name: "Thi Kim Oanh Truong and Prof. Dr. Detlef Briesen",
+                    department: "Justus-Liebig-Universität DAAD Counselor for Higher Education Vietnam University of Social Sciences and Humanities, VNU, Hanoi"
+                  }
+                ]
+              },
+              {
+                time: "08:30", activity: "DESIGNING SECONDARY SCHOOLS AS KNOWLEDGE SYSTEMS - INTEGRATING COLLECTIVE AND ARTIFICIAL INTELLIGENCE",
+                presenter: [
+                  {
+                    name: "Prof. Dr. Yoshiteru Nakamori",
+                    department: "School of Knowledge Science, Japan Advanced Institute of Science and Technology, Japan"
+                  },
+                  {
+                    name: "Dr. Ho Vinh Thang",
+                    department: "General Education Department, Ministry of Education and Training, Viet Nam"
+                  },
+                ]
+              },
+              {
+                time: "08:30", activity: "TEACHING FOR TOMORROW, WITH A LITTLE HELP FROM ARTIFICIAL INTELLIGENCE (AI): INSIGHTS INTO PREPARING GRADUATES FOR SUSTAINABLE FUTURE EMPLOYMENT",
+                presenter: [
+                  {
+                    name: "Prof. Dr. Jason Turner",
+                    department: "Asia Pacific University of Technology & Innovation"
+                  }
+                ]
+              },
             ]
           },
           { time: "14:30", activity: "Thảo luận" },
@@ -80,18 +170,18 @@ export const SCHEDULE_DATA: ScheduleDay[] = [
 ];
 
 export const ANNOUNCEMENTS_DATA: Announcement[] = [
-    { id: 1, title: "Gia hạn thời gian nộp bài báo", date: "15/08/2025", content: "Do nhận được nhiều yêu cầu, ban tổ chức quyết định gia hạn thời gian nộp bài báo toàn văn đến hết ngày 30/09/2025. Vui lòng xem chi tiết tại trang Call for Papers.", imageUrl: "https://picsum.photos/seed/announcement1/800/400" },
-    { id: 2, title: "Công bố danh sách diễn giả chính", date: "01/08/2025", content: "Chúng tôi vinh dự công bố danh sách các diễn giả chính sẽ tham gia hội thảo, bao gồm các chuyên gia hàng đầu trong và ngoài nước. Chi tiết về các diễn giả và chủ đề bài nói sẽ được cập nhật trong trang Chương trình.", imageUrl: "https://picsum.photos/seed/announcement2/800/400" },
-    { id: 3, title: "Mở cổng đăng ký sớm với giá ưu đãi", date: "15/07/2025", content: "Cổng đăng ký tham dự hội thảo đã chính thức mở. Đăng ký sớm trước ngày 15/09/2025 để nhận được mức phí ưu đãi. Xin vui lòng truy cập trang Đăng ký để biết thêm chi tiết.", imageUrl: "https://picsum.photos/seed/announcement3/800/400" },
+  { id: 1, title: "Gia hạn thời gian nộp bài báo", date: "15/08/2025", content: "Do nhận được nhiều yêu cầu, ban tổ chức quyết định gia hạn thời gian nộp bài báo toàn văn đến hết ngày 30/09/2025. Vui lòng xem chi tiết tại trang Call for Papers.", imageUrl: "https://picsum.photos/seed/announcement1/800/400" },
+  { id: 2, title: "Công bố danh sách diễn giả chính", date: "01/08/2025", content: "Chúng tôi vinh dự công bố danh sách các diễn giả chính sẽ tham gia hội thảo, bao gồm các chuyên gia hàng đầu trong và ngoài nước. Chi tiết về các diễn giả và chủ đề bài nói sẽ được cập nhật trong trang Chương trình.", imageUrl: "https://picsum.photos/seed/announcement2/800/400" },
+  { id: 3, title: "Mở cổng đăng ký sớm với giá ưu đãi", date: "15/07/2025", content: "Cổng đăng ký tham dự hội thảo đã chính thức mở. Đăng ký sớm trước ngày 15/09/2025 để nhận được mức phí ưu đãi. Xin vui lòng truy cập trang Đăng ký để biết thêm chi tiết.", imageUrl: "https://picsum.photos/seed/announcement3/800/400" },
 ];
 
 export const CO_ORGANIZERS_DATA: Sponsor[] = [
-    { id: 1, name: "Tạp chí Giáo dục", logoUrl: "https://picsum.photos/seed/coorganizer1/150/60" },
+  { id: 1, name: "Tạp chí Giáo dục", logoUrl: "https://picsum.photos/seed/coorganizer1/150/60" },
 ];
 
 export const SPONSORS_DATA: Sponsor[] = [
-    { id: 1, name: "Báo Kinh tế - Đô thị", logoUrl: "https://picsum.photos/seed/sponsor1/150/60" },
-    { id: 2, name: "Nhà xuất bản Hà Nội", logoUrl: "https://picsum.photos/seed/sponsor2/150/60" },
+  { id: 1, name: "Báo Kinh tế - Đô thị", logoUrl: "https://picsum.photos/seed/sponsor1/150/60" },
+  { id: 2, name: "Nhà xuất bản Hà Nội", logoUrl: "https://picsum.photos/seed/sponsor2/150/60" },
 ];
 
 
@@ -107,26 +197,26 @@ export const KEYNOTE_SPEAKERS_DATA: KeynoteSpeaker[] = [
 ];
 
 export const CONFERENCE_TOPICS_DATA: ConferenceTopic[] = [
-  { 
-    id: 1, 
-    title: 'Bản sắc văn hoá trong kỷ nguyên số', 
-    imageUrl: 'https://picsum.photos/seed/culture-digital/800/600', 
+  {
+    id: 1,
+    title: 'Bản sắc văn hoá trong kỷ nguyên số',
+    imageUrl: 'https://picsum.photos/seed/culture-digital/800/600',
     link: '/topic/1',
-    description: 'Trong bối cảnh toàn cầu hóa và sự phát triển mạnh mẽ của công nghệ số, việc giữ gìn và phát huy bản sắc văn hóa dân tộc trở nên cấp thiết hơn bao giờ hết. Tiểu ban sẽ tập trung thảo luận về các giải pháp để văn hóa thực sự trở thành nền tảng tinh thần, động lực phát triển của xã hội, từ việc số hóa di sản, xây dựng các sản phẩm văn hóa số, đến việc giáo dục và nâng cao nhận thức cho thế hệ trẻ về giá trị văn hóa truyền thống.' 
+    description: 'Trong bối cảnh toàn cầu hóa và sự phát triển mạnh mẽ của công nghệ số, việc giữ gìn và phát huy bản sắc văn hóa dân tộc trở nên cấp thiết hơn bao giờ hết. Tiểu ban sẽ tập trung thảo luận về các giải pháp để văn hóa thực sự trở thành nền tảng tinh thần, động lực phát triển của xã hội, từ việc số hóa di sản, xây dựng các sản phẩm văn hóa số, đến việc giáo dục và nâng cao nhận thức cho thế hệ trẻ về giá trị văn hóa truyền thống.'
   },
-  { 
-    id: 2, 
-    title: 'Giáo dục sáng tạo và phát triển bền vững trong kỷ nguyên số', 
-    imageUrl: 'https://picsum.photos/seed/education-creative/800/600', 
+  {
+    id: 2,
+    title: 'Giáo dục sáng tạo và phát triển bền vững trong kỷ nguyên số',
+    imageUrl: 'https://picsum.photos/seed/education-creative/800/600',
     link: '/topic/2',
-    description: 'Kỷ nguyên số đòi hỏi một nền giáo dục không chỉ truyền thụ kiến thức mà còn phải khơi dậy tiềm năng sáng tạo, tư duy phản biện và khả năng thích ứng của người học. Tiểu ban này sẽ là diễn đàn để các chuyên gia chia sẻ các mô hình giáo dục tiên tiến, phương pháp giảng dạy đổi mới, và các chiến lược tích hợp công nghệ nhằm tạo ra một môi trường học tập linh hoạt, hiệu quả, hướng tới sự phát triển bền vững của cá nhân và xã hội.' 
+    description: 'Kỷ nguyên số đòi hỏi một nền giáo dục không chỉ truyền thụ kiến thức mà còn phải khơi dậy tiềm năng sáng tạo, tư duy phản biện và khả năng thích ứng của người học. Tiểu ban này sẽ là diễn đàn để các chuyên gia chia sẻ các mô hình giáo dục tiên tiến, phương pháp giảng dạy đổi mới, và các chiến lược tích hợp công nghệ nhằm tạo ra một môi trường học tập linh hoạt, hiệu quả, hướng tới sự phát triển bền vững của cá nhân và xã hội.'
   },
-  { 
-    id: 3, 
-    title: 'Trí tuệ nhân tạo trong bảo tồn, phát triển văn hoá và giáo dục', 
-    imageUrl: 'https://picsum.photos/seed/ai-future/800/600', 
+  {
+    id: 3,
+    title: 'Trí tuệ nhân tạo trong bảo tồn, phát triển văn hoá và giáo dục',
+    imageUrl: 'https://picsum.photos/seed/ai-future/800/600',
     link: '/topic/3',
-    description: 'Trí tuệ nhân tạo (AI) đang mở ra những cơ hội và thách thức chưa từng có cho các lĩnh vực văn hóa và giáo dục. Tiểu ban sẽ khám phá các ứng dụng của AI trong việc phân tích dữ liệu lớn để cá nhân hóa lộ trình học tập, tự động hóa các tác vụ quản lý, bảo tồn di sản văn hóa thông qua công nghệ 3D và thực tế ảo, cũng như thảo luận về các vấn đề đạo đức và chính sách cần thiết để đảm bảo việc ứng dụng AI một cách có trách nhiệm và hiệu quả.' 
+    description: 'Trí tuệ nhân tạo (AI) đang mở ra những cơ hội và thách thức chưa từng có cho các lĩnh vực văn hóa và giáo dục. Tiểu ban sẽ khám phá các ứng dụng của AI trong việc phân tích dữ liệu lớn để cá nhân hóa lộ trình học tập, tự động hóa các tác vụ quản lý, bảo tồn di sản văn hóa thông qua công nghệ 3D và thực tế ảo, cũng như thảo luận về các vấn đề đạo đức và chính sách cần thiết để đảm bảo việc ứng dụng AI một cách có trách nhiệm và hiệu quả.'
   },
 ];
 
@@ -146,16 +236,16 @@ export const PAPER_SUBMISSIONS_DATA: PaperSubmission[] = [
 ];
 
 export const DETAILED_PAPER_SUBMISSIONS_DATA: DetailedPaperSubmission[] = [
-    { id: 1, authorName: 'Nguyễn Văn An', organization: 'Đại học Quốc gia', paperTitle: 'Ứng dụng AI trong đánh giá kết quả học tập', topic: 3, abstractStatus: 'Duyệt', fullTextStatus: 'Duyệt', reviewStatus: 'Duyệt', presentationStatus: 'Trình bày' },
-    { id: 2, authorName: 'Trần Thị Bình', organization: 'Viện Khoa học Giáo dục', paperTitle: 'Mô hình Blended Learning cho giáo dục đại học', topic: 2, abstractStatus: 'Duyệt', fullTextStatus: 'Duyệt', reviewStatus: 'Duyệt', presentationStatus: 'Trình bày' },
-    { id: 3, authorName: 'Lê Văn Cường', organization: 'Đại học Sư phạm', paperTitle: 'Tác động của STEM đến tư duy sáng tạo', topic: 2, abstractStatus: 'Duyệt', fullTextStatus: 'Đang chờ duyệt', reviewStatus: 'Đang chờ duyệt', presentationStatus: 'Không trình bày' },
-    { id: 4, authorName: 'Phạm Thị Dung', organization: 'Tổ chức UNICEF', paperTitle: 'Giáo dục hòa nhập cho trẻ tự kỷ', topic: 2, abstractStatus: 'Duyệt', fullTextStatus: 'Không duyệt', reviewStatus: 'Không duyệt', presentationStatus: 'Không trình bày' },
-    { id: 5, authorName: 'Hoàng Minh Hải', organization: 'Trường Quốc tế XYZ', paperTitle: 'Chuyển đổi số trong quản lý trường học', topic: 1, abstractStatus: 'Duyệt', fullTextStatus: 'Duyệt', reviewStatus: 'Duyệt', presentationStatus: 'Không trình bày' },
-    { id: 6, authorName: 'Vũ Thu Hoài', organization: 'Đại học Stanford', paperTitle: 'Kỹ năng mềm cho sinh viên thế kỷ 21', topic: 1, abstractStatus: 'Duyệt', fullTextStatus: 'Duyệt', reviewStatus: 'Duyệt', presentationStatus: 'Trình bày' },
-    { id: 7, authorName: 'Đặng Quốc Hưng', organization: 'Đại học Công nghệ Nanyang', paperTitle: 'Gamification trong lớp học ngoại ngữ', topic: 3, abstractStatus: 'Duyệt', fullTextStatus: 'Đang chờ duyệt', reviewStatus: 'Đang chờ duyệt', presentationStatus: 'Không trình bày' },
-    { id: 8, authorName: 'Ngô Thị Lan', organization: 'Bộ Giáo dục và Đào tạo', paperTitle: 'Phát triển chương trình giáo dục phổ thông mới', topic: 2, abstractStatus: 'Duyệt', fullTextStatus: 'Duyệt', reviewStatus: 'Duyệt', presentationStatus: 'Trình bày' },
-    { id: 9, authorName: 'Trịnh Văn Minh', organization: 'Đại học Quốc gia', paperTitle: 'Đánh giá sách giáo khoa theo định hướng năng lực', topic: 2, abstractStatus: 'Duyệt', fullTextStatus: 'Duyệt', reviewStatus: 'Duyệt', presentationStatus: 'Không trình bày' },
-    { id: 10, authorName: 'Bùi Thúy Nga', organization: 'Coursera', paperTitle: 'Tư vấn hướng nghiệp trong bối cảnh 4.0', topic: 1, abstractStatus: 'Không duyệt', fullTextStatus: 'Không duyệt', reviewStatus: 'Không duyệt', presentationStatus: 'Không trình bày' },
-    { id: 11, authorName: 'Lý Thành Nam', organization: 'Viện Khoa học Giáo dục', paperTitle: 'Ảnh hưởng của mạng xã hội đến học sinh', topic: 1, abstractStatus: 'Duyệt', fullTextStatus: 'Đang chờ duyệt', reviewStatus: 'Đang chờ duyệt', presentationStatus: 'Không trình bày' },
-    { id: 12, authorName: 'Đỗ Mỹ Linh', organization: 'Đại học Sư phạm', paperTitle: 'Xây dựng văn hóa đọc trong trường học', topic: 1, abstractStatus: 'Duyệt', fullTextStatus: 'Duyệt', reviewStatus: 'Duyệt', presentationStatus: 'Trình bày' },
+  { id: 1, authorName: 'Nguyễn Văn An', organization: 'Đại học Quốc gia', paperTitle: 'Ứng dụng AI trong đánh giá kết quả học tập', topic: 3, abstractStatus: 'Duyệt', fullTextStatus: 'Duyệt', reviewStatus: 'Duyệt', presentationStatus: 'Trình bày' },
+  { id: 2, authorName: 'Trần Thị Bình', organization: 'Viện Khoa học Giáo dục', paperTitle: 'Mô hình Blended Learning cho giáo dục đại học', topic: 2, abstractStatus: 'Duyệt', fullTextStatus: 'Duyệt', reviewStatus: 'Duyệt', presentationStatus: 'Trình bày' },
+  { id: 3, authorName: 'Lê Văn Cường', organization: 'Đại học Sư phạm', paperTitle: 'Tác động của STEM đến tư duy sáng tạo', topic: 2, abstractStatus: 'Duyệt', fullTextStatus: 'Đang chờ duyệt', reviewStatus: 'Đang chờ duyệt', presentationStatus: 'Không trình bày' },
+  { id: 4, authorName: 'Phạm Thị Dung', organization: 'Tổ chức UNICEF', paperTitle: 'Giáo dục hòa nhập cho trẻ tự kỷ', topic: 2, abstractStatus: 'Duyệt', fullTextStatus: 'Không duyệt', reviewStatus: 'Không duyệt', presentationStatus: 'Không trình bày' },
+  { id: 5, authorName: 'Hoàng Minh Hải', organization: 'Trường Quốc tế XYZ', paperTitle: 'Chuyển đổi số trong quản lý trường học', topic: 1, abstractStatus: 'Duyệt', fullTextStatus: 'Duyệt', reviewStatus: 'Duyệt', presentationStatus: 'Không trình bày' },
+  { id: 6, authorName: 'Vũ Thu Hoài', organization: 'Đại học Stanford', paperTitle: 'Kỹ năng mềm cho sinh viên thế kỷ 21', topic: 1, abstractStatus: 'Duyệt', fullTextStatus: 'Duyệt', reviewStatus: 'Duyệt', presentationStatus: 'Trình bày' },
+  { id: 7, authorName: 'Đặng Quốc Hưng', organization: 'Đại học Công nghệ Nanyang', paperTitle: 'Gamification trong lớp học ngoại ngữ', topic: 3, abstractStatus: 'Duyệt', fullTextStatus: 'Đang chờ duyệt', reviewStatus: 'Đang chờ duyệt', presentationStatus: 'Không trình bày' },
+  { id: 8, authorName: 'Ngô Thị Lan', organization: 'Bộ Giáo dục và Đào tạo', paperTitle: 'Phát triển chương trình giáo dục phổ thông mới', topic: 2, abstractStatus: 'Duyệt', fullTextStatus: 'Duyệt', reviewStatus: 'Duyệt', presentationStatus: 'Trình bày' },
+  { id: 9, authorName: 'Trịnh Văn Minh', organization: 'Đại học Quốc gia', paperTitle: 'Đánh giá sách giáo khoa theo định hướng năng lực', topic: 2, abstractStatus: 'Duyệt', fullTextStatus: 'Duyệt', reviewStatus: 'Duyệt', presentationStatus: 'Không trình bày' },
+  { id: 10, authorName: 'Bùi Thúy Nga', organization: 'Coursera', paperTitle: 'Tư vấn hướng nghiệp trong bối cảnh 4.0', topic: 1, abstractStatus: 'Không duyệt', fullTextStatus: 'Không duyệt', reviewStatus: 'Không duyệt', presentationStatus: 'Không trình bày' },
+  { id: 11, authorName: 'Lý Thành Nam', organization: 'Viện Khoa học Giáo dục', paperTitle: 'Ảnh hưởng của mạng xã hội đến học sinh', topic: 1, abstractStatus: 'Duyệt', fullTextStatus: 'Đang chờ duyệt', reviewStatus: 'Đang chờ duyệt', presentationStatus: 'Không trình bày' },
+  { id: 12, authorName: 'Đỗ Mỹ Linh', organization: 'Đại học Sư phạm', paperTitle: 'Xây dựng văn hóa đọc trong trường học', topic: 1, abstractStatus: 'Duyệt', fullTextStatus: 'Duyệt', reviewStatus: 'Duyệt', presentationStatus: 'Trình bày' },
 ];

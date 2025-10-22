@@ -8,16 +8,19 @@ export type NavLink = {
 };
 
 export type SubSession = {
-  title: string;
-  location: string;
+  activity: string;
+  location?: string;
+  time: string;
+  presenter: any;
 };
 
 export type ScheduleEvent = {
-  time: string;
+  time?: string;
   activity: string;
   details?: string;
   location?: string;
   subSessions?: SubSession[];
+  preside?: string;
 };
 
 export type SchedulePart = {

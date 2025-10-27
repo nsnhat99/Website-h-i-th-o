@@ -103,7 +103,7 @@ app.post('/api/announcements', async (req, res) => {
     try {
         const { rows } = await sql`
             INSERT INTO announcements (title, content, "imageUrl", date, "contentImages")
-            VALUES (${title}, ${content}, ${imageUrl}, ${date}, ${JSON.stringify(contentImages)}::jsonb)
+            VALUES (${title}, ${content}, ${imageUrl}, ${date}, ${JSON.stringify(contentImages || [])}::jsonb)
             RETURNING *;
         `;
         res.status(201).json(rows[0]);
@@ -114,14 +114,14 @@ app.post('/api/announcements', async (req, res) => {
 
 app.put('/api/announcements/:id', async (req, res) => {
     const id = parseInt(req.params.id, 10);
-    const { title, content, imageUrl } = req.body;
+    const { title, content, imageUrl, contentImages } = req.body; // Added contentImages to destructuring
     try {
         const { rows } = await sql`
             UPDATE announcements
             SET 
                 title = COALESCE(${title}, title),
                 content = COALESCE(${content}, content),
-                "imageUrl" = COALESCE(${imageUrl}, "imageUrl")
+                "imageUrl" = COALESCE(${imageUrl}, "imageUrl"),
                 "contentImages" = COALESCE(${contentImages ? JSON.stringify(contentImages) : null}::jsonb, "contentImages")
             WHERE id = ${id}
             RETURNING *;

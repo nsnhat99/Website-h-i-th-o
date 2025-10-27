@@ -17,9 +17,24 @@ const fetchAPI = async (endpoint: string, options: RequestInit = {}) => {
     throw new Error(errorData.message || 'API request failed');
   }
   
-  // For DELETE requests, the server might not return a body
   if (response.status === 204 || response.status === 200 && response.headers.get('content-length') === '0') {
     return;
+  }
+
+  return response.json();
+};
+
+// Helper function for file uploads (multipart/form-data)
+const fetchAPIWithFile = async (endpoint: string, formData: FormData) => {
+  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    method: 'POST',
+    body: formData,
+    // Don't set Content-Type header - browser will set it with boundary
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({ message: 'An unknown error occurred' }));
+    throw new Error(errorData.message || 'File upload failed');
   }
 
   return response.json();
@@ -83,8 +98,11 @@ export const getPapers = (): Promise<DetailedPaperSubmission[]> => {
   return fetchAPI('/papers');
 };
 
+export const getPaper = (id: number): Promise<DetailedPaperSubmission> => {
+  return fetchAPI(`/papers/${id}`);
+};
+
 export const addPaper = (formData: PaperSubmissionFormData): Promise<DetailedPaperSubmission> => {
-  // We don't send the file object, just the data
   const { fullPaperFile, ...dataToSend } = formData;
   return fetchAPI('/papers', {
     method: 'POST',
@@ -105,6 +123,30 @@ export const deletePaper = (id: number): Promise<{ id: number }> => {
   });
 };
 
+// --- FILE UPLOADS ---
+export const uploadAbstractFile = (paperId: number, file: File): Promise<{ message: string; paper: DetailedPaperSubmission; fileUrl: string }> => {
+  const formData = new FormData();
+  formData.append('file', file);
+  return fetchAPIWithFile(`/papers/${paperId}/upload-abstract`, formData);
+};
+
+export const uploadFullTextFile = (paperId: number, file: File): Promise<{ message: string; paper: DetailedPaperSubmission; fileUrl: string }> => {
+  const formData = new FormData();
+  formData.append('file', file);
+  return fetchAPIWithFile(`/papers/${paperId}/upload-fulltext`, formData);
+};
+
+export const deleteAbstractFile = (paperId: number): Promise<{ message: string; paper: DetailedPaperSubmission }> => {
+  return fetchAPI(`/papers/${paperId}/delete-abstract`, {
+    method: 'DELETE',
+  });
+};
+
+export const deleteFullTextFile = (paperId: number): Promise<{ message: string; paper: DetailedPaperSubmission }> => {
+  return fetchAPI(`/papers/${paperId}/delete-fulltext`, {
+    method: 'DELETE',
+  });
+};
 
 // --- SITE CONTENT ---
 export const getSiteContent = (): Promise<SiteContent> => {

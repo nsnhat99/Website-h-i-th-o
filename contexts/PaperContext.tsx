@@ -4,13 +4,17 @@ import * as api from '../api';
 
 interface PaperContextType {
   papers: DetailedPaperSubmission[];
-  addPaper: (formData: PaperSubmissionFormData) => Promise<void>;
+  addPaper: (formData: PaperSubmissionFormData) => Promise<DetailedPaperSubmission>;
   deletePaper: (id: number) => Promise<void>;
   updatePaperDetails: (id: number, data: Partial<DetailedPaperSubmission>) => Promise<void>;
   updateAbstractStatus: (id: number, status: ReviewStatus) => Promise<void>;
   updateFullTextStatus: (id: number, status: ReviewStatus) => Promise<void>;
   updateReviewStatus: (id: number, status: ReviewStatus) => Promise<void>;
   updatePresentationStatus: (id: number, status: PresentationStatus) => Promise<void>;
+  uploadAbstractFile: (paperId: number, file: File) => Promise<void>;
+  uploadFullTextFile: (paperId: number, file: File) => Promise<void>;
+  deleteAbstractFile: (paperId: number) => Promise<void>;
+  deleteFullTextFile: (paperId: number) => Promise<void>;
 }
 
 const PaperContext = createContext<PaperContextType | undefined>(undefined);
@@ -22,10 +26,10 @@ export const PaperProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     api.getPapers().then(setPapers).catch(err => console.error("Failed to fetch papers:", err));
   }, []);
 
-
-  const addPaper = async (formData: PaperSubmissionFormData) => {
+  const addPaper = async (formData: PaperSubmissionFormData): Promise<DetailedPaperSubmission> => {
     const newPaper = await api.addPaper(formData);
     setPapers(prevPapers => [newPaper, ...prevPapers]);
+    return newPaper;
   };
 
   const deletePaper = async (id: number) => {
@@ -39,18 +43,50 @@ export const PaperProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   };
 
   const updateStatus = async (id: number, field: keyof DetailedPaperSubmission, status: ReviewStatus | PresentationStatus) => {
-      const updatedPaper = await api.updatePaper(id, { [field]: status });
-      setPapers(prevPapers => prevPapers.map(p => (p.id === id ? updatedPaper : p)));
+    const updatedPaper = await api.updatePaper(id, { [field]: status });
+    setPapers(prevPapers => prevPapers.map(p => (p.id === id ? updatedPaper : p)));
   };
 
   const updateAbstractStatus = (id: number, status: ReviewStatus) => updateStatus(id, 'abstractStatus', status);
   const updateFullTextStatus = (id: number, status: ReviewStatus) => updateStatus(id, 'fullTextStatus', status);
   const updateReviewStatus = (id: number, status: ReviewStatus) => updateStatus(id, 'reviewStatus', status);
   const updatePresentationStatus = (id: number, status: PresentationStatus) => updateStatus(id, 'presentationStatus', status);
-  
+
+  const uploadAbstractFile = async (paperId: number, file: File) => {
+    const response = await api.uploadAbstractFile(paperId, file);
+    setPapers(prevPapers => prevPapers.map(p => (p.id === paperId ? response.paper : p)));
+  };
+
+  const uploadFullTextFile = async (paperId: number, file: File) => {
+    const response = await api.uploadFullTextFile(paperId, file);
+    setPapers(prevPapers => prevPapers.map(p => (p.id === paperId ? response.paper : p)));
+  };
+
+  const deleteAbstractFile = async (paperId: number) => {
+    const response = await api.deleteAbstractFile(paperId);
+    setPapers(prevPapers => prevPapers.map(p => (p.id === paperId ? response.paper : p)));
+  };
+
+  const deleteFullTextFile = async (paperId: number) => {
+    const response = await api.deleteFullTextFile(paperId);
+    setPapers(prevPapers => prevPapers.map(p => (p.id === paperId ? response.paper : p)));
+  };
 
   return (
-    <PaperContext.Provider value={{ papers, addPaper, deletePaper, updatePaperDetails, updateAbstractStatus, updateFullTextStatus, updateReviewStatus, updatePresentationStatus }}>
+    <PaperContext.Provider value={{ 
+      papers, 
+      addPaper, 
+      deletePaper, 
+      updatePaperDetails, 
+      updateAbstractStatus, 
+      updateFullTextStatus, 
+      updateReviewStatus, 
+      updatePresentationStatus,
+      uploadAbstractFile,
+      uploadFullTextFile,
+      deleteAbstractFile,
+      deleteFullTextFile
+    }}>
       {children}
     </PaperContext.Provider>
   );

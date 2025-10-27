@@ -42,13 +42,9 @@ async function seed(client) {
         await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
         console.log('PostgreSQL extensions checked/created.');
 
-        // Drop tables if they exist to start fresh
-        await client.sql`DROP TABLE IF EXISTS users, registrations, announcements, papers, site_content;`;
-        console.log('Dropped existing tables.');
-
-        // Create tables
+        // Create tables only if they don't exist (safe for production)
         await client.sql`
-            CREATE TABLE users (
+            CREATE TABLE IF NOT EXISTS users (
                 id SERIAL PRIMARY KEY,
                 username TEXT NOT NULL UNIQUE,
                 password TEXT NOT NULL,
@@ -56,10 +52,10 @@ async function seed(client) {
                 email TEXT NOT NULL UNIQUE
             );
         `;
-        console.log('Created "users" table.');
+        console.log('Checked/Created "users" table.');
 
         await client.sql`
-            CREATE TABLE registrations (
+            CREATE TABLE IF NOT EXISTS registrations (
                 id SERIAL PRIMARY KEY,
                 name TEXT NOT NULL,
                 organization TEXT,
@@ -68,10 +64,10 @@ async function seed(client) {
                 "withPaper" TEXT
             );
         `;
-        console.log('Created "registrations" table.');
+        console.log('Checked/Created "registrations" table.');
 
         await client.sql`
-            CREATE TABLE announcements (
+            CREATE TABLE IF NOT EXISTS announcements (
                 id SERIAL PRIMARY KEY,
                 title TEXT NOT NULL,
                 date TEXT,
@@ -79,10 +75,10 @@ async function seed(client) {
                 "imageUrl" TEXT
             );
         `;
-        console.log('Created "announcements" table.');
+        console.log('Checked/Created "announcements" table.');
         
         await client.sql`
-            CREATE TABLE papers (
+            CREATE TABLE IF NOT EXISTS papers (
                 id SERIAL PRIMARY KEY,
                 "authorName" TEXT NOT NULL,
                 organization TEXT,
@@ -91,69 +87,111 @@ async function seed(client) {
                 "abstractStatus" TEXT,
                 "fullTextStatus" TEXT,
                 "reviewStatus" TEXT,
-                "presentationStatus" TEXT
+                "presentationStatus" TEXT,
+                "abstractUrl" TEXT,
+                "fullTextUrl" TEXT,
+                "abstractFileName" TEXT,
+                "fullTextFileName" TEXT
             );
         `;
-        console.log('Created "papers" table.');
+        console.log('Checked/Created "papers" table.');
+
+        // Add new columns if they don't exist (migration-safe)
+        try {
+            await client.sql`ALTER TABLE papers ADD COLUMN IF NOT EXISTS "abstractUrl" TEXT;`;
+            await client.sql`ALTER TABLE papers ADD COLUMN IF NOT EXISTS "fullTextUrl" TEXT;`;
+            await client.sql`ALTER TABLE papers ADD COLUMN IF NOT EXISTS "abstractFileName" TEXT;`;
+            await client.sql`ALTER TABLE papers ADD COLUMN IF NOT EXISTS "fullTextFileName" TEXT;`;
+            console.log('Added file columns to papers table (if not exist).');
+        } catch (error) {
+            console.log('File columns already exist or error adding them:', error.message);
+        }
 
         await client.sql`
-            CREATE TABLE site_content (
+            CREATE TABLE IF NOT EXISTS site_content (
                 id INTEGER PRIMARY KEY,
                 content JSONB
             );
         `;
-        console.log('Created "site_content" table.');
+        console.log('Checked/Created "site_content" table.');
 
-        // Insert data
-        await Promise.all(
-            initialUsers.map(user => 
-                client.sql`
-                    INSERT INTO users (id, username, password, role, email)
-                    VALUES (${user.id}, ${user.username}, ${user.password}, ${user.role}, ${user.email});
-                `
-            )
-        );
-        console.log('Seeded "users" table.');
+        // Only insert initial data if tables are empty
+        const { rows: userCount } = await client.sql`SELECT COUNT(*) FROM users;`;
+        if (parseInt(userCount[0].count) === 0) {
+            await Promise.all(
+                initialUsers.map(user => 
+                    client.sql`
+                        INSERT INTO users (id, username, password, role, email)
+                        VALUES (${user.id}, ${user.username}, ${user.password}, ${user.role}, ${user.email})
+                        ON CONFLICT (username) DO NOTHING;
+                    `
+                )
+            );
+            console.log('Seeded "users" table.');
+        } else {
+            console.log('Users table already has data, skipping seed.');
+        }
 
-        await Promise.all(
-            initialRegistrations.map(reg =>
-                client.sql`
-                    INSERT INTO registrations (id, name, organization, email, phone, "withPaper")
-                    VALUES (${reg.id}, ${reg.name}, ${reg.organization}, ${reg.email}, ${reg.phone}, ${reg.withPaper});
-                `
-            )
-        );
-        console.log('Seeded "registrations" table.');
+        const { rows: regCount } = await client.sql`SELECT COUNT(*) FROM registrations;`;
+        if (parseInt(regCount[0].count) === 0) {
+            await Promise.all(
+                initialRegistrations.map(reg =>
+                    client.sql`
+                        INSERT INTO registrations (id, name, organization, email, phone, "withPaper")
+                        VALUES (${reg.id}, ${reg.name}, ${reg.organization}, ${reg.email}, ${reg.phone}, ${reg.withPaper});
+                    `
+                )
+            );
+            console.log('Seeded "registrations" table.');
+        } else {
+            console.log('Registrations table already has data, skipping seed.');
+        }
 
-        await Promise.all(
-            ANNOUNCEMENTS_DATA.map(ann =>
-                client.sql`
-                    INSERT INTO announcements (id, title, date, content, "imageUrl")
-                    VALUES (${ann.id}, ${ann.title}, ${ann.date}, ${ann.content}, ${ann.imageUrl});
-                `
-            )
-        );
-        console.log('Seeded "announcements" table.');
+        const { rows: annCount } = await client.sql`SELECT COUNT(*) FROM announcements;`;
+        if (parseInt(annCount[0].count) === 0) {
+            await Promise.all(
+                ANNOUNCEMENTS_DATA.map(ann =>
+                    client.sql`
+                        INSERT INTO announcements (id, title, date, content, "imageUrl")
+                        VALUES (${ann.id}, ${ann.title}, ${ann.date}, ${ann.content}, ${ann.imageUrl});
+                    `
+                )
+            );
+            console.log('Seeded "announcements" table.');
+        } else {
+            console.log('Announcements table already has data, skipping seed.');
+        }
         
-        await Promise.all(
-            DETAILED_PAPER_SUBMISSIONS_DATA.map(paper =>
-                client.sql`
-                    INSERT INTO papers (id, "authorName", organization, "paperTitle", topic, "abstractStatus", "fullTextStatus", "reviewStatus", "presentationStatus")
-                    VALUES (${paper.id}, ${paper.authorName}, ${paper.organization}, ${paper.paperTitle}, ${paper.topic}, ${paper.abstractStatus}, ${paper.fullTextStatus}, ${paper.reviewStatus}, ${paper.presentationStatus});
-                `
-            )
-        );
-        console.log('Seeded "papers" table.');
+        const { rows: paperCount } = await client.sql`SELECT COUNT(*) FROM papers;`;
+        if (parseInt(paperCount[0].count) === 0) {
+            await Promise.all(
+                DETAILED_PAPER_SUBMISSIONS_DATA.map(paper =>
+                    client.sql`
+                        INSERT INTO papers (id, "authorName", organization, "paperTitle", topic, "abstractStatus", "fullTextStatus", "reviewStatus", "presentationStatus")
+                        VALUES (${paper.id}, ${paper.authorName}, ${paper.organization}, ${paper.paperTitle}, ${paper.topic}, ${paper.abstractStatus}, ${paper.fullTextStatus}, ${paper.reviewStatus}, ${paper.presentationStatus});
+                    `
+                )
+            );
+            console.log('Seeded "papers" table.');
+        } else {
+            console.log('Papers table already has data, skipping seed.');
+        }
 
-        await client.sql`
-            INSERT INTO site_content (id, content)
-            VALUES (1, ${JSON.stringify(initialSiteContent)});
-        `;
-        console.log('Seeded "site_content" table.');
+        const { rows: contentCount } = await client.sql`SELECT COUNT(*) FROM site_content;`;
+        if (parseInt(contentCount[0].count) === 0) {
+            await client.sql`
+                INSERT INTO site_content (id, content)
+                VALUES (1, ${JSON.stringify(initialSiteContent)});
+            `;
+            console.log('Seeded "site_content" table.');
+        } else {
+            console.log('Site content already exists, skipping seed.');
+        }
 
+        console.log('\n✅ Database setup completed successfully!');
 
     } catch (error) {
-        console.error('Error seeding database:', error);
+        console.error('❌ Error seeding database:', error);
         throw error;
     }
 }

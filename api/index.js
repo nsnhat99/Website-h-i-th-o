@@ -1,12 +1,32 @@
 const express = require('express');
 const cors = require('cors');
+const multer = require('multer');
 const { sql } = require('@vercel/postgres');
+const { put, del, list } = require('@vercel/blob');
 
 const app = express();
 
 // Middleware
 app.use(cors());
-app.use(express.json({ limit: '10mb' })); // Increase limit to handle base64 images
+app.use(express.json({ limit: '10mb' }));
+
+// Multer config for file uploads (store in memory)
+const upload = multer({ 
+    storage: multer.memoryStorage(),
+    limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
+    fileFilter: (req, file, cb) => {
+        const allowedTypes = [
+            'application/pdf',
+            'application/msword',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        ];
+        if (allowedTypes.includes(file.mimetype)) {
+            cb(null, true);
+        } else {
+            cb(new Error('Only PDF and Word files are allowed!'));
+        }
+    }
+});
 
 app.get('/api/test-db', async (req, res) => {
   try {
@@ -23,7 +43,7 @@ app.post('/api/login', async (req, res) => {
     try {
         const { rows } = await sql`SELECT * FROM users WHERE username = ${username};`;
         const user = rows[0];
-        if (user && user.password === password) { // Note: In a real app, use hashed passwords!
+        if (user && user.password === password) {
             const { password, ...userWithoutPassword } = user;
             res.json(userWithoutPassword);
         } else {
@@ -52,6 +72,7 @@ app.get('/api/registrations', async (req, res) => {
         res.status(500).json({ message: 'Failed to fetch registrations', details: error.message });
     }
 });
+
 app.post('/api/registrations', async (req, res) => {
     const { name, organization, email, phone, withPaper } = req.body;
     try {
@@ -138,6 +159,20 @@ app.get('/api/papers', async (req, res) => {
     }
 });
 
+app.get('/api/papers/:id', async (req, res) => {
+    const id = parseInt(req.params.id, 10);
+    try {
+        const { rows } = await sql`SELECT * FROM papers WHERE id = ${id};`;
+        if (rows.length > 0) {
+            res.json(rows[0]);
+        } else {
+            res.status(404).json({ message: "Paper not found" });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to fetch paper', details: error.message });
+    }
+});
+
 app.post('/api/papers', async (req, res) => {
     const { authorName, organization, paperTitle, topic } = req.body;
     try {
@@ -182,6 +217,32 @@ app.put('/api/papers/:id', async (req, res) => {
 app.delete('/api/papers/:id', async (req, res) => {
     const id = parseInt(req.params.id, 10);
     try {
+        // Get file URLs before deleting
+        const { rows } = await sql`SELECT "abstractUrl", "fullTextUrl" FROM papers WHERE id = ${id};`;
+        
+        if (rows.length === 0) {
+            return res.status(404).json({ message: "Paper not found" });
+        }
+
+        const paper = rows[0];
+
+        // Delete files from Vercel Blob if they exist
+        if (paper.abstractUrl) {
+            try {
+                await del(paper.abstractUrl);
+            } catch (err) {
+                console.error('Error deleting abstract file:', err);
+            }
+        }
+        if (paper.fullTextUrl) {
+            try {
+                await del(paper.fullTextUrl);
+            } catch (err) {
+                console.error('Error deleting fulltext file:', err);
+            }
+        }
+
+        // Delete paper from database
         const result = await sql`DELETE FROM papers WHERE id = ${id};`;
         if (result.rowCount > 0) {
             res.status(200).json({ id: id });
@@ -190,6 +251,198 @@ app.delete('/api/papers/:id', async (req, res) => {
         }
     } catch (error) {
         res.status(500).json({ message: 'Failed to delete paper', details: error.message });
+    }
+});
+
+// --- FILE UPLOAD ENDPOINTS ---
+
+// Upload abstract file
+app.post('/api/papers/:id/upload-abstract', upload.single('file'), async (req, res) => {
+    const id = parseInt(req.params.id, 10);
+    
+    if (!req.file) {
+        return res.status(400).json({ message: 'No file uploaded' });
+    }
+
+    try {
+        // Check if paper exists
+        const { rows: paperRows } = await sql`SELECT id, "abstractUrl" FROM papers WHERE id = ${id};`;
+        if (paperRows.length === 0) {
+            return res.status(404).json({ message: 'Paper not found' });
+        }
+
+        // Delete old file if exists
+        if (paperRows[0].abstractUrl) {
+            try {
+                await del(paperRows[0].abstractUrl);
+            } catch (err) {
+                console.error('Error deleting old abstract:', err);
+            }
+        }
+
+        // Upload new file to Vercel Blob
+        const fileName = `${id}-abstract-${Date.now()}-${req.file.originalname}`;
+        const blob = await put(`papers/${fileName}`, req.file.buffer, {
+            access: 'public',
+            contentType: req.file.mimetype,
+        });
+
+        // Update database
+        const { rows } = await sql`
+            UPDATE papers
+            SET 
+                "abstractUrl" = ${blob.url},
+                "abstractFileName" = ${req.file.originalname},
+                "abstractStatus" = 'Duyệt'
+            WHERE id = ${id}
+            RETURNING *;
+        `;
+
+        res.json({
+            message: 'Abstract uploaded successfully',
+            paper: rows[0],
+            fileUrl: blob.url
+        });
+    } catch (error) {
+        console.error('Upload error:', error);
+        res.status(500).json({ message: 'Failed to upload abstract', details: error.message });
+    }
+});
+
+// Upload fulltext file
+app.post('/api/papers/:id/upload-fulltext', upload.single('file'), async (req, res) => {
+    const id = parseInt(req.params.id, 10);
+    
+    if (!req.file) {
+        return res.status(400).json({ message: 'No file uploaded' });
+    }
+
+    try {
+        // Check if paper exists
+        const { rows: paperRows } = await sql`SELECT id, "fullTextUrl" FROM papers WHERE id = ${id};`;
+        if (paperRows.length === 0) {
+            return res.status(404).json({ message: 'Paper not found' });
+        }
+
+        // Delete old file if exists
+        if (paperRows[0].fullTextUrl) {
+            try {
+                await del(paperRows[0].fullTextUrl);
+            } catch (err) {
+                console.error('Error deleting old fulltext:', err);
+            }
+        }
+
+        // Upload new file to Vercel Blob
+        const fileName = `${id}-fulltext-${Date.now()}-${req.file.originalname}`;
+        const blob = await put(`papers/${fileName}`, req.file.buffer, {
+            access: 'public',
+            contentType: req.file.mimetype,
+        });
+
+        // Update database
+        const { rows } = await sql`
+            UPDATE papers
+            SET 
+                "fullTextUrl" = ${blob.url},
+                "fullTextFileName" = ${req.file.originalname},
+                "fullTextStatus" = 'Duyệt'
+            WHERE id = ${id}
+            RETURNING *;
+        `;
+
+        res.json({
+            message: 'Full text uploaded successfully',
+            paper: rows[0],
+            fileUrl: blob.url
+        });
+    } catch (error) {
+        console.error('Upload error:', error);
+        res.status(500).json({ message: 'Failed to upload full text', details: error.message });
+    }
+});
+
+// Delete abstract file
+app.delete('/api/papers/:id/delete-abstract', async (req, res) => {
+    const id = parseInt(req.params.id, 10);
+    
+    try {
+        const { rows: paperRows } = await sql`SELECT "abstractUrl" FROM papers WHERE id = ${id};`;
+        if (paperRows.length === 0) {
+            return res.status(404).json({ message: 'Paper not found' });
+        }
+
+        if (paperRows[0].abstractUrl) {
+            await del(paperRows[0].abstractUrl);
+        }
+
+        const { rows } = await sql`
+            UPDATE papers
+            SET 
+                "abstractUrl" = NULL,
+                "abstractFileName" = NULL,
+                "abstractStatus" = 'Đang chờ duyệt'
+            WHERE id = ${id}
+            RETURNING *;
+        `;
+
+        res.json({
+            message: 'Abstract deleted successfully',
+            paper: rows[0]
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to delete abstract', details: error.message });
+    }
+});
+
+// Delete fulltext file
+app.delete('/api/papers/:id/delete-fulltext', async (req, res) => {
+    const id = parseInt(req.params.id, 10);
+    
+    try {
+        const { rows: paperRows } = await sql`SELECT "fullTextUrl" FROM papers WHERE id = ${id};`;
+        if (paperRows.length === 0) {
+            return res.status(404).json({ message: 'Paper not found' });
+        }
+
+        if (paperRows[0].fullTextUrl) {
+            await del(paperRows[0].fullTextUrl);
+        }
+
+        const { rows } = await sql`
+            UPDATE papers
+            SET 
+                "fullTextUrl" = NULL,
+                "fullTextFileName" = NULL,
+                "fullTextStatus" = 'Đang chờ duyệt'
+            WHERE id = ${id}
+            RETURNING *;
+        `;
+
+        res.json({
+            message: 'Full text deleted successfully',
+            paper: rows[0]
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to delete full text', details: error.message });
+    }
+});
+
+// List all files in Vercel Blob (for admin)
+app.get('/api/papers/files/list', async (req, res) => {
+    try {
+        const { blobs } = await list({ prefix: 'papers/' });
+        res.json({
+            count: blobs.length,
+            files: blobs.map(blob => ({
+                url: blob.url,
+                pathname: blob.pathname,
+                size: blob.size,
+                uploadedAt: blob.uploadedAt
+            }))
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to list files', details: error.message });
     }
 });
 

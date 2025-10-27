@@ -88,9 +88,7 @@ async function seed(client) {
                 "fullTextStatus" TEXT,
                 "reviewStatus" TEXT,
                 "presentationStatus" TEXT,
-                "abstractUrl" TEXT,
                 "fullTextUrl" TEXT,
-                "abstractFileName" TEXT,
                 "fullTextFileName" TEXT
             );
         `;
@@ -98,9 +96,7 @@ async function seed(client) {
 
         // Add new columns if they don't exist (migration-safe)
         try {
-            await client.sql`ALTER TABLE papers ADD COLUMN IF NOT EXISTS "abstractUrl" TEXT;`;
             await client.sql`ALTER TABLE papers ADD COLUMN IF NOT EXISTS "fullTextUrl" TEXT;`;
-            await client.sql`ALTER TABLE papers ADD COLUMN IF NOT EXISTS "abstractFileName" TEXT;`;
             await client.sql`ALTER TABLE papers ADD COLUMN IF NOT EXISTS "fullTextFileName" TEXT;`;
             console.log('Added file columns to papers table (if not exist).');
         } catch (error) {

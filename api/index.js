@@ -256,59 +256,6 @@ app.delete('/api/papers/:id', async (req, res) => {
 
 // --- FILE UPLOAD ENDPOINTS ---
 
-// Upload abstract file
-app.post('/api/papers/:id/upload-abstract', upload.single('file'), async (req, res) => {
-    const id = parseInt(req.params.id, 10);
-    
-    if (!req.file) {
-        return res.status(400).json({ message: 'No file uploaded' });
-    }
-
-    try {
-        // Check if paper exists
-        const { rows: paperRows } = await sql`SELECT id, "abstractUrl" FROM papers WHERE id = ${id};`;
-        if (paperRows.length === 0) {
-            return res.status(404).json({ message: 'Paper not found' });
-        }
-
-        // Delete old file if exists
-        if (paperRows[0].abstractUrl) {
-            try {
-                await del(paperRows[0].abstractUrl);
-            } catch (err) {
-                console.error('Error deleting old abstract:', err);
-            }
-        }
-
-        // Upload new file to Vercel Blob
-        const fileName = `${id}-abstract-${Date.now()}-${req.file.originalname}`;
-        const blob = await put(`papers/${fileName}`, req.file.buffer, {
-            access: 'public',
-            contentType: req.file.mimetype,
-        });
-
-        // Update database
-        const { rows } = await sql`
-            UPDATE papers
-            SET 
-                "abstractUrl" = ${blob.url},
-                "abstractFileName" = ${req.file.originalname},
-                "abstractStatus" = 'Duyệt'
-            WHERE id = ${id}
-            RETURNING *;
-        `;
-
-        res.json({
-            message: 'Abstract uploaded successfully',
-            paper: rows[0],
-            fileUrl: blob.url
-        });
-    } catch (error) {
-        console.error('Upload error:', error);
-        res.status(500).json({ message: 'Failed to upload abstract', details: error.message });
-    }
-});
-
 // Upload fulltext file
 app.post('/api/papers/:id/upload-fulltext', upload.single('file'), async (req, res) => {
     const id = parseInt(req.params.id, 10);
@@ -359,39 +306,6 @@ app.post('/api/papers/:id/upload-fulltext', upload.single('file'), async (req, r
     } catch (error) {
         console.error('Upload error:', error);
         res.status(500).json({ message: 'Failed to upload full text', details: error.message });
-    }
-});
-
-// Delete abstract file
-app.delete('/api/papers/:id/delete-abstract', async (req, res) => {
-    const id = parseInt(req.params.id, 10);
-    
-    try {
-        const { rows: paperRows } = await sql`SELECT "abstractUrl" FROM papers WHERE id = ${id};`;
-        if (paperRows.length === 0) {
-            return res.status(404).json({ message: 'Paper not found' });
-        }
-
-        if (paperRows[0].abstractUrl) {
-            await del(paperRows[0].abstractUrl);
-        }
-
-        const { rows } = await sql`
-            UPDATE papers
-            SET 
-                "abstractUrl" = NULL,
-                "abstractFileName" = NULL,
-                "abstractStatus" = 'Đang chờ duyệt'
-            WHERE id = ${id}
-            RETURNING *;
-        `;
-
-        res.json({
-            message: 'Abstract deleted successfully',
-            paper: rows[0]
-        });
-    } catch (error) {
-        res.status(500).json({ message: 'Failed to delete abstract', details: error.message });
     }
 });
 

@@ -123,23 +123,10 @@ export const deletePaper = (id: number): Promise<{ id: number }> => {
   });
 };
 
-// --- FILE UPLOADS ---
-export const uploadAbstractFile = (paperId: number, file: File): Promise<{ message: string; paper: DetailedPaperSubmission; fileUrl: string }> => {
-  const formData = new FormData();
-  formData.append('file', file);
-  return fetchAPIWithFile(`/papers/${paperId}/upload-abstract`, formData);
-};
-
 export const uploadFullTextFile = (paperId: number, file: File): Promise<{ message: string; paper: DetailedPaperSubmission; fileUrl: string }> => {
   const formData = new FormData();
   formData.append('file', file);
   return fetchAPIWithFile(`/papers/${paperId}/upload-fulltext`, formData);
-};
-
-export const deleteAbstractFile = (paperId: number): Promise<{ message: string; paper: DetailedPaperSubmission }> => {
-  return fetchAPI(`/papers/${paperId}/delete-abstract`, {
-    method: 'DELETE',
-  });
 };
 
 export const deleteFullTextFile = (paperId: number): Promise<{ message: string; paper: DetailedPaperSubmission }> => {

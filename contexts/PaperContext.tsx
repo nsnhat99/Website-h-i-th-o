@@ -11,9 +11,7 @@ interface PaperContextType {
   updateFullTextStatus: (id: number, status: ReviewStatus) => Promise<void>;
   updateReviewStatus: (id: number, status: ReviewStatus) => Promise<void>;
   updatePresentationStatus: (id: number, status: PresentationStatus) => Promise<void>;
-  uploadAbstractFile: (paperId: number, file: File) => Promise<void>;
   uploadFullTextFile: (paperId: number, file: File) => Promise<void>;
-  deleteAbstractFile: (paperId: number) => Promise<void>;
   deleteFullTextFile: (paperId: number) => Promise<void>;
 }
 
@@ -52,18 +50,8 @@ export const PaperProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const updateReviewStatus = (id: number, status: ReviewStatus) => updateStatus(id, 'reviewStatus', status);
   const updatePresentationStatus = (id: number, status: PresentationStatus) => updateStatus(id, 'presentationStatus', status);
 
-  const uploadAbstractFile = async (paperId: number, file: File) => {
-    const response = await api.uploadAbstractFile(paperId, file);
-    setPapers(prevPapers => prevPapers.map(p => (p.id === paperId ? response.paper : p)));
-  };
-
   const uploadFullTextFile = async (paperId: number, file: File) => {
     const response = await api.uploadFullTextFile(paperId, file);
-    setPapers(prevPapers => prevPapers.map(p => (p.id === paperId ? response.paper : p)));
-  };
-
-  const deleteAbstractFile = async (paperId: number) => {
-    const response = await api.deleteAbstractFile(paperId);
     setPapers(prevPapers => prevPapers.map(p => (p.id === paperId ? response.paper : p)));
   };
 
@@ -82,9 +70,7 @@ export const PaperProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       updateFullTextStatus, 
       updateReviewStatus, 
       updatePresentationStatus,
-      uploadAbstractFile,
       uploadFullTextFile,
-      deleteAbstractFile,
       deleteFullTextFile
     }}>
       {children}

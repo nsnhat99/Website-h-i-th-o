@@ -50,10 +50,10 @@ const AnnouncementForm: React.FC<{
 
   return (
     <div className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-lg shadow-md mb-6 border-l-4 border-yellow-500">
-      <h2 className="text-xl sm:text-2xl font-bold mb-4 text-slate-100">{announcement ? 'Edit Announcement' : 'Add New Announcement'}</h2>
+      <h2 className="text-xl sm:text-2xl font-bold mb-4 text-slate-100">{announcement ? 'Chỉnh sửa thông báo' : 'Thêm mới thông báo'}</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-slate-100">Title</label>
+          <label htmlFor="title" className="block text-sm font-medium text-slate-100">Tiêu đề</label>
           <input
             type="text"
             id="title"
@@ -64,7 +64,7 @@ const AnnouncementForm: React.FC<{
           />
         </div>
         <div>
-          <label htmlFor="content" className="block text-sm font-medium text-slate-100">Content</label>
+          <label htmlFor="content" className="block text-sm font-medium text-slate-100">Nội dung</label>
           <textarea
             id="content"
             rows={4}
@@ -75,7 +75,7 @@ const AnnouncementForm: React.FC<{
           ></textarea>
         </div>
         <div>
-            <label className="block text-sm font-medium text-slate-100">Image</label>
+            <label className="block text-sm font-medium text-slate-100">Ảnh nền</label>
             {imagePreview && <img src={imagePreview} alt="Preview" className="w-full aspect-video object-cover rounded-md my-2 bg-slate-900" />}
             <input
               type="file"
@@ -85,8 +85,8 @@ const AnnouncementForm: React.FC<{
             />
           </div>
         <div className="flex justify-end gap-4">
-          <button type="button" onClick={onCancel} className="px-4 py-2 rounded-md text-slate-200 bg-slate-600 hover:bg-slate-500">Cancel</button>
-          <button type="submit" className="px-4 py-2 rounded-md text-white bg-blue-600 hover:bg-blue-700">Save Announcement</button>
+          <button type="button" onClick={onCancel} className="px-4 py-2 rounded-md text-slate-200 bg-slate-600 hover:bg-slate-500">Hủy</button>
+          <button type="submit" className="px-4 py-2 rounded-md text-white bg-blue-600 hover:bg-blue-700">Lưu</button>
         </div>
       </form>
     </div>
@@ -128,7 +128,7 @@ const AnnouncementsPage: React.FC = () => {
   }
 
   const handleDelete = (id: number) => {
-    if (window.confirm('Are you sure you want to delete this announcement?')) {
+    if (window.confirm('Bạn có chắc muốn xóa thông báo?')) {
       deleteAnnouncement(id);
     }
   };
@@ -166,8 +166,8 @@ const AnnouncementsPage: React.FC = () => {
                   <span className="text-sm text-slate-400">{announcement.date}</span>
                   {currentUser?.role === 'admin' && (
                     <div className="mt-2 flex gap-3">
-                      <button onClick={() => handleEdit(announcement)} className="text-sm text-yellow-100 hover:underline">Edit</button>
-                      <button onClick={() => handleDelete(announcement.id)} className="text-sm text-red-500 hover:underline">Delete</button>
+                      <button onClick={() => handleEdit(announcement)} className="text-sm text-yellow-100 hover:underline">Chỉnh sửa</button>
+                      <button onClick={() => handleDelete(announcement.id)} className="text-sm text-red-500 hover:underline">Xóa</button>
                     </div>
                   )}
                 </div>

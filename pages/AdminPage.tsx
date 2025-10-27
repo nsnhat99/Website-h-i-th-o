@@ -229,32 +229,32 @@ const AdminPage: React.FC = () => {
 
             {/* Content Management Section */}
             <div className="space-y-12">
-                <h2 className="text-2xl md:text-3xl font-bold text-center text-slate-100 border-b-2 border-slate-700 pb-4">Content Management</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-center text-slate-100 border-b-2 border-slate-700 pb-4">Quản lý nội dung</h2>
                 
                 {/* General Conference Info */}
                 <div>
-                     <h3 className="text-xl sm:text-2xl font-semibold text-yellow-100 mb-8">General Conference Info</h3>
+                     <h3 className="text-xl sm:text-2xl font-semibold text-yellow-100 mb-8">Thông tin chung về hội thảo</h3>
                      <div className="bg-slate-800/50 p-6 rounded-lg shadow-md border border-slate-700/50 space-y-4">
                         <div>
-                            <label className="block text-sm font-medium text-slate-100">Homepage Hero Title</label>
+                            <label className="block text-sm font-medium text-slate-100">Tiêu đề chính homepage</label>
                             <input type="text" name="title" value={confInfo.title} onChange={handleConfInfoChange} className="mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md"/>
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-slate-100">Homepage Hero Subtitle</label>
+                            <label className="block text-sm font-medium text-slate-100">Tiêu đề phụ homepage</label>
                             <input type="text" name="subtitle" value={confInfo.subtitle} onChange={handleConfInfoChange} className="mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md"/>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm font-medium text-slate-100">Conference Date</label>
+                                <label className="block text-sm font-medium text-slate-100">Ngày diễn ra hội thảo</label>
                                 <input type="text" name="date" value={confInfo.date} onChange={handleConfInfoChange} className="mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md"/>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-slate-100">Conference Location</label>
+                                <label className="block text-sm font-medium text-slate-100">Địa điểm hội thảo</label>
                                 <input type="text" name="location" value={confInfo.location} onChange={handleConfInfoChange} className="mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md"/>
                             </div>
                         </div>
                         <div className="text-right">
-                            <button onClick={handleSaveConfInfo} className="bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-yellow-700 transition-colors">Save Info</button>
+                            <button onClick={handleSaveConfInfo} className="bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-yellow-700 transition-colors">Lưu</button>
                         </div>
                      </div>
                 </div>
@@ -262,7 +262,7 @@ const AdminPage: React.FC = () => {
                 {/* Navigation Menu */}
                 <div>
                     <div className="flex justify-between items-center mb-8">
-                         <h3 className="text-xl sm:text-2xl font-semibold text-yellow-100">Navigation Menu</h3>
+                         <h3 className="text-xl sm:text-2xl font-semibold text-yellow-100">Menu điều hướng</h3>
                          <button onClick={() => handleOpenModal(null, 'navLink')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Add Nav Link</button>
                     </div>
                     <div className="bg-slate-800/50 p-4 rounded-lg shadow-md border border-slate-700/50">
@@ -286,8 +286,8 @@ const AdminPage: React.FC = () => {
                 {/* Keynote Speakers */}
                 <div>
                     <div className="flex justify-between items-center mb-8">
-                         <h3 className="text-xl sm:text-2xl font-semibold text-yellow-100">Keynote Speakers</h3>
-                         <button onClick={() => handleOpenModal(null, 'speaker')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Add Speaker</button>
+                         <h3 className="text-xl sm:text-2xl font-semibold text-yellow-100">Diễn giả chính</h3>
+                         <button onClick={() => handleOpenModal(null, 'speaker')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Thêm diễn giả</button>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {siteContent.keynoteSpeakers.map(speaker => (
@@ -306,13 +306,13 @@ const AdminPage: React.FC = () => {
                 {/* Sponsors & Partners */}
                 <div>
                     <div className="flex justify-between items-center mb-8">
-                         <h3 className="text-xl sm:text-2xl font-semibold text-yellow-100">Sponsors & Partners</h3>
+                         <h3 className="text-xl sm:text-2xl font-semibold text-yellow-100">Nhà tài trợ & Đối tác</h3>
                          <div>
-                            <button onClick={() => handleOpenModal(null, 'sponsor', 'coOrganizer')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors mr-2">Add Co-organizer</button>
-                            <button onClick={() => handleOpenModal(null, 'sponsor', 'sponsor')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Add Sponsor</button>
+                            <button onClick={() => handleOpenModal(null, 'sponsor', 'coOrganizer')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors mr-2">Thêm đồng tổ chức</button>
+                            <button onClick={() => handleOpenModal(null, 'sponsor', 'sponsor')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Thêm nhà tài trợ</button>
                          </div>
                     </div>
-                    <h4 className="text-xl font-medium text-slate-100 mb-4">Co-organizers</h4>
+                    <h4 className="text-xl font-medium text-slate-100 mb-4">Đồng tổ chức</h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
                          {siteContent.coOrganizers.map(item => (
                             <ManagementCard 
@@ -324,7 +324,7 @@ const AdminPage: React.FC = () => {
                             />
                         ))}
                     </div>
-                    <h4 className="text-xl font-medium text-slate-100 mb-4">Sponsors</h4>
+                    <h4 className="text-xl font-medium text-slate-100 mb-4">Nhà tài trợ</h4>
                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                          {siteContent.sponsors.map(item => (
                             <ManagementCard 
@@ -340,12 +340,12 @@ const AdminPage: React.FC = () => {
 
                  {/* General Images */}
                 <div>
-                     <h3 className="text-xl sm:text-2xl font-semibold text-yellow-100 mb-8">General Site Images</h3>
+                     <h3 className="text-xl sm:text-2xl font-semibold text-yellow-100 mb-8">Ảnh trên website</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <ImageUploadCard title="Conference Logo" currentImage={siteContent.conferenceLogo} onImageSelect={(file) => handleImageUpload('conferenceLogo', file)} />
-                        <ImageUploadCard title="University Logo" currentImage={siteContent.universityLogo} onImageSelect={(file) => handleImageUpload('universityLogo', file)} />
-                        <ImageUploadCard title="Homepage Hero Background" currentImage={siteContent.heroBackground} onImageSelect={(file) => handleImageUpload('heroBackground', file)} />
-                        <ImageUploadCard title="Call for Papers Image" currentImage={siteContent.callForPapersImage} onImageSelect={(file) => handleImageUpload('callForPapersImage', file)} />
+                        <ImageUploadCard title="Logo hội thảo" currentImage={siteContent.conferenceLogo} onImageSelect={(file) => handleImageUpload('conferenceLogo', file)} />
+                        <ImageUploadCard title="Logo trường đại học" currentImage={siteContent.universityLogo} onImageSelect={(file) => handleImageUpload('universityLogo', file)} />
+                        <ImageUploadCard title="Hình nền trang chủ" currentImage={siteContent.heroBackground} onImageSelect={(file) => handleImageUpload('heroBackground', file)} />
+                        <ImageUploadCard title="Hình nền kêu gọi bài báo" currentImage={siteContent.callForPapersImage} onImageSelect={(file) => handleImageUpload('callForPapersImage', file)} />
                     </div>
                 </div>
             </div>

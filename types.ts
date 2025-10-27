@@ -113,6 +113,10 @@ export type DetailedPaperSubmission = {
   fullTextStatus: ReviewStatus;
   reviewStatus: ReviewStatus;
   presentationStatus: PresentationStatus;
+  fullTextFileName?: string;
+  abstractUrl?: string;
+  fullTextUrl?: string;
+  abstractFileName?: string;
 };
 
 export type PaperSubmissionFormData = {

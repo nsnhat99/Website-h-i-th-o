@@ -10,9 +10,11 @@
     "postinstall": "node api/seed.js"
   },
   "dependencies": {
-    "express": "^4.19.2",
+    "@vercel/blob": "^2.0.0",
+    "@vercel/postgres": "^0.8.0",
     "cors": "^2.8.5",
-    "@vercel/postgres": "^0.8.0"
+    "express": "^4.19.2",
+    "multer": "^2.0.2"
   },
   "devDependencies": {
     "react": "^18.2.0",

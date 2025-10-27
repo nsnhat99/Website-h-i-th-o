@@ -58,6 +58,7 @@ export type Announcement = {
   date: string;
   content: string;
   imageUrl?: string;
+  contentImages?: string[];
 };
 
 export type Sponsor = {

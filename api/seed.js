@@ -36,7 +36,6 @@ const initialRegistrations = [
     { id: 2, name: 'Trần Thị Bình', organization: 'Viện Khoa học Giáo dục', email: 'ttb@email.com', phone: '123456789', withPaper: 'yes' },
 ];
 
-
 async function seed(client) {
     try {
         await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
@@ -72,11 +71,12 @@ async function seed(client) {
                 title TEXT NOT NULL,
                 date TEXT,
                 content TEXT,
-                "imageUrl" TEXT
+                "imageUrl" TEXT,
+                "contentImages" JSONB
             );
         `;
         console.log('Checked/Created "announcements" table.');
-        
+
         await client.sql`
             CREATE TABLE IF NOT EXISTS papers (
                 id SERIAL PRIMARY KEY,
@@ -98,7 +98,8 @@ async function seed(client) {
         try {
             await client.sql`ALTER TABLE papers ADD COLUMN IF NOT EXISTS "fullTextUrl" TEXT;`;
             await client.sql`ALTER TABLE papers ADD COLUMN IF NOT EXISTS "fullTextFileName" TEXT;`;
-            console.log('Added file columns to papers table (if not exist).');
+            await client.sql`ALTER TABLE announcements ADD COLUMN IF NOT EXISTS "contentImages" JSONB;`;
+            console.log('Added file columns to papers and announcements tables (if not exist).');
         } catch (error) {
             console.log('File columns already exist or error adding them:', error.message);
         }
@@ -148,8 +149,8 @@ async function seed(client) {
             await Promise.all(
                 ANNOUNCEMENTS_DATA.map(ann =>
                     client.sql`
-                        INSERT INTO announcements (id, title, date, content, "imageUrl")
-                        VALUES (${ann.id}, ${ann.title}, ${ann.date}, ${ann.content}, ${ann.imageUrl});
+                        INSERT INTO announcements (id, title, date, content, "imageUrl", "contentImages")
+                        VALUES (${ann.id}, ${ann.title}, ${ann.date}, ${ann.content}, ${ann.imageUrl}, ${JSON.stringify(ann.contentImages || [])}::jsonb);
                     `
                 )
             );
@@ -157,7 +158,7 @@ async function seed(client) {
         } else {
             console.log('Announcements table already has data, skipping seed.');
         }
-        
+
         const { rows: paperCount } = await client.sql`SELECT COUNT(*) FROM papers;`;
         if (parseInt(paperCount[0].count) === 0) {
             await Promise.all(

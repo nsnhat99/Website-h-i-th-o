@@ -98,12 +98,12 @@ app.get('/api/announcements', async (req, res) => {
 });
 
 app.post('/api/announcements', async (req, res) => {
-    const { title, content, imageUrl } = req.body;
+    const { title, content, imageUrl, contentImages } = req.body;
     const date = new Intl.DateTimeFormat('en-GB').format(new Date());
     try {
         const { rows } = await sql`
-            INSERT INTO announcements (title, content, "imageUrl", date)
-            VALUES (${title}, ${content}, ${imageUrl}, ${date})
+            INSERT INTO announcements (title, content, "imageUrl", date, "contentImages")
+            VALUES (${title}, ${content}, ${imageUrl}, ${date}, ${JSON.stringify(contentImages)}::jsonb)
             RETURNING *;
         `;
         res.status(201).json(rows[0]);
@@ -122,6 +122,7 @@ app.put('/api/announcements/:id', async (req, res) => {
                 title = COALESCE(${title}, title),
                 content = COALESCE(${content}, content),
                 "imageUrl" = COALESCE(${imageUrl}, "imageUrl")
+                "contentImages" = COALESCE(${contentImages ? JSON.stringify(contentImages) : null}::jsonb, "contentImages")
             WHERE id = ${id}
             RETURNING *;
         `;

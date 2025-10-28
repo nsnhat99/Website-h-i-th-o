@@ -219,7 +219,7 @@ app.delete('/api/papers/:id', async (req, res) => {
     const id = parseInt(req.params.id, 10);
     try {
         // Get file URLs before deleting
-        const { rows } = await sql`SELECT "abstractUrl", "fullTextUrl" FROM papers WHERE id = ${id};`;
+        const { rows } = await sql`SELECT "fullTextUrl" FROM papers WHERE id = ${id};`;
         
         if (rows.length === 0) {
             return res.status(404).json({ message: "Paper not found" });
@@ -227,14 +227,6 @@ app.delete('/api/papers/:id', async (req, res) => {
 
         const paper = rows[0];
 
-        // Delete files from Vercel Blob if they exist
-        if (paper.abstractUrl) {
-            try {
-                await del(paper.abstractUrl);
-            } catch (err) {
-                console.error('Error deleting abstract file:', err);
-            }
-        }
         if (paper.fullTextUrl) {
             try {
                 await del(paper.fullTextUrl);

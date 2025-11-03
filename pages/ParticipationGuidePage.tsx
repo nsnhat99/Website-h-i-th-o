@@ -145,7 +145,7 @@ const ParticipationGuidePage: React.FC = () => {
                             <h4 className="font-bold text-xl text-slate-100 mb-2">Thông tin chung</h4>
                             
                             <p className="text-sm text-slate-200 font-semibold">TS. Đinh Thị Kim Thương</p>
-                            <p className="text-xs text-slate-400 mb-3">Phó Trưởng phòng QLKHCN & HTPT</p>
+                            <p className="text-xs text-slate-400 mb-3">Trưởng phòng QLKHCN & HTPT</p>
                             
                             <div className="mt-2 space-y-1 text-sm text-slate-100">
                                 <p>

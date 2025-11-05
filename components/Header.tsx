@@ -94,8 +94,8 @@ const Header: React.FC = () => {
           )}
 
           {/* Navigation Menu - Full width below */}
-          <div className={`${isMenuOpen ? 'block' : 'hidden'} md:block mt-4 md:mt-0`} id="navbar-default">
-            <ul className="font-medium flex flex-col p-4 md:p-0 border border-slate-700 rounded-lg bg-slate-800/80 md:flex-row md:items-center md:space-x-8 rtl:space-x-reverse md:border-0 md:bg-transparent">
+          <div className={`${isMenuOpen ? 'block' : 'hidden'} md:block mt-4`} id="navbar-default">
+            <ul className="font-medium flex flex-col p-4 md:p-0 border border-slate-700 rounded-lg bg-slate-800/80 md:flex-row md:items-center md:space-x-8 rtl:space-x-reverse md:border-0 md:bg-transparent justify-center">
               {navLinks.map((link: NavLink) => {
                 if (link.path === '/admin' && currentUser?.role !== 'admin') {
                   return null;

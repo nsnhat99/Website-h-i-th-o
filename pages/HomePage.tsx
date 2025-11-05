@@ -53,8 +53,8 @@ const HomePage: React.FC = () => {
 
       {/* Call for Papers & Keynote Speakers Section */}
       <section>
-        <h2 className="text-2xl md:text-3xl font-bold mb-8 text-yellow-100 text-center">Call for Papers & Báo cáo viên</h2>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <h2 className="text-2xl md:text-3xl font-bold mb-8 text-yellow-100 text-center">Kêu gọi bài báo & Báo cáo viên</h2>
+        <div className="flex flex-col gap-12 items-start">
             {/* Call for Papers Image Section (1/2 width) */}
             <div className="bg-slate-900/40 backdrop-blur-sm p-4 sm:p-6 rounded-lg shadow-lg border border-slate-700/50">
                 <h3 className="text-xl sm:text-2xl font-bold mb-6 text-slate-100 text-center">Thông tin Kêu gọi Bài báo</h3>
@@ -68,7 +68,7 @@ const HomePage: React.FC = () => {
             {/* Keynote Speakers Section (1/2 width) */}
             <div>
                 <h3 className="text-xl sm:text-2xl font-bold mb-6 text-yellow-100 text-center">Báo cáo viên</h3>
-                <div className="bg-slate-800/50 backdrop-blur-sm p-4 rounded-lg shadow-xl grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4 border border-slate-700">
+                <div className="bg-slate-800/50 backdrop-blur-sm p-4 rounded-lg shadow-xl grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-4 gap-4 border border-slate-700">
                     {siteContent.keynoteSpeakers.map((speaker: KeynoteSpeaker) => (
                         <div key={speaker.id} className="group relative aspect-square" title={`${speaker.name} - ${speaker.keynoteTopic}`}>
                             <img

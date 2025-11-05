@@ -39,7 +39,7 @@ const Header: React.FC = () => {
           <div className="flex items-center justify-between gap-2">
             {/* Logo and Title Section */}
             <Link to="/" className="flex items-center space-x-2 sm:space-x-4 rtl:space-x-reverse min-w-0 flex-1" onClick={closeAllMenus}>
-              <div className="flex items-center gap-2 flex-shrink-0">
+              <div className="flex flex-col md:flex-row items-center gap-2 flex-shrink-0">
                 <img src={siteContent.conferenceLogo} alt="Conference Logo" className="w-[40px] sm:w-[50px] md:w-[60px] h-auto rounded-md object-contain" />
                 <img src={siteContent.universityLogo} alt="University Logo" className="w-[40px] sm:w-[50px] md:w-[60px] h-auto rounded-md object-contain" />
               </div>

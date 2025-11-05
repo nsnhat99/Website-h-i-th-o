@@ -28,21 +28,21 @@ const HomePage: React.FC = () => {
       <section className="bg-slate-900/40 backdrop-blur-sm p-8 rounded-lg shadow-lg border border-slate-700/50">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
           <div className="flex flex-col items-center">
-             <div className="bg-yellow-900/50 text-yellow-300 rounded-full p-4 mb-3">
+             <div className="bg-yellow-900/50 text-yellow-300 rounded-full flex items-center justify-center mb-3 w-[70px] h-[70px]">
                 <i className="fas fa-calendar-alt fa-2x"></i>
              </div>
             <h3 className="text-xl font-bold mb-2 text-slate-100">Thời gian</h3>
             <p className="text-lg text-slate-100">{siteContent.conferenceDate}</p>
           </div>
           <div className="flex flex-col items-center">
-            <div className="bg-emerald-900/50 text-emerald-300 rounded-full p-4 mb-3">
+            <div className="bg-emerald-900/50 text-emerald-300 rounded-full flex items-center justify-center mb-3 w-[70px] h-[70px]">
                 <i className="fas fa-map-marker-alt fa-2x"></i>
             </div>
             <h3 className="text-xl font-bold mb-2 text-slate-100">Địa điểm</h3>
             <p className="text-lg text-slate-100">{siteContent.conferenceLocation}</p>
           </div>
           <div className="flex flex-col items-center">
-            <div className="bg-violet-900/50 text-violet-300 rounded-full p-4 mb-3">
+            <div className="bg-violet-900/50 text-violet-300 rounded-full flex items-center justify-center mb-3 w-[70px] h-[70px]">
                 <i className="fas fa-users fa-2x"></i>
             </div>
             <h3 className="text-xl font-bold mb-2 text-slate-100">Diễn giả</h3>

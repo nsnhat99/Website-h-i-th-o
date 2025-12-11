@@ -32,7 +32,7 @@ const ImageLightbox: React.FC<{
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute -top-12 right-0 text-white hover:text-yellow-400 transition-colors"
+          className="flex items-center absolute -top-10 right-0 text-white hover:text-yellow-400 transition-colors"
         >
           <i className="fas fa-times text-2xl"></i>
           <span className="ml-2 text-sm">Đóng</span>

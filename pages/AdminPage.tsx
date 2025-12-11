@@ -217,7 +217,7 @@ const AdminPage: React.FC = () => {
     }
 
     return (
-        <div className="max-w-7xl mx-auto space-y-16">
+        <div className="max-w-7xl mx-auto">
             <div>
                 <h1 className="text-4xl font-bold text-center mb-4 text-slate-100">Admin Dashboard</h1>
                 <p className="text-center text-slate-100 text-lg mb-10">Thống kê và báo cáo tổng quan hội thảo.</p>

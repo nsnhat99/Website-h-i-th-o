@@ -257,12 +257,12 @@ const PaperReviewPage: React.FC = () => {
     }
   };
 
-  const selectBaseClasses = "w-full min-w-[120px] text-xs font-bold rounded-md p-2 focus:ring-2 focus:ring-sky-500 focus:outline-none transition appearance-none text-center";
-  const spanBaseClasses = "inline-block px-3 py-1.5 text-xs font-bold leading-none rounded-full";
+  const selectBaseClasses = "w-full text-xs font-semibold rounded-md py-1.5 px-2 focus:ring-2 focus:ring-sky-500 focus:outline-none transition appearance-none text-center";
+  const spanBaseClasses = "inline-block px-2.5 py-1 text-xs font-semibold leading-none rounded-full whitespace-nowrap";
 
   return (
     <>
-      <div className="max-w-screen-xl mx-auto">
+      <div className="max-w-screen-2xl mx-auto px-4">
         <h1 className="text-4xl font-bold text-center mb-4 text-slate-100">Kết quả duyệt bài tham dự hội thảo</h1>
         <p className="text-center text-slate-100 text-lg mb-10">
           Danh sách các bài báo đã nộp và trạng thái duyệt, trình bày.
@@ -270,59 +270,78 @@ const PaperReviewPage: React.FC = () => {
 
         <div className="bg-slate-800/40 backdrop-blur-sm rounded-lg shadow-2xl border border-slate-700/50 overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="min-w-full text-sm text-left text-slate-100">
+            <table className="w-full text-sm text-left text-slate-100 table-fixed">
+              <colgroup>
+                <col className="w-12" /> {/* TT */}
+                <col className="w-40" /> {/* Họ tên */}
+                <col className="w-48" /> {/* Đơn vị */}
+                <col className="min-w-[320px] w-auto" /> {/* Tên bài - flexible */}
+                <col className="w-24" /> {/* Chủ đề */}
+                {currentUser?.role === 'admin' && <col className="w-20" />} {/* Files */}
+                <col className="w-[110px]" /> {/* Tóm tắt */}
+                <col className="w-[110px]" /> {/* Toàn văn */}
+                <col className="w-[110px]" /> {/* Kết quả */}
+                <col className="w-[110px]" /> {/* Trình bày */}
+                {currentUser?.role === 'admin' && <col className="w-24" />} {/* Hành động */}
+              </colgroup>
               <thead className="bg-slate-900/50 text-xs text-slate-400 uppercase tracking-wider">
                 <tr>
-                  <th scope="col" className="px-6 py-3 w-16 text-center text-sm">TT</th>
-                  <th scope="col" className="px-6 py-3 text-sm">Họ tên</th>
-                  <th scope="col" className="px-6 py-3 text-sm">Đơn vị công tác</th>
-                  <th scope="col" className="px-6 py-3 text-sm">Tên bài</th>
-                  <th scope="col" className="px-6 py-3 text-center">Chủ đề</th>
+                  <th scope="col" className="px-3 py-3 text-center">TT</th>
+                  <th scope="col" className="px-3 py-3">Họ tên</th>
+                  <th scope="col" className="px-3 py-3">Đơn vị công tác</th>
+                  <th scope="col" className="px-3 py-3">Tên bài</th>
+                  <th scope="col" className="px-2 py-3 text-center">Chủ đề</th>
                   {currentUser?.role === 'admin' && (
-                    <th scope="col" className="px-6 py-3 text-center">Files</th>
+                    <th scope="col" className="px-2 py-3 text-center">Files</th>
                   )}
-                  <th scope="col" className="px-6 py-3 text-center">Tóm tắt</th>
-                  <th scope="col" className="px-6 py-3 text-center">Toàn văn</th>
-                  <th scope="col" className="px-6 py-3 text-center">Kết quả</th>
-                  <th scope="col" className="px-6 py-3 text-center">Trình bày</th>
+                  <th scope="col" className="px-2 py-3 text-center">Tóm tắt</th>
+                  <th scope="col" className="px-2 py-3 text-center">Toàn văn</th>
+                  <th scope="col" className="px-2 py-3 text-center">Kết quả</th>
+                  <th scope="col" className="px-2 py-3 text-center">Trình bày</th>
                   {currentUser?.role === 'admin' && (
-                    <th scope="col" className="px-6 py-3 text-center text-sm">Hành động</th>
+                    <th scope="col" className="px-2 py-3 text-center">Thao tác</th>
                   )}
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-700/50">
                 {papers.map((paper, index) => (
                   <tr key={paper.id} className="hover:bg-slate-700/30 transition-colors duration-200">
-                    <td className="px-6 py-4 text-center font-medium text-slate-400 text-base">{index + 1}</td>
-                    <td className="px-6 py-4 font-medium text-slate-100 whitespace-nowrap text-base">{paper.authorName}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-base">{paper.organization}</td>
-                    <td className="px-6 py-4 font-semibold text-slate-100 text-base">{paper.paperTitle}</td>
-                    <td className="px-6 py-4 text-center whitespace-nowrap">
-                      <span className={`px-3 py-1 text-xs font-semibold rounded-full ${topicStyles[paper.topic] || 'bg-cyan-900/70 text-cyan-300 border border-cyan-700'}`}>
+                    <td className="px-3 py-4 text-center font-medium text-slate-400">{index + 1}</td>
+                    <td className="px-3 py-4 font-medium text-slate-100">
+                      <div className="truncate" title={paper.authorName}>{paper.authorName}</div>
+                    </td>
+                    <td className="px-3 py-4">
+                      <div className="truncate text-slate-300" title={paper.organization}>{paper.organization}</div>
+                    </td>
+                    <td className="px-3 py-4">
+                      <div className="font-medium text-slate-100 line-clamp-3" title={paper.paperTitle}>
+                        {paper.paperTitle}
+                      </div>
+                    </td>
+                    <td className="px-2 py-4 text-center">
+                      <span className={`px-2 py-1 text-xs font-semibold rounded-full whitespace-nowrap ${topicStyles[paper.topic] || 'bg-cyan-900/70 text-cyan-300 border border-cyan-700'}`}>
                         Tiểu ban {paper.topic}
                       </span>
                     </td>
                     {currentUser?.role === 'admin' && (
-                      <td className="px-6 py-4 text-center">
-                        <div className="flex flex-col gap-1">
-                          {paper.fullTextUrl ? (
-                            <a
-                              href={paper.fullTextUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-green-400 hover:text-green-300 text-xs"
-                              title="Tải file toàn văn"
-                            >
-                              <i className="fas fa-file-alt mr-1"></i>
-                              Toàn văn
-                            </a>
-                          ) : (
-                            <span className="text-slate-500 text-xs">Chưa có</span>
-                          )}
-                        </div>
+                      <td className="px-2 py-4 text-center">
+                        {paper.fullTextUrl ? (
+                          <a
+                            href={paper.fullTextUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-green-400 hover:text-green-300 text-xs whitespace-nowrap"
+                            title="Tải file toàn văn"
+                          >
+                            <i className="fas fa-file-alt mr-1"></i>
+                            Có
+                          </a>
+                        ) : (
+                          <span className="text-slate-500 text-xs">—</span>
+                        )}
                       </td>
                     )}
-                    <td className="px-6 py-4 text-center">
+                    <td className="px-2 py-4 text-center">
                       {currentUser?.role === 'admin' ? (
                         <select
                           value={paper.abstractStatus}
@@ -332,7 +351,7 @@ const PaperReviewPage: React.FC = () => {
                         >
                           <option className="bg-slate-800 text-white" value="Duyệt">Duyệt</option>
                           <option className="bg-slate-800 text-white" value="Không duyệt">Không duyệt</option>
-                          <option className="bg-slate-800 text-white" value="Đang chờ duyệt">Đang chờ duyệt</option>
+                          <option className="bg-slate-800 text-white" value="Đang chờ duyệt">Đang chờ</option>
                         </select>
                       ) : (
                         <span className={`${spanBaseClasses} ${reviewStatusStyles[paper.abstractStatus]}`}>
@@ -340,7 +359,7 @@ const PaperReviewPage: React.FC = () => {
                         </span>
                       )}
                     </td>
-                    <td className="px-6 py-4 text-center">
+                    <td className="px-2 py-4 text-center">
                       {currentUser?.role === 'admin' ? (
                         <select
                           value={paper.fullTextStatus}
@@ -350,7 +369,7 @@ const PaperReviewPage: React.FC = () => {
                         >
                           <option className="bg-slate-800 text-white" value="Duyệt">Duyệt</option>
                           <option className="bg-slate-800 text-white" value="Không duyệt">Không duyệt</option>
-                          <option className="bg-slate-800 text-white" value="Đang chờ duyệt">Đang chờ duyệt</option>
+                          <option className="bg-slate-800 text-white" value="Đang chờ duyệt">Đang chờ</option>
                         </select>
                       ) : (
                         <span className={`${spanBaseClasses} ${reviewStatusStyles[paper.fullTextStatus]}`}>
@@ -358,7 +377,7 @@ const PaperReviewPage: React.FC = () => {
                         </span>
                       )}
                     </td>
-                    <td className="px-6 py-4 text-center">
+                    <td className="px-2 py-4 text-center">
                       {currentUser?.role === 'admin' ? (
                         <select
                           value={paper.reviewStatus}
@@ -368,7 +387,7 @@ const PaperReviewPage: React.FC = () => {
                         >
                           <option className="bg-slate-800 text-white" value="Duyệt">Duyệt</option>
                           <option className="bg-slate-800 text-white" value="Không duyệt">Không duyệt</option>
-                          <option className="bg-slate-800 text-white" value="Đang chờ duyệt">Đang chờ duyệt</option>
+                          <option className="bg-slate-800 text-white" value="Đang chờ duyệt">Đang chờ</option>
                         </select>
                       ) : (
                         <span className={`${spanBaseClasses} ${reviewStatusStyles[paper.reviewStatus]}`}>
@@ -376,7 +395,7 @@ const PaperReviewPage: React.FC = () => {
                         </span>
                       )}
                     </td>
-                    <td className="px-6 py-4 text-center">
+                    <td className="px-2 py-4 text-center">
                       {currentUser?.role === 'admin' ? (
                         <select
                           value={paper.presentationStatus}
@@ -385,30 +404,32 @@ const PaperReviewPage: React.FC = () => {
                           className={`${selectBaseClasses} ${presentationStatusStyles[paper.presentationStatus]}`}
                         >
                           <option className="bg-slate-800 text-white" value="Trình bày">Trình bày</option>
-                          <option className="bg-slate-800 text-white" value="Không trình bày">Không trình bày</option>
+                          <option className="bg-slate-800 text-white" value="Không trình bày">Không TB</option>
                         </select>
                       ) : (
                         <span className={`${spanBaseClasses} ${presentationStatusStyles[paper.presentationStatus]}`}>
-                          {paper.presentationStatus}
+                          {paper.presentationStatus === 'Không trình bày' ? 'Không TB' : paper.presentationStatus}
                         </span>
                       )}
                     </td>
                     {currentUser?.role === 'admin' && (
-                      <td className="px-6 py-4 text-center">
-                        <button
-                          onClick={() => setEditingPaper(paper)}
-                          className="text-yellow-100 hover:text-yellow-300 py-1 px-3 rounded-lg bg-yellow-900/50 hover:bg-yellow-800/50 border border-sky-700/50 transition-colors mr-2"
-                          title="Sửa thông tin bài báo"
-                        >
-                          <i className="fas fa-pencil-alt"></i>
-                        </button>
-                        <button
-                          onClick={() => handleDelete(paper.id)}
-                          className="text-red-400 hover:text-red-300 py-1 px-3 rounded-lg bg-red-900/50 hover:bg-red-800/50 border border-red-700/50 transition-colors"
-                          title="Xóa bài báo"
-                        >
-                          <i className="fas fa-trash-alt"></i>
-                        </button>
+                      <td className="px-2 py-4 text-center">
+                        <div className="flex items-center justify-center gap-1">
+                          <button
+                            onClick={() => setEditingPaper(paper)}
+                            className="text-yellow-100 hover:text-yellow-300 p-1.5 rounded-md bg-yellow-900/50 hover:bg-yellow-800/50 border border-yellow-700/50 transition-colors"
+                            title="Sửa"
+                          >
+                            <i className="fas fa-pencil-alt text-xs"></i>
+                          </button>
+                          <button
+                            onClick={() => handleDelete(paper.id)}
+                            className="text-red-400 hover:text-red-300 p-1.5 rounded-md bg-red-900/50 hover:bg-red-800/50 border border-red-700/50 transition-colors"
+                            title="Xóa"
+                          >
+                            <i className="fas fa-trash-alt text-xs"></i>
+                          </button>
+                        </div>
                       </td>
                     )}
                   </tr>

@@ -51,39 +51,87 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Call for Papers & Keynote Speakers Section */}
-      <section>
-        <h2 className="text-2xl md:text-3xl font-bold mb-8 text-yellow-100 text-center">Kêu gọi bài báo & Báo cáo viên</h2>
-        <div className="flex flex-col gap-12 items-start">
-            {/* Call for Papers Image Section (1/2 width) */}
-            <div className="bg-slate-900/40 backdrop-blur-sm p-4 sm:p-6 rounded-lg shadow-lg border border-slate-700/50">
-                <h3 className="text-xl sm:text-2xl font-bold mb-6 text-slate-100 text-center">Thông tin Kêu gọi Bài báo</h3>
-                <img
-                    src={siteContent.callForPapersImage}
-                    alt="Call for Papers A4 Document"
-                    className="w-full h-auto object-contain rounded-md shadow-md border border-gray-700"
-                />
+      {/* Call for Papers & Keynote Speakers Section - Redesigned */}
+      <section className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+        {/* Call for Papers - Left side (2/5 width on desktop) */}
+        <div className="lg:col-span-2">
+          <div className="bg-slate-900/40 backdrop-blur-sm rounded-lg shadow-lg border border-slate-700/50 overflow-hidden h-full flex flex-col">
+            <div className="bg-gradient-to-r from-yellow-900/60 to-amber-900/40 px-6 py-4 border-b border-slate-700/50">
+              <h3 className="text-xl font-bold text-yellow-100 flex items-center gap-3">
+                <i className="fas fa-newspaper text-yellow-400"></i>
+                Kêu gọi Bài báo
+              </h3>
             </div>
+            <div className="p-4 flex-1 flex items-center justify-center">
+              <img
+                src={siteContent.callForPapersImage}
+                alt="Call for Papers"
+                className="w-full max-h-[500px] object-contain rounded-md"
+              />
+            </div>
+            <div className="p-4 pt-0">
+              <Link 
+                to="/participation-guide" 
+                className="block w-full text-center bg-yellow-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-yellow-700 transition-all hover:shadow-lg"
+              >
+                <i className="fas fa-paper-plane mr-2"></i>
+                Nộp bài ngay
+              </Link>
+            </div>
+          </div>
+        </div>
 
-            {/* Keynote Speakers Section (1/2 width) */}
-            <div>
-                <h3 className="text-xl sm:text-2xl font-bold mb-6 text-yellow-100 text-center">Báo cáo viên</h3>
-                <div className="bg-slate-800/50 backdrop-blur-sm p-4 rounded-lg shadow-xl grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-4 gap-4 border border-slate-700">
-                    {siteContent.keynoteSpeakers.map((speaker: KeynoteSpeaker) => (
-                        <div key={speaker.id} className="group relative aspect-square" title={`${speaker.name} - ${speaker.keynoteTopic}`}>
-                            <img
-                                src={speaker.imageUrl}
-                                alt={speaker.name}
-                                className="w-full h-full object-cover rounded-full transition-all duration-300 ease-in-out group-hover:blur-sm group-hover:brightness-50"
-                            />
-                            <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-2 bg-black/70 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
-                                <p className="text-xs sm:text-sm font-bold text-white leading-tight">{speaker.name}</p>
-                                <p className="text-[10px] sm:text-xs text-yellow-100 mt-1 font-semibold leading-tight hidden sm:block">{speaker.keynoteTopic}</p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+        {/* Keynote Speakers - Right side (3/5 width on desktop) */}
+        <div className="lg:col-span-3">
+          <div className="bg-slate-900/40 backdrop-blur-sm rounded-lg shadow-lg border border-slate-700/50 overflow-hidden h-full flex flex-col">
+            <div className="bg-gradient-to-r from-emerald-900/60 to-teal-900/40 px-6 py-4 border-b border-slate-700/50">
+              <h3 className="text-xl font-bold text-emerald-100 flex items-center gap-3">
+                <i className="fas fa-microphone-alt text-emerald-400"></i>
+                Báo cáo viên
+              </h3>
             </div>
+            <div className="p-6 flex-1">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
+                {siteContent.keynoteSpeakers.map((speaker: KeynoteSpeaker) => (
+                  <div key={speaker.id} className="group text-center">
+                    {/* Avatar with hover effect */}
+                    <div className="relative mx-auto w-20 h-20 sm:w-24 sm:h-24 mb-3">
+                      <img
+                        src={speaker.imageUrl}
+                        alt={speaker.name}
+                        className="w-full h-full object-cover rounded-full border-3 border-slate-600 group-hover:border-yellow-500 transition-all duration-300 shadow-lg"
+                      />
+                      {/* Hover overlay */}
+                      <div className="absolute inset-0 bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <i className="fas fa-info-circle text-white text-xl"></i>
+                      </div>
+                    </div>
+                    {/* Name always visible */}
+                    <h4 className="text-sm font-semibold text-slate-100 leading-tight line-clamp-2">
+                      {speaker.name}
+                    </h4>
+                    {/* Affiliation */}
+                    <p className="text-xs text-slate-400 mt-1 line-clamp-1">
+                      {speaker.affiliation}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            {/* Footer with count */}
+            <div className="px-6 py-4 bg-slate-800/30 border-t border-slate-700/50 flex items-center justify-between">
+              <span className="text-sm text-slate-400">
+                <i className="fas fa-users mr-2"></i>
+                {siteContent.keynoteSpeakers.length} báo cáo viên
+              </span>
+              <Link 
+                to="/program" 
+                className="text-sm text-yellow-400 hover:text-yellow-300 font-medium transition-colors"
+              >
+                Xem chương trình <i className="fas fa-arrow-right ml-1"></i>
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 

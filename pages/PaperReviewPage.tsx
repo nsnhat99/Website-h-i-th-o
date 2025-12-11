@@ -286,7 +286,7 @@ const PaperReviewPage: React.FC = () => {
               </colgroup>
               <thead className="bg-slate-900/50 text-xs text-slate-400 uppercase tracking-wider">
                 <tr>
-                  <th scope="col" className="px-3 py-3 text-center">TT</th>
+                  <th scope="col" className="px-3 py-3 text-center">STT</th>
                   <th scope="col" className="px-3 py-3">Họ tên</th>
                   <th scope="col" className="px-3 py-3">Đơn vị công tác</th>
                   <th scope="col" className="px-3 py-3">Tên bài</th>

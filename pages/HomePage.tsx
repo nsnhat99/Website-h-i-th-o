@@ -125,7 +125,7 @@ const HomePage: React.FC = () => {
                 {siteContent.keynoteSpeakers.length} báo cáo viên
               </span>
               <Link 
-                to="/program" 
+                to="/schedule" 
                 className="text-sm text-yellow-400 hover:text-yellow-300 font-medium transition-colors"
               >
                 Xem chương trình <i className="fas fa-arrow-right ml-1"></i>
@@ -149,7 +149,7 @@ const HomePage: React.FC = () => {
                 Đăng ký ngay
             </Link>
             <Link 
-                to="/program"
+                to="/schedule"
                 className="bg-yellow-900/50 text-yellow-50 font-bold py-3 px-8 rounded-lg hover:bg-yellow-800/50 transition-transform transform hover:scale-105 shadow-lg border border-yellow-700"
             >
                 Xem chương trình

@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
-import ProgramPage from './pages/ProgramPage';
+import SchedulePage from './pages/SchedulePage';
 import AnnouncementsPage from './pages/AnnouncementsPage';
 import ContactPage from './pages/ContactPage';
 import AdminPage from './pages/AdminPage';
@@ -47,7 +47,7 @@ const App: React.FC = () => {
                       <Route path="/submit-paper" element={<SubmitPaperPage />} />
                       <Route path="/register" element={<RegistrationPage />} />
                       <Route path="/paper-review" element={<PaperReviewPage />} />
-                      <Route path="/program" element={<ProgramPage />} />
+                      <Route path="/schedule" element={<SchedulePage />} />
                       <Route path="/announcements" element={<AnnouncementsPage />} />
                       <Route path="/contact" element={<ContactPage />} />
                       <Route path="/login" element={<LoginPage />} />

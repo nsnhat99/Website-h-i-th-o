@@ -3,7 +3,7 @@ import type { NavLink, ScheduleDay, Announcement, Sponsor, KeynoteSpeaker, Paper
 export const NAV_LINKS: NavLink[] = [
   { id: 1, name: "Trang chủ", path: "/" },
   { id: 2, name: "Giới thiệu", path: "/introduction" },
-  { id: 3, name: "Chương trình", path: "/program" },
+  { id: 3, name: "Chương trình", path: "/schedule" },
   { id: 4, name: "Thông báo", path: "/announcements" },
   { id: 5, name: "Đăng ký & Nộp bài", path: "/participation-guide" },
   { id: 6, name: "Kết quả duyệt bài", path: "/paper-review" },

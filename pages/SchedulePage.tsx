@@ -40,7 +40,7 @@ const getSessionColor = (index: number) => {
     return colors[index % colors.length];
 };
 
-const ProgramPage: React.FC = () => {
+const SchedulePage: React.FC = () => {
     const [expandedSessions, setExpandedSessions] = useState<{ [key: string]: boolean }>({});
 
     const toggleSession = (sessionKey: string) => {
@@ -209,4 +209,4 @@ const ProgramPage: React.FC = () => {
     );
 };
 
-export default ProgramPage;
+export default SchedulePage;

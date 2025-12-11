@@ -122,7 +122,7 @@ const EditModal: React.FC<{
 
     return (
         <div className="fixed inset-0 bg-black/60 z-50 flex justify-center items-center p-4" onClick={onClose}>
-            <div className="bg-slate-800 rounded-lg shadow-xl w-full max-w-lg p-6 border border-slate-700" onClick={e => e.stopPropagation()}>
+            <div className="bg-slate-800 rounded-lg shadow-xl w-full max-w-lg p-6 border border-slate-700" onMouseDown={e => e.stopPropagation()}>
                 <h2 className="text-xl sm:text-2xl font-bold text-slate-100 mb-4">{item?.id ? 'Edit' : 'Add'} {getTitle()}</h2>
                 <div className="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
                     <input type="text" name="name" value={formData.name || ''} onChange={handleChange} placeholder="Name" className={inputStyles} />

@@ -178,7 +178,7 @@ const EditPaperModal: React.FC<{
 
   return (
     <div className="fixed inset-0 bg-black/60 z-50 flex justify-center items-center p-4" onClick={onClose}>
-      <div className="bg-slate-800 rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 border border-slate-700" onClick={e => e.stopPropagation()}>
+      <div className="bg-slate-800 rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 border border-slate-700" onMouseDown={e => e.stopPropagation()}>
         <h2 className="text-xl sm:text-2xl font-bold text-slate-100 mb-4">Chỉnh sửa bài báo</h2>
 
         {/* Paper Info */}

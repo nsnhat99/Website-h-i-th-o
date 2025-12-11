@@ -207,8 +207,8 @@ const SubmitPaperPage: React.FC = () => {
             onChange={handleChange} 
             className={inputStyles}
           >
-            <option value="1">Tiểu ban 1: Bản sắc văn hoá trong kỷ nguyên số</option>
-            <option value="2">Tiểu ban 2: Giáo dục sáng tạo và phát triển bền vững</option>
+            <option value="1">Tiểu ban 1: Giáo dục sáng tạo và phát triển bền vững</option>
+            <option value="2">Tiểu ban 2: Bản sắc văn hoá trong kỷ nguyên số</option>
             <option value="3">Tiểu ban 3: Trí tuệ nhân tạo trong văn hóa và giáo dục</option>
           </select>
         </div>

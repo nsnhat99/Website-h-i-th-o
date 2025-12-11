@@ -299,7 +299,7 @@ const HomePage: React.FC = () => {
                 {siteContent.keynoteSpeakers.length} báo cáo viên
               </span>
               <Link 
-                to="/program" 
+                to="/schedule" 
                 className="text-sm text-yellow-400 hover:text-yellow-300 font-medium transition-colors"
               >
                 Xem chương trình <i className="fas fa-arrow-right ml-1"></i>

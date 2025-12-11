@@ -165,7 +165,7 @@ const HomePage: React.FC = () => {
   const [selectedSpeaker, setSelectedSpeaker] = useState<KeynoteSpeaker | null>(null);
 
   return (
-    <div className="">
+    <div className="flex flex-col gap-16">
       {/* Hero Section */}
       <section 
         className="relative bg-cover bg-center bg-no-repeat py-24 px-4 sm:px-6 lg:px-8 rounded-lg overflow-hidden text-center"

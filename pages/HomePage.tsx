@@ -1,10 +1,168 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { KeynoteSpeaker } from '../types';
 import { useSiteContent } from '../contexts/SiteContentContext';
 
+// Image Lightbox Component
+const ImageLightbox: React.FC<{
+  imageUrl: string;
+  alt: string;
+  onClose: () => void;
+}> = ({ imageUrl, alt, onClose }) => {
+  const [mouseDownOnBackdrop, setMouseDownOnBackdrop] = useState(false);
+
+  const handleBackdropMouseDown = (e: React.MouseEvent) => {
+    setMouseDownOnBackdrop(e.target === e.currentTarget);
+  };
+
+  const handleBackdropMouseUp = (e: React.MouseEvent) => {
+    if (mouseDownOnBackdrop && e.target === e.currentTarget) {
+      onClose();
+    }
+    setMouseDownOnBackdrop(false);
+  };
+
+  return (
+    <div 
+      className="fixed inset-0 bg-black/80 z-50 flex justify-center items-center p-4 backdrop-blur-sm"
+      onMouseDown={handleBackdropMouseDown}
+      onMouseUp={handleBackdropMouseUp}
+    >
+      <div className="relative max-w-4xl max-h-[90vh] w-full">
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute -top-12 right-0 text-white hover:text-yellow-400 transition-colors"
+        >
+          <i className="fas fa-times text-2xl"></i>
+          <span className="ml-2 text-sm">Đóng</span>
+        </button>
+        
+        {/* Image */}
+        <img
+          src={imageUrl}
+          alt={alt}
+          className="w-full h-auto max-h-[85vh] object-contain rounded-lg shadow-2xl"
+        />
+        
+        {/* Zoom hint */}
+        <p className="text-center text-slate-400 text-sm mt-3">
+          <i className="fas fa-search-plus mr-2"></i>
+          Click bên ngoài để đóng
+        </p>
+      </div>
+    </div>
+  );
+};
+
+// Speaker Detail Modal Component
+const SpeakerModal: React.FC<{
+  speaker: KeynoteSpeaker;
+  onClose: () => void;
+}> = ({ speaker, onClose }) => {
+  const [mouseDownOnBackdrop, setMouseDownOnBackdrop] = useState(false);
+
+  const handleBackdropMouseDown = (e: React.MouseEvent) => {
+    setMouseDownOnBackdrop(e.target === e.currentTarget);
+  };
+
+  const handleBackdropMouseUp = (e: React.MouseEvent) => {
+    if (mouseDownOnBackdrop && e.target === e.currentTarget) {
+      onClose();
+    }
+    setMouseDownOnBackdrop(false);
+  };
+
+  return (
+    <div 
+      className="fixed inset-0 bg-black/70 z-50 flex justify-center items-center p-4 backdrop-blur-sm"
+      onMouseDown={handleBackdropMouseDown}
+      onMouseUp={handleBackdropMouseUp}
+    >
+      <div className="bg-slate-800 rounded-xl shadow-2xl w-full max-w-lg overflow-hidden border border-slate-700">
+        {/* Header with gradient */}
+        <div className="bg-gradient-to-r from-yellow-900/80 to-amber-900/60 p-6 relative">
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors"
+          >
+            <i className="fas fa-times text-xl"></i>
+          </button>
+          
+          <div className="flex items-center gap-5">
+            {/* Avatar */}
+            <img
+              src={speaker.imageUrl}
+              alt={speaker.name}
+              className="w-24 h-24 rounded-full object-cover border-4 border-white/20 shadow-lg"
+            />
+            
+            {/* Name & Affiliation */}
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-white mb-1">{speaker.name}</h3>
+              <p className="text-yellow-200 text-sm flex items-center gap-2">
+                <i className="fas fa-university"></i>
+                {speaker.affiliation}
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        {/* Content */}
+        <div className="p-6 space-y-5">
+          {/* Keynote Topic */}
+          {speaker.keynoteTopic && (
+            <div>
+              <h4 className="text-sm font-semibold text-yellow-400 uppercase tracking-wide mb-2 flex items-center gap-2">
+                <i className="fas fa-microphone-alt"></i>
+                Chủ đề báo cáo
+              </h4>
+              <p className="text-slate-100 bg-slate-700/50 rounded-lg p-3 border-l-4 border-yellow-500">
+                {speaker.keynoteTopic}
+              </p>
+            </div>
+          )}
+          
+          {/* Bio */}
+          {speaker.bio && (
+            <div>
+              <h4 className="text-sm font-semibold text-emerald-400 uppercase tracking-wide mb-2 flex items-center gap-2">
+                <i className="fas fa-user-tie"></i>
+                Tiểu sử
+              </h4>
+              <p className="text-slate-300 leading-relaxed text-sm">
+                {speaker.bio}
+              </p>
+            </div>
+          )}
+          
+          {/* No additional info message */}
+          {!speaker.keynoteTopic && !speaker.bio && (
+            <p className="text-slate-400 text-center py-4">
+              <i className="fas fa-info-circle mr-2"></i>
+              Thông tin chi tiết sẽ được cập nhật sau.
+            </p>
+          )}
+        </div>
+        
+        {/* Footer */}
+        <div className="px-6 py-4 bg-slate-900/50 border-t border-slate-700 flex justify-end">
+          <button
+            onClick={onClose}
+            className="px-5 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors"
+          >
+            Đóng
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const HomePage: React.FC = () => {
   const { siteContent } = useSiteContent();
+  const [showCallForPapersLightbox, setShowCallForPapersLightbox] = useState(false);
+  const [selectedSpeaker, setSelectedSpeaker] = useState<KeynoteSpeaker | null>(null);
 
   return (
     <div className="space-y-16">
@@ -63,11 +221,23 @@ const HomePage: React.FC = () => {
               </h3>
             </div>
             <div className="p-4 flex-1 flex items-center justify-center">
-              <img
-                src={siteContent.callForPapersImage}
-                alt="Call for Papers"
-                className="w-full max-h-[500px] object-contain rounded-md"
-              />
+              <button
+                onClick={() => setShowCallForPapersLightbox(true)}
+                className="relative group cursor-zoom-in"
+              >
+                <img
+                  src={siteContent.callForPapersImage}
+                  alt="Call for Papers"
+                  className="w-full max-h-[500px] object-contain rounded-md transition-transform duration-300 group-hover:scale-[1.02]"
+                />
+                {/* Hover overlay */}
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 rounded-md flex items-center justify-center">
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/70 text-white px-4 py-2 rounded-full text-sm">
+                    <i className="fas fa-search-plus mr-2"></i>
+                    Click để phóng to
+                  </span>
+                </div>
+              </button>
             </div>
             <div className="p-4 pt-0">
               <Link 
@@ -93,28 +263,32 @@ const HomePage: React.FC = () => {
             <div className="p-6 flex-1">
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
                 {siteContent.keynoteSpeakers.map((speaker: KeynoteSpeaker) => (
-                  <div key={speaker.id} className="group text-center">
+                  <button
+                    key={speaker.id}
+                    onClick={() => setSelectedSpeaker(speaker)}
+                    className="group text-center cursor-pointer hover:bg-slate-700/30 rounded-xl p-3 transition-all duration-300"
+                  >
                     {/* Avatar with hover effect */}
                     <div className="relative mx-auto w-20 h-20 sm:w-24 sm:h-24 mb-3">
                       <img
                         src={speaker.imageUrl}
                         alt={speaker.name}
-                        className="w-full h-full object-cover rounded-full border-3 border-slate-600 group-hover:border-yellow-500 transition-all duration-300 shadow-lg"
+                        className="w-full h-full object-cover rounded-full border-3 border-slate-600 group-hover:border-yellow-500 transition-all duration-300 shadow-lg group-hover:shadow-yellow-500/20"
                       />
                       {/* Hover overlay */}
                       <div className="absolute inset-0 bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <i className="fas fa-info-circle text-white text-xl"></i>
+                        <i className="fas fa-eye text-white text-lg"></i>
                       </div>
                     </div>
                     {/* Name always visible */}
-                    <h4 className="text-sm font-semibold text-slate-100 leading-tight line-clamp-2">
+                    <h4 className="text-sm font-semibold text-slate-100 leading-tight line-clamp-2 group-hover:text-yellow-300 transition-colors">
                       {speaker.name}
                     </h4>
                     {/* Affiliation */}
                     <p className="text-xs text-slate-400 mt-1 line-clamp-1">
                       {speaker.affiliation}
                     </p>
-                  </div>
+                  </button>
                 ))}
               </div>
             </div>
@@ -125,7 +299,7 @@ const HomePage: React.FC = () => {
                 {siteContent.keynoteSpeakers.length} báo cáo viên
               </span>
               <Link 
-                to="/schedule" 
+                to="/program" 
                 className="text-sm text-yellow-400 hover:text-yellow-300 font-medium transition-colors"
               >
                 Xem chương trình <i className="fas fa-arrow-right ml-1"></i>
@@ -157,6 +331,22 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
+      {/* Image Lightbox for Call for Papers */}
+      {showCallForPapersLightbox && (
+        <ImageLightbox
+          imageUrl={siteContent.callForPapersImage}
+          alt="Call for Papers"
+          onClose={() => setShowCallForPapersLightbox(false)}
+        />
+      )}
+
+      {/* Speaker Detail Modal */}
+      {selectedSpeaker && (
+        <SpeakerModal
+          speaker={selectedSpeaker}
+          onClose={() => setSelectedSpeaker(null)}
+        />
+      )}
     </div>
   );
 };
